@@ -11,7 +11,7 @@ public class Main {
 		PrintWriter writer = new PrintWriter(ostream);
 		Random random = new Random();
 		Scanner reader = new Scanner(System.in);
-		System.out.print("Eingabe: ");
+		System.out.print("Eingabe > ");
 
 	}
 	

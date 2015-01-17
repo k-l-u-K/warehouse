@@ -1,7 +1,7 @@
 package warehouse;
 
 public interface BasicUnits {
-	//Grundeinheiten werden mit Hilfe der Höhe, Breite, Länge bestimmt
+	//Grundeinheiten werden mit Hilfe der HÃ¶he, Breite, LÃ¤nge bestimmt.
 	public int getUnitX();
 	public int getUnitY();
 	public int getUnitZ();

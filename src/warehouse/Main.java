@@ -6,7 +6,7 @@ import java.util.*;
 public class Main {
 
 	public static void main(String[] args) throws FileNotFoundException {
-		File file = new File(".\\Pfad\\zur\\Datei.txt");
+		File file = new File(".\\data\\DateiZumEinlesen.txt");
 		OutputStream ostream = new FileOutputStream(file);
 		PrintWriter writer = new PrintWriter(ostream);
 		Random random = new Random();

@@ -7,11 +7,11 @@ public class Regal {
 	public Regal(int y) {
 		compartments = new Compartment[10][10];
 		for (int i = 0; i < 10; i++)		//Nebeneinander
-			for (int j = 0; j < 10; j++)	//Übereinander
+			for (int j = 0; j < 10; j++)	//Ãœbereinander
 				compartments[i][j] = new Compartment((2 + (i * 2)), y, (j * 2));
 	}
 
-	public Compartment[][] getFaecher() {
+	public Compartment[][] getCompartments() {
 		return compartments;
 	}
 

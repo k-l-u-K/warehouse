@@ -38,7 +38,7 @@ public class Main {
 				|
 				|
 				|---------y
-				z ist die Höhe
+				z ist die HÃ¶he
 			 */
 	}
 

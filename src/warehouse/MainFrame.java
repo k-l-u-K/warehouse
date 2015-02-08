@@ -27,22 +27,22 @@ public class MainFrame extends JFrame implements ActionListener {
 	private String[][] tableContent;
 	private JTextField contentInfoLabel = new JTextField(
 			"Inhaltsanzeige: Alle Regale");
-	int tableLength = 80; // vorläufige Hilfsvariable für Tabellenlänge
+	int tableLength = 80; // vorlÃ¤ufige Hilfsvariable fÃ¼r TabellenlÃ¤nge
 	private JButton sortByNameBtn = new JButton("nach Bezeichnung sortieren");
 	private JButton sortByPartNumberBtn = new JButton("nach Teilenr. sortieren");
 
 	// Elemente Info Panel
 	private JLabel positionTransportSystemLabel = new JLabel(
 			"Standort des Fahrzeuges: ");
-	private JLabel drivewayLabel = new JLabel("Zurückgelegter Fahrweg: ");
+	private JLabel drivewayLabel = new JLabel("ZurÃ¼ckgelegter Fahrweg: ");
 	private JLabel basicUnitLabel = new JLabel(
-			"Die Größe eines Faches entspricht 10 Grundeinheiten.");
+			"Die GrÃ¶ÃŸe eines Faches entspricht 10 Grundeinheiten.");
 	private JTextField positionTransportSystemText = new JTextField("x,y,z");
 	private JTextArea drivewayText = new JTextArea(
 			"Weg in x-Richtung: x\nWeg in y-Richtung: y\nWeg in z-Richtung: z");
 
 	public MainFrame() {
-		dataRead();
+		//dataRead(); - im Main (GUI-Init erst danach)
 		initTable();
 		initGUI();
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -53,12 +53,12 @@ public class MainFrame extends JFrame implements ActionListener {
 		this.setVisible(true);
 	}
 
-	private void dataRead() {
-	}
+	//private void dataRead() { - outgesourced im Main
+	//}
 
 	private void initTable() {
 		String[] tableHead = { "Regal", "Fach", "Bezeichnung", "Teilenummer",
-				"Anzahl", "Größe" };
+				"Anzahl", "GrÃ¶ÃŸe" };
 		tableContent = new String[tableLength][6];
 		table = new JTable(tableContent, tableHead);
 

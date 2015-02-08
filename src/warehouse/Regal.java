@@ -1,24 +1,18 @@
 package warehouse;
 
-//Klasse für die Regale
-public class Regal implements BasicUnits {
+public class Regal {
 
-	@Override
-	public int getUnitX() {
-		// TODO Auto-generated method stub
-		return 0;
+	private Compartment[][] compartments;
+
+	public Regal(int y) {
+		compartments = new Compartment[10][10];
+		for (int i = 0; i < 10; i++)		//Nebeneinander
+			for (int j = 0; j < 10; j++)	//Übereinander
+				compartments[i][j] = new Compartment((2 + (i * 2)), y, (j * 2));
 	}
 
-	@Override
-	public int getUnitY() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getUnitZ() {
-		// TODO Auto-generated method stub
-		return 0;
+	public Compartment[][] getFaecher() {
+		return compartments;
 	}
 
 }

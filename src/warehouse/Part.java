@@ -1,15 +1,16 @@
 package warehouse;
 
 //Klasse für die Teile, welche einsortiert werden sollen
-public class Part implements BasicUnits{
+public class Part {
 
 	private String description;
 	private int partnumber;
+	private int amount;
 	
-	public Part(String description, int partnumber) {
-		super();
+	public Part(String description, int partnumber, int amount) {
 		this.description = description;
 		this.partnumber = partnumber;
+		this.amount = amount;
 	}
 
 	public String getDescription() {
@@ -28,22 +29,12 @@ public class Part implements BasicUnits{
 		this.partnumber = partnumber;
 	}
 
-	@Override
-	public int getUnitX() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int getAmount() {
+		return amount;
 	}
 
-	@Override
-	public int getUnitY() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getUnitZ() {
-		// TODO Auto-generated method stub
-		return 0;
+	public void setAmount(int amount) {
+		this.amount = amount;
 	}
 
 }

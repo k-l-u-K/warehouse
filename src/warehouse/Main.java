@@ -40,6 +40,7 @@ public class Main {
 				|---------y
 				z ist die Höhe
 			 */
+		new MainFrame();
 	}
 
 }

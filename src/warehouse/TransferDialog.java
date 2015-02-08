@@ -1,6 +1,7 @@
 package warehouse;
 
 import java.awt.event.*;
+
 import javax.swing.*;
 
 public class TransferDialog extends PopupDialog {
@@ -44,6 +45,7 @@ public class TransferDialog extends PopupDialog {
 
 	@Override
 	public void actionPerformed(ActionEvent source) {
+		System.out.print("gesendet");
 	}
 
 	@Override

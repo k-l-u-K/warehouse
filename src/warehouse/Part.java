@@ -23,8 +23,6 @@ public class Part {
 	}
 	
 	public void delPart() {
-		//nun wird nirgends mehr auf das Teil verwiesen
-		//laut Internet fällt es damit dem Garbage-Collector zum Opfer
 		PartList.remove(this);
 	}
 

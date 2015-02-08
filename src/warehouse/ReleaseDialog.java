@@ -20,7 +20,7 @@ public class ReleaseDialog extends PopupDialog {
 	}
 
 	private void initReleaseFrame() {
-		okayBtn = new JButton("Auslagern bestätigen");
+		okayBtn = new JButton("Auslagern bestÃ¤tigen");
 		okayBtn.setBounds(75, 180, 200, 40);
 		panel.add(okayBtn);
 		okayBtn.addActionListener(this);
@@ -52,4 +52,4 @@ public class ReleaseDialog extends PopupDialog {
 }
 
 // Idee aus http://www.coderanch.com/t/379737/java/java/catching-TAB-key-event
-// übernommen
+// Ã¼bernommen

@@ -1,6 +1,6 @@
 package warehouse;
 
-//Klasse für das Transportfahrzeug
+//Klasse fÃ¼r das Transportfahrzeug
 public class TransportVehicle {
 
 }

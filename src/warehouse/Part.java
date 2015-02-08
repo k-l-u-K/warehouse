@@ -1,6 +1,6 @@
 package warehouse;
 
-//Klasse für die Teile, welche einsortiert werden sollen
+//Klasse fÃ¼r die Teile, welche einsortiert werden sollen
 public class Part {
 
 	private String description;

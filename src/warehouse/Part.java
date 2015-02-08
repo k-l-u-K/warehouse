@@ -1,40 +1,31 @@
 package warehouse;
 
+import java.util.ArrayList;
+import java.util.List;
+
 //Klasse für die Teile, welche einsortiert werden sollen
 public class Part {
 
 	private String description;
 	private int partnumber;
 	private int amount;
+	private String typ;
+	private static List<Part> PartList = new ArrayList<Part>();
+
 	
-	public Part(String description, int partnumber, int amount) {
+	public Part(String description, int partnumber, int amount, String typ) {
 		this.description = description;
-		this.partnumber = partnumber;
+		//ID sollte unbedingt vorher geprüft werden --> eigene Methode
+		this.partnumber = partnumber++;
 		this.amount = amount;
+		this.typ = typ;
+		PartList.add(this);
 	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public int getPartnumber() {
-		return partnumber;
-	}
-
-	public void setPartnumber(int partnumber) {
-		this.partnumber = partnumber;
-	}
-
-	public int getAmount() {
-		return amount;
-	}
-
-	public void setAmount(int amount) {
-		this.amount = amount;
+	
+	public void delPart() {
+		//nun wird nirgends mehr auf das Teil verwiesen
+		//laut Internet fällt es damit dem Garbage-Collector zum Opfer
+		PartList.remove(this);
 	}
 
 }

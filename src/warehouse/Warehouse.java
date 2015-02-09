@@ -4,9 +4,25 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Warehouse {
-	Map<Integer,Regal> regal = new HashMap<Integer,Regal>();
-	for (int i = 1; i < 8; i++)
-		regal.put(i, new Regal(2 + (i * 2)));
+	
+	private static Warehouse warehouse;
+	private Map<Integer,Regal> regal;
+
+	public static Warehouse get() {
+		if (warehouse == null)
+			warehouse = new Warehouse();
+		return warehouse;
+	}
+	
+	private Warehouse() {
+		for (int i = 1; i < 8; i++)
+			regal.put(i, new Regal(2 + (i * 2)));
+
+	}
+	
+	public void setCompartment(int regalnr, int x, int z, int anzahl) {
+		regal.get(regalnr).getCompartments()[x][z]);
+	}
 
 	/*
 	 | 
@@ -37,6 +53,3 @@ public class Warehouse {
 	 */
 }
 
-public void setCompartment(int regalnr, int x, int z,int anzahl) {
-	//regal.get(regalnr).getCompartments()[x][z]);
-}

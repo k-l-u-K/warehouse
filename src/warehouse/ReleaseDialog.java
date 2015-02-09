@@ -33,6 +33,7 @@ public class ReleaseDialog extends PopupDialog {
 
 	@Override
 	public void actionPerformed(ActionEvent source) {
+		System.out.println("gesendet");
 	}
 
 	@Override

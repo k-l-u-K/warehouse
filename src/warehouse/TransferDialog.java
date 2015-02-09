@@ -50,9 +50,8 @@ public class TransferDialog extends PopupDialog {
 		//Konstruktor erwartet folgende Paramter:
 		//String, int, int, String, int
 		//Name, Nummer, Menge, Typ, Größe
-		//Daher muss die Eingabe auf Zahlen beschränkt werden, wo nur Zahlen sinnvoll sind 
-		Part part = new Part(inpTextField[0].getText(), 3, 4, "Buch", 5);
-		
+		//Daher muss die Eingabe auf Zahlen beschränkt werden, wo nur Zahlen sinnvoll sind 		
+		Part part = new Part(inpTextField[0].getText(), Integer.parseInt(inpTextField[1].getText()), Integer.parseInt(inpTextField[2].getText()), inpTextField[3].getText(), Integer.parseInt(inpTextField[4].getText()));
 	}
 
 	@Override

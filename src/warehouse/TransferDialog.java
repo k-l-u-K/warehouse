@@ -45,7 +45,14 @@ public class TransferDialog extends PopupDialog {
 
 	@Override
 	public void actionPerformed(ActionEvent source) {
-		System.out.print("gesendet");
+		//System.out.print("gesendet");
+		System.out.print(inpTextField[0].getText());
+		//Konstruktor erwartet folgende Paramter:
+		//String, int, int, String, int
+		//Name, Nummer, Menge, Typ, Größe
+		//Daher muss die Eingabe auf Zahlen beschränkt werden, wo nur Zahlen sinnvoll sind 
+		Part part = new Part(inpTextField[0].getText(), 3, 4, "Buch", 5);
+		
 	}
 
 	@Override

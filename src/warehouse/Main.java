@@ -5,7 +5,20 @@ import java.util.Random;
 
 public class Main {
 	
+	/*
+	ToDo:
+	- Tabellenanzeige mit konkereten Daten
+	- Sortieren nach Bezeichnung / Teilenr.
+	- Einlagern von Teilen
+	- Daten schreiben / lesen
+	- nächste freie ID suchen
+	- Auslagern
+	- Teile suchen
+	- Standort
+	- bei freier Fachsuche Bezeichnung eines Teils übergeben (Name)
+	- Unterteilung in komplett freies Fach & passendes Fach
 	
+	*/
 
 	public static void main(String[] args) throws FileNotFoundException {
 		File file = new File(".\\data\\DateiZumEinlesen.txt");
@@ -16,7 +29,7 @@ public class Main {
 		
 		Part part = new Part("Hallo",2,3);
 		Random zufall = new Random();
-		for (int a=0; a < 802; a++) {
+		for (int a=0; a < 10; a++) {
 			new TransportVehicle().teilEinlagern(new Part("Teil " + a, a, 5));
 		}
 		//zufall.nextInt(10)

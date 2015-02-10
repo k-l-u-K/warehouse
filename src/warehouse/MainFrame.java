@@ -2,8 +2,10 @@ package warehouse;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Vector;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 public class MainFrame extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 7462047233762639130L;
@@ -31,59 +33,80 @@ public class MainFrame extends JFrame implements ActionListener {
 	private JButton sortByNameBtn = new JButton("nach Bezeichnung sortieren");
 	private JButton sortByPartNumberBtn = new JButton("nach Teilenr. sortieren");
 
+	// Testbuttons
+	DefaultTableModel model;
+
+	private JPanel testBtnPanel;
+	JButton buttonAddRow = new JButton("add row");
+	JButton buttonRemRow = new JButton("remove row");
+
 	// Elemente Info Panel
-	private JLabel positionTransportSystemLabel = new JLabel("Standort des Fahrzeuges: ");
+	private JLabel positionTransportSystemLabel = new JLabel(
+			"Standort des Fahrzeuges: ");
 	private JLabel drivewayLabel = new JLabel("Zurückgelegter Fahrweg: ");
-	private JLabel basicUnitLabel = new JLabel("Die Größe eines Faches entspricht 10 Grundeinheiten.");
+	private JLabel basicUnitLabel = new JLabel(
+			"Die Größe eines Faches entspricht 10 Grundeinheiten.");
 	private JTextField positionTransportSystemText = new JTextField("x,y,z");
-	private JTextArea drivewayText = new JTextArea("Weg in x-Richtung: x\nWeg in y-Richtung: y\nWeg in z-Richtung: z");
+	private JTextArea drivewayText = new JTextArea(
+			"Weg in x-Richtung: x\nWeg in y-Richtung: y\nWeg in z-Richtung: z");
 
 	public MainFrame() {
-		//dataRead(); - im Main (GUI-Init erst danach)
+		// dataRead(); - im Main (GUI-Init erst danach)
 		initTable();
 		initGUI();
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setMinimumSize(new Dimension(1150, 750));
-		//this.setExtendedState(MAXIMIZED_BOTH);
+		// this.setExtendedState(MAXIMIZED_BOTH);
 		this.setLocation(0, 0);
 		this.setTitle("Lagerverwaltung");
 		this.setVisible(true);
 	}
 
-	//private void dataRead() { - outgesourced im Main
-	//}
+	// private void dataRead() { - outgesourced im Main
+	// }
 
 	private void initTable() {
-		String[] tableHead = { "Regal", "Fach", "Bezeichnung", "Teilenummer", "Größe" };
-		tableContent = new String[tableLength][5];
-		table = new JTable(tableContent, tableHead);
+		// Die Namen der Columns
+		String[] titles = new String[] { "Regal", "Fach", "Bezeichnung",
+				"Teilenummer", "Größe" };
 
-		for (int i = 0; i < tableLength; i++) {
-			
-			for (int j = 0; j < 8; j++) {
-				for (int k = 0; k < 10; k++) {
-					for (int l = 0; l < 10; l++) {
-						tableContent[i][0] = "hier gehts noch";
-						for (Part parts : Warehouse.get().regale[j].compartments[k][l].partList) {
-							tableContent[i][1] = ("hier nicht mehr");
-							System.out.println(parts.getDescription());
-							System.out.println(i);
-							//new TransportVehicle().getRegal();
-							//System.out.println(parts);
-							//System.out.println(j + " " + k + " " + l);
-							//tableContent[i][0] = Integer.toString(j);
-							//tableContent[i][1] = Integer.toString(k) + "" + Integer.toString(l);
-							//tableContent[i][2] = parts.getDescription();
-							//tableContent[i][3] = Integer.toString(3);
-							//tableContent[i][4] = Integer.toString(4);*/
-						}
-					}
-				}
-			}
-		}
+		// Das Model das wir verwenden werden. Hier setzten wir gleich die
+		// Titel, aber es ist später immer noch möglich weitere Columns oder
+		// Rows hinzuzufügen.
+		model = new DefaultTableModel(titles, 0);
 
-		table.setEnabled(false);
+		// Das JTable initialisieren
+		table = new JTable(model);
 
+		// Buttons, damit das alles schöner aussieht.
+		buttonAddRow = new JButton("add row");
+		buttonRemRow = new JButton("remove row");
+
+		buttonRemRow.setEnabled(false);
+
+		// Den Buttons ein paar Reaktionen geben
+		buttonAddRow.addActionListener(this);
+
+		int size = model.getRowCount();
+
+		buttonRemRow.addActionListener(this);
+		
+		testBtnPanel = new JPanel();
+		testBtnPanel.setLayout(new GridLayout(1,2));
+		testBtnPanel.add(buttonAddRow);
+		testBtnPanel.add(buttonRemRow);
+
+	}
+
+	public static Vector createDataVector(String neueZeile, int datenbreite) {
+		Vector vector = new Vector(5);
+		vector.add("Hier sind die Regalnummern");
+		vector.add("Fachnummeranzeige");
+		vector.add("Bezeichnungsanzeige");
+		vector.add("Teilenummeranzeige");
+		vector.add("Größeanzeige");
+
+		return vector;
 	}
 
 	public void initGUI() {
@@ -152,6 +175,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		sortByPartNumberBtn.addActionListener(this);
 
 		tablePanel.add(new JScrollPane(table), BorderLayout.CENTER);
+		tablePanel.add(testBtnPanel,BorderLayout.SOUTH);
 	}
 
 	private void initInfoPanel() {
@@ -185,13 +209,35 @@ public class MainFrame extends JFrame implements ActionListener {
 			if (source.getSource().equals(sortByNameBtn)) {
 				sortByNames();
 				// nach Namen sortieren
-			} 
-			
+			}
+
 			if (source.getSource().equals(sortByPartNumberBtn)) {
 				sortByPartNumber();
 				// nach Nummer sortieren
 			}
-			table.repaint();
+
+			if (source.getSource().equals(buttonAddRow)) {
+				// Die Anzahl Columns (Breite) der Tabelle
+				int size = model.getColumnCount();
+
+				// einen neuen Vector mit Daten herstellen
+				Vector newDatas = createDataVector("neueZeile", 1);
+
+				// eine neue Row hinzufügen
+				model.addRow(newDatas);
+				// model.addColumn();
+
+				// das Entfernen erlauben
+				buttonRemRow.setEnabled(true);
+
+			}
+			if (source.getSource().equals(buttonRemRow)) {
+				int size = model.getRowCount();
+			    int index = (int)(Math.random() * size);
+			    model.removeRow( index );
+			     
+			    buttonRemRow.setEnabled( size > 1 );
+			}
 		} else {
 			if (source.getSource().equals(transferToStock)) {
 				new TransferDialog();
@@ -223,6 +269,36 @@ public class MainFrame extends JFrame implements ActionListener {
 	}
 
 	private void sortByNames() {
-		// TODO Auto-generated method stub		
+		// TODO Auto-generated method stub
+	}
+	
+	private void tableActual() {
+		String[] tableHead = { "Regal", "Fach", "Bezeichnung", "Teilenummer", "Größe" };
+		tableContent = new String[tableLength][5];
+		table = new JTable(tableContent, tableHead);
+
+		for (int i = 0; i < tableLength; i++) {
+			
+			for (int j = 0; j < 8; j++) {
+				for (int k = 0; k < 10; k++) {
+					for (int l = 0; l < 10; l++) {
+						tableContent[i][0] = "hier gehts noch";
+						for (Part parts : Warehouse.get().regale[j].compartments[k][l].partList) {
+							tableContent[i][1] = ("hier nicht mehr");
+							System.out.println(parts.getDescription());
+							System.out.println(i);
+							//new TransportVehicle().getRegal();
+							//System.out.println(parts);
+							//System.out.println(j + " " + k + " " + l);
+							//tableContent[i][0] = Integer.toString(j);
+							//tableContent[i][1] = Integer.toString(k) + "" + Integer.toString(l);
+							//tableContent[i][2] = parts.getDescription();
+							//tableContent[i][3] = Integer.toString(3);
+							//tableContent[i][4] = Integer.toString(4);*/
+						}
+					}
+				}
+			}
+		}
 	}
 }

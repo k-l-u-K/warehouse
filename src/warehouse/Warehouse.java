@@ -1,7 +1,15 @@
 package warehouse;
 
+<<<<<<< HEAD
 //import java.util.HashMap;
 //import java.util.Map;
+=======
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+>>>>>>> origin/master
 
 public class Warehouse {
 
@@ -23,8 +31,24 @@ public class Warehouse {
 		}
 	}
 
+<<<<<<< HEAD
 	public void setCompartment(int regalnr, int x, int z, int anzahl) {
 		// regal.get(regalnr).getCompartments()[x][z]);
+=======
+	public static void setCompartment(int regalnr, int x, int z, Part part) {
+		//regal.get(regalnr).getCompartments()[x][z]);
+		//Aufruf wo ist was frei
+		
+		//System.out.println(regalnr);
+		//Part.createPartList(1, 2, 0, part);
+	}
+
+	public static void setCompartment(String description, int partnr, int amount, int size) {
+		new Part(description, 45, 1, 3);
+		System.out.println(Part.getSize());
+		System.out.println(Part.getTeilListe());
+
+>>>>>>> origin/master
 	}
 
 	/*

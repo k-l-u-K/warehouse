@@ -22,8 +22,7 @@ public class Part {
 
 	@Override
 	public String toString() {
-		return "Part [description=" + description + ", partnumber="
-				+ partnumber + ", size=" + size + "]";
+		return "Part [description=" + description + ", partnumber="+ partnumber + ", size=" + size + "]";
 	}
 
 	public String getDescription() {
@@ -46,21 +45,8 @@ public class Part {
 		return size;
 	}
 
-//<<<<<<< HEAD
-//	public void setSize(int size) {
-//		this.size = size;
-//=======
-//	public static int getSize() {
-//		return size;
-//	}
-//
-//	public void setSize(int size) {
-//		this.size = size;
-//	}
-//
 //	public void delPart() {
 //		PartList.remove(this);
-//>>>>>>> origin/master
 //	}
 	
 //	public static List<Part> getTeilListe() {

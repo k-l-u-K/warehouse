@@ -1,6 +1,7 @@
 package warehouse;
 
 import java.awt.event.*;
+import java.util.Random;
 
 import javax.swing.*;
 
@@ -52,11 +53,16 @@ public class TransferDialog extends PopupDialog {
 		// Daher muss die Eingabe auf Zahlen beschränkt werden, wo nur Zahlen
 		// sinnvoll sind
 		
-		new TransportVehicle().teilEinlagern(new Part(inpTextField[0].getText(),
-				Integer.parseInt(inpTextField[1].getText()),
-				Integer.parseInt(inpTextField[2].getText())));
-		new TransportVehicle().teileAnzeigen();
+		//new TransportVehicle().teilEinlagern(new Part(inpTextField[0].getText(),
+		//		Integer.parseInt(inpTextField[1].getText()),
+		//		Integer.parseInt(inpTextField[2].getText())));
 		
+		Random zufall = new Random();
+		for (int a=0; a < 500; a++) {
+			new TransportVehicle().teilEinlagern(new Part("Teil " + a+1, a+1, zufall.nextInt(10)));
+		}
+		
+		new TransportVehicle().teileAnzeigen();
 		this.setVisible(false);
 
 	}

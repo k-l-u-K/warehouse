@@ -21,8 +21,6 @@ public class Compartment {
 		idCompartment = idCompartment++;
 	}
 
-	
-
 	@Override
 	public String toString() {
 		return "Compartment [posX=" + posX + ", posY=" + posY + ", posZ="

@@ -21,9 +21,5 @@ public class Regal {
 	public String toString() {
 		return "Regal [compartments=" + Arrays.toString(compartments) + "]";
 	}
-	
-	
-	
-	
 
 }

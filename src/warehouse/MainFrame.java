@@ -32,14 +32,11 @@ public class MainFrame extends JFrame implements ActionListener {
 	private JButton sortByPartNumberBtn = new JButton("nach Teilenr. sortieren");
 
 	// Elemente Info Panel
-	private JLabel positionTransportSystemLabel = new JLabel(
-			"Standort des Fahrzeuges: ");
+	private JLabel positionTransportSystemLabel = new JLabel("Standort des Fahrzeuges: ");
 	private JLabel drivewayLabel = new JLabel("Zurückgelegter Fahrweg: ");
-	private JLabel basicUnitLabel = new JLabel(
-			"Die Größe eines Faches entspricht 10 Grundeinheiten.");
+	private JLabel basicUnitLabel = new JLabel("Die Größe eines Faches entspricht 10 Grundeinheiten.");
 	private JTextField positionTransportSystemText = new JTextField("x,y,z");
-	private JTextArea drivewayText = new JTextArea(
-			"Weg in x-Richtung: x\nWeg in y-Richtung: y\nWeg in z-Richtung: z");
+	private JTextArea drivewayText = new JTextArea("Weg in x-Richtung: x\nWeg in y-Richtung: y\nWeg in z-Richtung: z");
 
 	public MainFrame() {
 		//dataRead(); - im Main (GUI-Init erst danach)
@@ -47,7 +44,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		initGUI();
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setMinimumSize(new Dimension(1150, 750));
-		this.setExtendedState(MAXIMIZED_BOTH);
+		//this.setExtendedState(MAXIMIZED_BOTH);
 		this.setLocation(0, 0);
 		this.setTitle("Lagerverwaltung");
 		this.setVisible(true);
@@ -57,18 +54,32 @@ public class MainFrame extends JFrame implements ActionListener {
 	//}
 
 	private void initTable() {
-		String[] tableHead = { "Regal", "Fach", "Bezeichnung", "Teilenummer",
-				"Anzahl", "Größe" };
-		tableContent = new String[tableLength][6];
+		String[] tableHead = { "Regal", "Fach", "Bezeichnung", "Teilenummer", "Größe" };
+		tableContent = new String[tableLength][5];
 		table = new JTable(tableContent, tableHead);
 
 		for (int i = 0; i < tableLength; i++) {
-			tableContent[i][0] = Integer.toString(1);
-			tableContent[i][1] = Integer.toString(2);
-			tableContent[i][2] = ("Bezeichnung");
-			tableContent[i][3] = Integer.toString(3);
-			tableContent[i][4] = Integer.toString(4);
-			tableContent[i][5] = Integer.toString(5);
+			
+			for (int j = 0; j < 8; j++) {
+				for (int k = 0; k < 10; k++) {
+					for (int l = 0; l < 10; l++) {
+						tableContent[i][0] = "hier gehts noch";
+						for (Part parts : Warehouse.get().regale[j].compartments[k][l].partList) {
+							tableContent[i][1] = ("hier nicht mehr");
+							System.out.println(parts.getDescription());
+							System.out.println(i);
+							//new TransportVehicle().getRegal();
+							//System.out.println(parts);
+							//System.out.println(j + " " + k + " " + l);
+							//tableContent[i][0] = Integer.toString(j);
+							//tableContent[i][1] = Integer.toString(k) + "" + Integer.toString(l);
+							//tableContent[i][2] = parts.getDescription();
+							//tableContent[i][3] = Integer.toString(3);
+							//tableContent[i][4] = Integer.toString(4);*/
+						}
+					}
+				}
+			}
 		}
 
 		table.setEnabled(false);
@@ -207,7 +218,8 @@ public class MainFrame extends JFrame implements ActionListener {
 	}
 
 	private void sortByPartNumber() {
-		// TODO Auto-generated method stub		
+		// TODO Auto-generated method stub
+		initTable();
 	}
 
 	private void sortByNames() {

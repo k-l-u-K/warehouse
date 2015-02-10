@@ -3,16 +3,15 @@ package warehouse;
 import java.util.ArrayList;
 import java.util.List;
 
-
 //Klasse für die Fächer
 public class Compartment {
-	
+
 	private int posX;
 	private int posY;
 	private int posZ;
-	private int capacity;
+	private int capacity = 10;
 	private int idCompartment = 0;
-	private static List<Compartment> CompartmentList = new ArrayList<Compartment>();
+	public List<Part> partList = new ArrayList<Part>();
 
 	public Compartment(int posX, int posY, int posZ) {
 		super();
@@ -20,9 +19,17 @@ public class Compartment {
 		this.posY = posY;
 		this.posZ = posZ;
 		idCompartment = idCompartment++;
-		CompartmentList.add(this);
 	}
+
 	
+
+	@Override
+	public String toString() {
+		return "Compartment [posX=" + posX + ", posY=" + posY + ", posZ="
+				+ posZ + ", capacity=" + capacity + ", idCompartment="
+				+ idCompartment + "]";
+	}
+
 	public int getPosX() {
 		return posX;
 	}
@@ -62,13 +69,13 @@ public class Compartment {
 	public void setIdCompartment(int idCompartment) {
 		this.idCompartment = idCompartment;
 	}
-
-	public static List<Compartment> getCompartmentList() {
-		return CompartmentList;
+	
+	public List<Part> getPartList() {
+		return partList;
 	}
 
-	public static void setCompartmentList(List<Compartment> compartmentList) {
-		CompartmentList = compartmentList;
+	public void setPartList(List<Part> partList) {
+		this.partList = partList;
 	}
 
 }

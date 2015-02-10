@@ -14,10 +14,12 @@ public abstract class PopupDialog extends JDialog implements ActionListener,
 	protected JButton okayBtn;
 	protected JLabel nameLabel = new JLabel("Bezeichnung: *");
 	protected JLabel itemNrLabel = new JLabel("Teilenummer: ");
-	protected JLabel itemCountLabel = new JLabel("Anzahl: *");
+	//protected JLabel itemCountLabel = new JLabel("Anzahl: *");
 	protected JLabel infoLabel = new JLabel(
 			"Pflichtfelder sind mit * gekennzeichnet.");
 	protected JTextField[] inpTextField;
+
+	//protected JComboBox nameBox = new JComboBox(""); 
 
 	protected void initPopupDialog() {
 		cp = this.getContentPane();
@@ -31,10 +33,10 @@ public abstract class PopupDialog extends JDialog implements ActionListener,
 		itemNrLabel.setBounds(20, 60, 150, 30);
 		panel.add(itemNrLabel);
 
-		itemCountLabel.setBounds(20, 100, 150, 30);
-		panel.add(itemCountLabel);
+//		itemCountLabel.setBounds(20, 100, 150, 30);
+//		panel.add(itemCountLabel);
 
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < 2; i++) {
 			inpTextField[i] = new JTextField("");
 			inpTextField[i].setFocusTraversalKeysEnabled(false);
 			inpTextField[i].addKeyListener(this);
@@ -46,8 +48,8 @@ public abstract class PopupDialog extends JDialog implements ActionListener,
 		inpTextField[1].setBounds(140, 65, 100, 20);
 		panel.add(inpTextField[1]);
 
-		inpTextField[2].setBounds(140, 105, 100, 20);
-		panel.add(inpTextField[2]);
+//		inpTextField[2].setBounds(140, 105, 100, 20);
+//		panel.add(inpTextField[2]);
 	}
 
 	@Override

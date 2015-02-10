@@ -1,55 +1,39 @@
 package warehouse;
 
-import java.util.HashMap;
-import java.util.Map;
+//import java.util.HashMap;
+//import java.util.Map;
 
 public class Warehouse {
-	
-	private static Warehouse warehouse;
-	private Map<Integer,Regal> regal;
+
+	public static Warehouse warehouse;
+	// public Map<Integer,Regal> regal;
+
+	public Regal[] regale = new Regal[8];
 
 	public static Warehouse get() {
-		if (warehouse == null)
+		if (warehouse == null) {
 			warehouse = new Warehouse();
+		}
 		return warehouse;
 	}
-	
-	private Warehouse() {
-		for (int i = 1; i < 8; i++)
-			regal.put(i, new Regal(2 + (i * 2)));
 
+	public Warehouse() {
+		for (int i = 0; i < 8; i++) {
+			regale[i] = new Regal(4 * i);
+		}
 	}
-	
+
 	public void setCompartment(int regalnr, int x, int z, int anzahl) {
-		regal.get(regalnr).getCompartments()[x][z]);
+		// regal.get(regalnr).getCompartments()[x][z]);
 	}
 
 	/*
-	 | 
-	 |			 ___		 ___
-	 -----------|	|-------|	|----
-	 			|	|		|	|
-				|	|		|	|
-				|	|		|	|
-				|	|		|	|
-				|	|		|	|
-				|	|		|	|
-				|	|		|	|
-				|	|		|	|
-				|___|		|___|
-	erstes Regal beginnt bei:
-	x=2
-	y=4
-	z=0
-	
-	x = 2 + (i * 2)
-	y = 2 + (i * 2)
-	
-		x
-		|
-		|
-		|---------y
-		z ist die Höhe
+	 * | | ___ ___ -----------| |-------| |---- | | | | | | | | | | | | | | | |
+	 * | | | | | | | | | | | | | | | | |___| |___| erstes Regal beginnt bei: x=2
+	 * y=4 z=0
+	 * 
+	 * x = 2 + (i * 2) y = 2 + (i * 2)
+	 * 
+	 * x | | |---------y z ist die Höhe
 	 */
 }
-

@@ -1,8 +1,10 @@
 package warehouse;
 
+import java.util.Arrays;
+
 public class Regal {
 
-	private Compartment[][] compartments;
+	public Compartment[][] compartments;
 
 	public Regal(int y) {
 		compartments = new Compartment[10][10];
@@ -14,5 +16,14 @@ public class Regal {
 	public Compartment[][] getCompartments() {
 		return compartments;
 	}
+
+	@Override
+	public String toString() {
+		return "Regal [compartments=" + Arrays.toString(compartments) + "]";
+	}
+	
+	
+	
+	
 
 }

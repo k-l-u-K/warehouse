@@ -45,7 +45,6 @@ public class TransferDialog extends PopupDialog {
 
 	@Override
 	public void actionPerformed(ActionEvent source) {
-<<<<<<< HEAD
 		// System.out.print("gesendet");
 		// Konstruktor erwartet folgende Paramter:
 		// String, int, int, int
@@ -59,16 +58,7 @@ public class TransferDialog extends PopupDialog {
 		new TransportVehicle().teileAnzeigen();
 		
 		this.setVisible(false);
-=======
-		//System.out.print("gesendet");
-		System.out.print(inpTextField[0].getText());
-		//Konstruktor erwartet folgende Paramter:
-		//String, int, int, int
-		//Name, Nummer, Menge, Größe
-		//Daher muss die Eingabe auf Zahlen beschränkt werden, wo nur Zahlen sinnvoll sind 		
-		//Part part = new Part(inpTextField[0].getText(), Integer.parseInt(inpTextField[1].getText()), Integer.parseInt(inpTextField[2].getText()), Integer.parseInt(inpTextField[4].getText()));
-		Warehouse.setCompartment(inpTextField[0].getText(), 12, 1, 3);
->>>>>>> origin/master
+
 	}
 
 	@Override

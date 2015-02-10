@@ -10,22 +10,14 @@ public class Part {
 
 	private String description;
 	private int partnumber;
-<<<<<<< HEAD
-	private int size;
-		
-	public Part(String description, int partnumber, int size) {
-=======
-	private int amount;
-	private static int size;
-	private static List<Part> PartList = new ArrayList<Part>();
+	private int size;	
+	public List<Part> PartList = new ArrayList<Part>();
 
-	
-	public Part(String description, int partnumber, int amount, int size) {
->>>>>>> origin/master
+	public Part(String description, int partnumber, int size) {
 		this.description = description;
-		//ID sollte unbedingt vorher geprüft werden --> eigene Methode
+		// ID sollte unbedingt vorher geprüft werden --> eigene Methode
 		this.partnumber = partnumber++;
-				this.size = size;
+		this.size = size;
 	}
 
 	@Override
@@ -54,26 +46,26 @@ public class Part {
 		return size;
 	}
 
-<<<<<<< HEAD
-	public void setSize(int size) {
-		this.size = size;
-=======
-	public static int getSize() {
-		return size;
-	}
-
-	public void setSize(int size) {
-		this.size = size;
-	}
-
-	public void delPart() {
-		PartList.remove(this);
->>>>>>> origin/master
-	}
+//<<<<<<< HEAD
+//	public void setSize(int size) {
+//		this.size = size;
+//=======
+//	public static int getSize() {
+//		return size;
+//	}
+//
+//	public void setSize(int size) {
+//		this.size = size;
+//	}
+//
+//	public void delPart() {
+//		PartList.remove(this);
+//>>>>>>> origin/master
+//	}
 	
-	public static List<Part> getTeilListe() {
-		return Collections.unmodifiableList(PartList);
-	}
+//	public static List<Part> getTeilListe() {
+//		return Collections.unmodifiableList(PartList);
+//	}
 	/*
 	public static List<Part> createPartList(int regalnr, int x, int z, Part part) {
 		LinkedList<Part> tempList = new LinkedList<Part>();

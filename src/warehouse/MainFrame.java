@@ -8,7 +8,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class MainFrame extends JFrame implements ActionListener {
-	
+
 	private static final long serialVersionUID = 7462047233762639130L;
 
 	// Container, Panel
@@ -95,7 +95,8 @@ public class MainFrame extends JFrame implements ActionListener {
 
 	}
 
-	public static Vector createDataVector(Part part, Compartment compartment, String neueZeile, int datenbreite) {
+	public static Vector createDataVector(Part part, Compartment compartment,
+			String neueZeile, int datenbreite) {
 		Vector vector = new Vector(5);
 		vector.add(compartment.getPosY());
 		vector.add(compartment.getPosX() + " " + compartment.getPosZ());
@@ -238,27 +239,28 @@ public class MainFrame extends JFrame implements ActionListener {
 	}
 
 	private void sortByPartNumber() {
-		// TODO Auto-generated method stub
-		initTable();
 	}
 
 	private void sortByNames() {
-		// TODO Auto-generated method stub
 	}
-	
+
 	public static void addARow(Part part, Compartment compartment) {
 		// einen neuen Vector mit Daten herstellen
-		Vector newDatas = createDataVector(part,compartment,"neueZeile", 1);
+		Vector newDatas = createDataVector(part, compartment, "neueZeile", 1);
 
 		// eine neue Row hinzufügen
 		model.addRow(newDatas);
 	}
-	
+
 	public static void removeARow(Part part, Compartment compartment) {
 		int size = model.getRowCount();
-	    //int index = (int)(Math.random() * size);
-	    model.removeRow( size - 1 );
+
+		for (int i = 0; i < size; i++) {
+			if (model.getValueAt(i, 3).equals(part.getPartnumber())) {
+				model.removeRow(i);
+				return;
+			}
+		}
 	}
-	
-	
+
 }

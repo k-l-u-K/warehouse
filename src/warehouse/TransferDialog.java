@@ -74,7 +74,6 @@ public class TransferDialog extends PopupDialog {
 		// a + 1, zufall.nextInt(10)));
 		// }
 		
-		
 		// schnellere Erzeugung von Items
 		// this.setVisible(false);
 

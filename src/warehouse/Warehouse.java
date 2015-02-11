@@ -131,10 +131,9 @@ public class Warehouse {
 	}
 	*/
 
-//<<<<<<< HEAD
 //	public void setCompartment(int regalnr, int x, int z, int anzahl) {
 //		// regal.get(regalnr).getCompartments()[x][z]);
-//=======
+
 //	public static void setCompartment(int regalnr, int x, int z, Part part) {
 //		//regal.get(regalnr).getCompartments()[x][z]);
 //		//Aufruf wo ist was frei
@@ -148,7 +147,7 @@ public class Warehouse {
 //		System.out.println(Part.getSize());
 //		System.out.println(Part.getTeilListe());
 //
-//>>>>>>> origin/master
+
 //	}
 
 	/*

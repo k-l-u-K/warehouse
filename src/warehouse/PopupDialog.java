@@ -17,7 +17,6 @@ public abstract class PopupDialog extends JDialog implements ActionListener,
 	protected JButton auswahlBtn;
 	protected JLabel nameLabel = new JLabel("Bezeichnung: *");
 	protected JLabel itemNrLabel = new JLabel("Teilenummer: ");
-	//protected JLabel itemCountLabel = new JLabel("Anzahl: *");
 	protected JLabel infoLabel = new JLabel(
 			"Pflichtfelder sind mit * gekennzeichnet.");
 	protected JTextField[] inpTextField;

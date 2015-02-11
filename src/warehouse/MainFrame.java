@@ -229,7 +229,6 @@ public class MainFrame extends JFrame implements ActionListener {
 	public static void addARow(Part part, Compartment compartment) {
 		// einen neuen Vector mit Daten herstellen
 		Vector newDatas = createDataVector(part, compartment, "neueZeile", 1);
-
 		// eine neue Row hinzufügen
 		model.addRow(newDatas);
 	}

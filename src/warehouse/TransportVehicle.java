@@ -48,10 +48,5 @@ public class TransportVehicle {
 	public static void setPosZ(int newPosZ) {
 		posZ = newPosZ;
 	}
-/*
- * Durch Angabe einer Teilenummer oder Bezeichnung wird das Transportsystem angewiesen,
- * das Fach anzufahren und die Ware zu entnehmen.
- * Geben Sie die benötigten Fahrwege in x, y und z-Richtung bis zum Fach aus.
- * Das Transportsystem befindet sich immer in Nullstellung und kehrt am Ende wieder dorthin zurück.
- */
+
 }

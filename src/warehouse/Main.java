@@ -7,18 +7,22 @@ public class Main {
 	
 	/*
 	ToDo:
-	- Auslagern: Switch-Button einfügen, der zwischen Suche nach Teil-Nr. und Bezeichnung switcht --> entweder-oder-Suche
-	- bei mehreren Teilen mit gleicher Bezeichnung -> Abfrage nach ID
-	- Lageranzeige bei Auswahl eines oder mehreren Regalen
-	- korrekte Regalnr.-Anzeige
-	- Standort
+	- Infofeld mit Gesamtanzahl eines Teils mit gleichem Namen
+	- freien Platz (Kapazität) und Anzahl ausgeben
+	- onlyPartList -> Teil löschen beim Auslagern
+	- sinnvolles zufälligen 
+	- Fenster sinnvoll aufteilen
+	- korrekte Regalnr.-/Fach-Anzeige
+	- letzte Aktion einfügen (welches Teil wurde wo ein-/ausgelagert)
 	- Daten in Datei schreiben / lesen
 	- Sortieren nach Bezeichnung / Teilenr.
 	
 	ToDo für Nacharbeiten:
+	- Dialog schließen nach Ausführung einer Aktion
+	- Variablen einheitlich in englischer Sprache 
 	- sinnvoll kommentieren
 	- isCompartmentFree nochmals umbauen
-	- ggf. Listen doch wieder static um besser damit umgehen zu können --> später
+	- Switch-Button beim Auslagern einfügen
 	
 	*/
 

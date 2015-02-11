@@ -51,7 +51,7 @@ public class TransportVehicle {
 	}
 
 	// Findet Teile mit Position
-	public Part findPart(int id) {
+	public static Part findPart(int id) {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 10; j++) {
 				for (int k = 0; k < 10; k++) {
@@ -65,7 +65,7 @@ public class TransportVehicle {
 		return null;
 	}
 
-	public String teilAuslagern(Part part) {
+	public static String teilAuslagern(Part part) {
 		int partSize = part.getSize();
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 10; j++) {
@@ -77,6 +77,9 @@ public class TransportVehicle {
 						// Kapazität vergrößern
 						Warehouse.get().regale[i].compartments[j][k].setCapacity(Warehouse.get().regale[i].compartments[j][k]
 										.getCapacity() + partSize);
+						
+						MainFrame.removeARow(part,Warehouse.get().regale[i].compartments[j][k]);
+						
 						return "Auslagern erfolgreich!";
 						// Schleife anders abbrechen
 					}

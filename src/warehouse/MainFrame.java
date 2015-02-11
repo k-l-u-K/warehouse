@@ -254,7 +254,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		model.addRow(newDatas);
 	}
 	
-	public void removeARow() {
+	public static void removeARow(Part part, Compartment compartment) {
 		int size = model.getRowCount();
 	    //int index = (int)(Math.random() * size);
 	    model.removeRow( size - 1 );

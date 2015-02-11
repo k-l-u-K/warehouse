@@ -64,5 +64,27 @@ public class TransportVehicle {
 		}
 		return null;
 	}
+	
+	public Part teilAuslagern(Part part) {
+		int partSize = part.getSize();
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 10; j++) {
+				for (int k = 0; k < 10; k++) {
+					//wenn Fach das Teil enthält
+					if ((Warehouse.get().regale[i].compartments[j][k].getPartList()).contains(part)) {
+							//auslagern
+							Warehouse.get().regale[i].compartments[j][k].getPartList().remove(part);
+							//Kapazität vergrößern
+							Warehouse.get().regale[i].compartments[j][k].setCapacity(Warehouse.get().
+								regale[i].compartments[j][k].getCapacity() + partSize);
+						return null;
+						//Schleife anders abbrechen
+					}
+				}
+			}
+		}
+		return null;
+	}
+
 
 }

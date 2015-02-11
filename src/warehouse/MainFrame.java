@@ -5,7 +5,9 @@ import java.awt.event.*;
 import java.util.Vector;
 
 import javax.swing.*;
+import javax.swing.RowFilter.ComparisonType;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 public class MainFrame extends JFrame implements ActionListener {
 
@@ -27,7 +29,6 @@ public class MainFrame extends JFrame implements ActionListener {
 	// Elemente Table Panel
 	private JPanel tableTopPanel;
 	private JTable table;
-	private String[][] tableContent;
 	private JTextField contentInfoLabel = new JTextField("Inhaltsanzeige: Alle Regale");
 	int tableLength = 80; // vorläufige Hilfsvariable für Tabellenlänge
 	private JButton sortByNameBtn = new JButton("nach Bezeichnung sortieren");
@@ -35,6 +36,7 @@ public class MainFrame extends JFrame implements ActionListener {
 
 	// Testbuttons
 	public static DefaultTableModel model;
+	private TableRowSorter<DefaultTableModel> sorter;
 
 	// private JPanel testBtnPanel;
 	// JButton buttonAddRow = new JButton("add row");
@@ -87,25 +89,16 @@ public class MainFrame extends JFrame implements ActionListener {
 
 		// Das JTable initialisieren
 		table = new JTable(model);
-
-		// Buttons, damit das alles schöner aussieht.
-		// buttonAddRow = new JButton("add row");
-		// buttonRemRow = new JButton("remove row");
-		//
-		// buttonRemRow.setEnabled(false);
-
-		// Den Buttons ein paar Reaktionen geben
-		// buttonAddRow.addActionListener(this);
-		//
-		// int size = model.getRowCount();
-		//
-		// buttonRemRow.addActionListener(this);
-		//
-		// testBtnPanel = new JPanel();
-		// testBtnPanel.setLayout(new GridLayout(1,2));
-		// testBtnPanel.add(buttonAddRow);
-		// testBtnPanel.add(buttonRemRow);
-
+		table.setEnabled(false);
+		
+		sorter = new TableRowSorter<DefaultTableModel>();
+		table.setRowSorter(sorter);
+		sorter.setModel(model);
+		
+		// Keine Tabelle ist Sortierbar über den Tabellenkopf
+		for (int i = 0; i < 5; i++) {
+			sorter.setSortable(i, false);
+		}
 	}
 
 	public static Vector createDataVector(Part part, Compartment compartment,
@@ -197,7 +190,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		infoPanel.add(positionTransportSystemLabel);
 
 		positionTransportSystemText.setBounds(190, 85, 150, 20);
-		positionTransportSystemText.enable(false);
+		positionTransportSystemText.setEnabled(false);
 		positionTransportSystemText.setBackground(infoPanel.getBackground());
 		positionTransportSystemText.setBorder(null);
 		infoPanel.add(positionTransportSystemText);
@@ -206,7 +199,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		infoPanel.add(drivewayLabel);
 
 		drivewayText.setBounds(190, 143, 200, 60);
-		drivewayText.setEditable(false);
+		drivewayText.setEnabled(false);
 		drivewayText.setBackground(infoPanel.getBackground());
 		infoPanel.add(drivewayText);
 
@@ -239,11 +232,10 @@ public class MainFrame extends JFrame implements ActionListener {
 						contentInfoLabel.setText("Inhaltsanzeige: "
 								+ storageRacks[i].getText());
 						if (i == 0) {
-							// alle Regale anzeigen
-						} else {
-							// Regal i anzeigen
-						}
-						table.repaint();
+							sorter.setRowFilter(RowFilter.regexFilter(" *"));
+						} else {							
+							sorter.setRowFilter(RowFilter.numberFilter(ComparisonType.EQUAL, ((4*i)-4), 0));							
+						}				
 					}
 				}
 

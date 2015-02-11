@@ -1,23 +1,23 @@
 package warehouse;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
-//Klasse für die Teile, welche einsortiert werden sollen
 public class Part {
 
 	private String description;
 	private int partnumber;
-	private int size;	
-	public List<Part> PartList = new ArrayList<Part>();
+	private int size;
+	//Liste, um nur nach Parts zu suchen - ggf. besser&schneller, wenn man nur nach doppelter o.ä. ID sucht
+	public static List<Part> onlyPartList = new ArrayList<Part>();
 
 	public Part(String description, int partnumber, int size) {
 		this.description = description;
-		// ID sollte unbedingt vorher geprüft werden --> eigene Methode
-		this.partnumber = partnumber++;
+		if (partnumber == 0 || findPart(null, partnumber) != null)
+			partnumber = getFreeID();
+		this.partnumber = partnumber;
 		this.size = size;
+		onlyPartList.add(this);
 	}
 
 	@Override
@@ -44,21 +44,37 @@ public class Part {
 	public int getSize() {
 		return size;
 	}
+	
+	//Test
+	/*
+	public static List<Part> getOnlyPartList() {
+		return Collections.unmodifiableList(onlyPartList);
+	}*/
+	
+	//Gibt ein Teil ohne Ort zurück
+	public static Part findPart(Part part, int partid) {
+		for (Part tempTeil : onlyPartList) {
+			if (tempTeil.getPartnumber() == partid && partid != -1)
+				//um später ein Teil zu finden -->
+				//if (tempTeil.getDescription().equals(part.getDescription()) || part == null)
+					return tempTeil;
+		}
+		return null;
+	}
+	
+	//gibt eine freie ID zurück
+	public static int getFreeID() {
+		return getFreeID(1);
+	}
+	private static int getFreeID(int testID) {
+		if (findPart(null, testID) == null) {
+			return testID;
+		} else
+			return getFreeID(++testID);
+	}
 
 //	public void delPart() {
 //		PartList.remove(this);
 //	}
-	
-//	public static List<Part> getTeilListe() {
-//		return Collections.unmodifiableList(PartList);
-//	}
-	/*
-	public static List<Part> createPartList(int regalnr, int x, int z, Part part) {
-		LinkedList<Part> tempList = new LinkedList<Part>();
-		for (Part tempTeil: PartList) {
-			if (tempTeil.equals(part))
-					tempList.add(tempTeil);
-		}
-		return Collections.unmodifiableList(tempList);
-	}*/
+
 }

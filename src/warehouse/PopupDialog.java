@@ -20,6 +20,8 @@ public abstract class PopupDialog extends JDialog implements ActionListener,
 	protected JLabel infoLabel = new JLabel(
 			"Pflichtfelder sind mit * gekennzeichnet.");
 	protected JTextField[] inpTextField;
+	
+	//protected JComboBox teilnummerbox = new JComboBox(....toString());
 
 	//protected JComboBox nameBox = new JComboBox(""); 
 

@@ -37,7 +37,12 @@ public class TransferDialog extends PopupDialog {
 		okayBtn.setBounds(75, 230, 200, 40);
 		panel.add(okayBtn);
 		okayBtn.addActionListener(this);
-
+		
+		nameLabel.setVisible(true);
+		itemNrLabel.setVisible(true);
+		inpTextField[0].setVisible(true);
+		inpTextField[1].setVisible(true);
+		
 		infoLabel.setBounds(110, 180, 250, 30);
 		panel.add(infoLabel);
 

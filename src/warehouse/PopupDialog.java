@@ -22,7 +22,6 @@ public abstract class PopupDialog extends JDialog implements ActionListener,
 	protected JTextField[] inpTextField;
 	
 	//protected JComboBox teilnummerbox = new JComboBox(....toString());
-
 	//protected JComboBox nameBox = new JComboBox(""); 
 
 	protected void initPopupDialog() {

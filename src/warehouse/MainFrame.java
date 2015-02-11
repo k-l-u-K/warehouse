@@ -42,11 +42,9 @@ public class MainFrame extends JFrame implements ActionListener {
 	// JButton buttonRemRow = new JButton("remove row");
 
 	// Elemente Info Panel
-	private JLabel positionTransportSystemLabel = new JLabel("Standort des Fahrzeuges: ");
 	private JLabel drivewayLabel = new JLabel("Zurückgelegter Fahrweg: ");
 	private JLabel basicUnitLabel = new JLabel("Die Größe eines Faches entspricht 10 Grundeinheiten.");
-	private static JTextField positionTransportSystemText = new JTextField(TransportVehicle.getPosX() + " " + TransportVehicle.getPosY() + " " + TransportVehicle.getPosZ());
-	private JTextArea drivewayText = new JTextArea("Weg in x-Richtung: x\nWeg in y-Richtung: y\nWeg in z-Richtung: z");
+	private static JTextArea drivewayText = new JTextArea("Weg in x-Richtung: 0\nWeg in y-Richtung: 0\nWeg in z-Richtung: 0");
 	
 	public MainFrame() {
 		initTable();
@@ -59,22 +57,11 @@ public class MainFrame extends JFrame implements ActionListener {
 		this.setVisible(true);
 	}
 
-	public JLabel getPositionTransportSystemLabel() {
-		return positionTransportSystemLabel;
+	public static void setDrivewayText() {
+		drivewayText.setText("Weg in x-Richtung: " + TransportVehicle.getPosX() +
+				"\nWeg in y-Richtung: " + TransportVehicle.getPosY() + 
+				"\nWeg in z-Richtung: " + TransportVehicle.getPosZ());
 	}
-
-	public void setPositionTransportSystemLabel(JLabel positionTransportSystemLabel) {
-		this.positionTransportSystemLabel = positionTransportSystemLabel;
-	}
-
-	public JTextField getPositionTransportSystemText() {
-		return positionTransportSystemText;
-	}
-
-	public static void setPositionTransportSystemText(String newPositionTransportSystemText) {
-		positionTransportSystemText = new JTextField(newPositionTransportSystemText);
-	}
-
 	private void initTable() {
 		// Die Namen der Columns
 		String[] titles = new String[] { "Regal", "Fach", "Bezeichnung",
@@ -115,7 +102,6 @@ public class MainFrame extends JFrame implements ActionListener {
 
 	public void initGUI() {
 		initMenu();
-
 		cp = this.getContentPane();
 
 		initTablePanel();
@@ -185,15 +171,6 @@ public class MainFrame extends JFrame implements ActionListener {
 	private void initInfoPanel() {
 		infoPanel = new JPanel();
 		infoPanel.setLayout(null);
-
-		positionTransportSystemLabel.setBounds(20, 80, 150, 30);
-		infoPanel.add(positionTransportSystemLabel);
-
-		positionTransportSystemText.setBounds(190, 85, 150, 20);
-		positionTransportSystemText.setEnabled(false);
-		positionTransportSystemText.setBackground(infoPanel.getBackground());
-		positionTransportSystemText.setBorder(null);
-		infoPanel.add(positionTransportSystemText);
 
 		drivewayLabel.setBounds(20, 150, 150, 30);
 		infoPanel.add(drivewayLabel);

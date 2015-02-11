@@ -38,6 +38,8 @@ public class Main {
 		//System.out.println(new TransportVehicle().findCompartment(part));
 		//System.out.println(new TransportVehicle().findPart(2));
 		
+<<<<<<< HEAD
+=======
 		//Gibt nur ein Teil zurück ohne Ort
 		//System.out.println(Part.findPart(null, 5));
 	
@@ -46,6 +48,7 @@ public class Main {
 	
 		new MainFrame();
 		
+>>>>>>> origin/master
 	}
 
 }

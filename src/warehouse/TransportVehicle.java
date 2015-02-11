@@ -2,6 +2,7 @@ package warehouse;
 
 public class TransportVehicle {
 
+	//Findet ein freies Fach mit ausreichender Kapazität
 	public Compartment findCompartment(Part part) {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 10; j++) {
@@ -17,6 +18,7 @@ public class TransportVehicle {
 		return null;
 	}
 	
+	//Lagert ein Teil ein
 	public Part teilEinlagern(Part part) {
 		int partSize = part.getSize();
 		for (int i = 0; i < 8; i++) {
@@ -50,7 +52,8 @@ public class TransportVehicle {
 			}
 		}
 	}
-	
+
+	//Findet Teile mit Position
 	public Part findPart(int id) {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 10; j++) {

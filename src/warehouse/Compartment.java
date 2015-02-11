@@ -1,94 +1,51 @@
 package warehouse;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.*;
+import java.util.Random;
 
-public class Compartment {
-
-	private int posX;
-	private int posY;
-	private int posZ;
-	private int capacity = 10;
-	private int idCompartment = 0;
-	public List<Part> partList = new ArrayList<Part>();
-
-	public Compartment(int posX, int posY, int posZ) {
-		super();
-		this.posX = posX;
-		this.posY = posY;
-		this.posZ = posZ;
-		idCompartment = idCompartment++;
-	}
-
-	@Override
-	public String toString() {
-		return "Compartment [posX=" + posX + ", posY=" + posY + ", posZ="
-				+ posZ + ", capacity=" + capacity + ", idCompartment="
-				+ idCompartment + "]";
-	}
-
-	public int getPosX() {
-		return posX;
-	}
-
-	public void setPosX(int posX) {
-		this.posX = posX;
-	}
-
-	public int getPosY() {
-		return posY;
-	}
-
-	public void setPosY(int posY) {
-		this.posY = posY;
-	}
-
-	public int getPosZ() {
-		return posZ;
-	}
-
-	public void setPosZ(int posZ) {
-		this.posZ = posZ;
-	}
-
-	public int getCapacity() {
-		return capacity;
-	}
-
-	public void setCapacity(int capacity) {
-		this.capacity = capacity;
-	}
-
-	public int getIdCompartment() {
-		return idCompartment;
-	}
-
-	public void setIdCompartment(int idCompartment) {
-		this.idCompartment = idCompartment;
-	}
+public class Main {
 	
-	public List<Part> getPartList() {
-		return partList;
-	}
-
-	public void setPartList(List<Part> partList) {
-		this.partList = partList;
-	}
+	/*
+	ToDo:
+	- Tabellenanzeige mit konkereten Daten
+	- Sortieren nach Bezeichnung / Teilenr.
+	- Einlagern von Teilen
+	- Daten schreiben / lesen
+	- nächste freie ID suchen
+	- Auslagern
+	- Teile suchen
+	- Standort
 	
-	//gibt true/false zurück, ob ein Fach frei ist
-	public static boolean isCompartmentFree(Part part) {
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 10; j++) {
-				for (int k = 0; k < 10; k++) {
-					for (Part parts : Warehouse.get().regale[i].compartments[j][k].partList) {
-						if (Warehouse.get().regale[i].compartments[j][k].partList.isEmpty() ||
-							part.getDescription().equals(parts.getDescription()))
-							return true;
-					}
-				}
-			}
+	- ggf. Listen doch wieder static um besser damit umgehen zu können --> später
+	*/
+
+	public static void main(String[] args) throws FileNotFoundException {
+		File file = new File(".\\data\\DateiZumEinlesen.txt");
+		OutputStream ostream = new FileOutputStream(file);
+		PrintWriter writer = new PrintWriter(ostream);
+
+		new Warehouse();
+		
+		Part part = new Part("Hallo",2,3);
+		new TransportVehicle().teilEinlagern(part);
+		
+		Random zufall = new Random();
+		for (int a=0; a < 20; a++) {
+			new TransportVehicle().teilEinlagern(new Part("Teil " + a, a, zufall.nextInt(10)));
 		}
-		return false;
+
+		//Testaufrufe zur Suche von Fächern und Teilen
+		//System.out.println(new TransportVehicle().findCompartment(part));
+		//System.out.println(new TransportVehicle().findPart(2));
+		
+		//Gibt nur ein Teil zurück ohne Ort
+		//System.out.println(Part.findPart(null, 5));
+	
+		//Zeigt alle Teile mit Postion an
+		new TransportVehicle().teileAnzeigen();
+	
+		new MainFrame();
+		
 	}
 
 }

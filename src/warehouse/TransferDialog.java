@@ -8,7 +8,7 @@ import javax.swing.*;
 public class TransferDialog extends PopupDialog {
 	private static final long serialVersionUID = -6861367256789342389L;
 
-	private JLabel itemSizeLabel = new JLabel("Grˆﬂe in GE: *");
+	private JLabel itemSizeLabel = new JLabel("Gr√∂√üe in GE: *");
 
 	public TransferDialog() {
 		inpTextField = new JTextField[3];
@@ -33,7 +33,7 @@ public class TransferDialog extends PopupDialog {
 		inpTextField[2].setBounds(140, 145, 100, 20);
 		panel.add(inpTextField[2]);
 
-		okayBtn = new JButton("Einlagern best‰tigen");
+		okayBtn = new JButton("Einlagern best√§tigen");
 		okayBtn.setBounds(75, 230, 200, 40);
 		panel.add(okayBtn);
 		okayBtn.addActionListener(this);
@@ -49,7 +49,7 @@ public class TransferDialog extends PopupDialog {
 		// System.out.print("gesendet");
 		// Konstruktor erwartet folgende Paramter:
 		// String, int, int, int
-		// Name, Nummer, Menge, Grˆﬂe
+		// Name, Nummer, Menge, Gr√∂√üe
 		// Daher muss die Eingabe auf Zahlen beschr√§nkt werden, wo nur Zahlen
 		// sinnvoll sind
 

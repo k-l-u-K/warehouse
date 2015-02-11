@@ -11,7 +11,6 @@ public class Warehouse {
 		if (warehouse == null) {
 			warehouse = new Warehouse();
 		}
-		
 		return warehouse;
 	}
 
@@ -20,6 +19,16 @@ public class Warehouse {
 			regale[i] = new Regal(4 * i);
 		}
 	}
+	
+	//alle Teile mit den gleichen Namen zurückgeben
+	/*
+	public LinkedList<Part> findeTeile(Part part) {
+		LinkedList<Part> tempList = new LinkedList<Part>(); 
+		for (int i = 0; i < regale.size(); i++)
+			tempList.addAll(regale.get(i).findeTeile(typ));
+		return tempList.isEmpty() ? null: tempList;
+	}
+	*/
 
 //<<<<<<< HEAD
 //	public void setCompartment(int regalnr, int x, int z, int anzahl) {

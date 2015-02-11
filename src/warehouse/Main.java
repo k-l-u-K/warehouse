@@ -48,9 +48,4 @@ public class Main {
 		
 	}
 
-	private static void If(boolean b) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

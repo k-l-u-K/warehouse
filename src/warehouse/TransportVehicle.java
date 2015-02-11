@@ -7,10 +7,9 @@ public class TransportVehicle {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 10; j++) {
 				for (int k = 0; k < 10; k++) {
-					if (Warehouse.get().regale[i].compartments[j][k]
-								.getCapacity() >= part.getSize()
-								&& Compartment.isCompartmentFree(part)) {
-						return Warehouse.get().regale[i].compartments[j][k];
+					if (Warehouse.get().regale[i].compartments[j][k].getCapacity() >= part.getSize()
+						&& Compartment.isCompartmentFree(part)) {
+							return Warehouse.get().regale[i].compartments[j][k];
 					}
 				}
 			}
@@ -72,14 +71,11 @@ public class TransportVehicle {
 			for (int j = 0; j < 10; j++) {
 				for (int k = 0; k < 10; k++) {
 					// wenn Fach das Teil enthält
-					if ((Warehouse.get().regale[i].compartments[j][k]
-							.getPartList()).contains(part)) {
+					if ((Warehouse.get().regale[i].compartments[j][k].getPartList()).contains(part)) {
 						// auslagern
-						Warehouse.get().regale[i].compartments[j][k]
-								.getPartList().remove(part);
+						Warehouse.get().regale[i].compartments[j][k].getPartList().remove(part);
 						// Kapazität vergrößern
-						Warehouse.get().regale[i].compartments[j][k]
-								.setCapacity(Warehouse.get().regale[i].compartments[j][k]
+						Warehouse.get().regale[i].compartments[j][k].setCapacity(Warehouse.get().regale[i].compartments[j][k]
 										.getCapacity() + partSize);
 						return "Auslagern erfolgreich!";
 						// Schleife anders abbrechen

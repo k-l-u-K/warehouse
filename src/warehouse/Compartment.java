@@ -81,17 +81,18 @@ public class Compartment {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 10; j++) {
 				for (int k = 0; k < 10; k++) {
-					for (Part parts : Warehouse.get().regale[i].compartments[j][k].partList) {
-						if (Warehouse.get().regale[i].compartments[j][k].partList.isEmpty() ||
-							part.getDescription().equals(parts.getDescription()))
-							return true;
+					if (Warehouse.get().regale[i].compartments[j][k].partList.isEmpty())
+						return true;
+					else {
+						for (Part parts : Warehouse.get().regale[i].compartments[j][k].partList) {
+							if (part.getDescription().equals(parts.getDescription()))
+								return true;
+						}
 					}
 				}
 			}
 		}
-		//return false;
-		
-		return true;
+		return false;
 	}
 
 }

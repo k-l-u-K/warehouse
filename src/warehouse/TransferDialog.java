@@ -54,15 +54,14 @@ public class TransferDialog extends PopupDialog {
 		// sinnvoll sind
 
 		Part part = new Part(inpTextField[0].getText(),
-				Integer.parseInt(inpTextField[1].getText()),
-				Integer.parseInt(inpTextField[2].getText()));
+			Integer.parseInt(inpTextField[1].getText()),
+			Integer.parseInt(inpTextField[2].getText()));
 
 		// Compartment compartment =
 		// Warehouse.get().regale[0].compartments[0][0];
 		// Compartment compartment = TransportVehicle.findCompartment(part);
 
-		TransportVehicle.teilEinlagern(part,
-				TransportVehicle.findCompartment(part));
+		TransportVehicle.teilEinlagern(part, TransportVehicle.findCompartment(part));
 
 		// Zufallserzeugung
 		// Random zufall = new Random();

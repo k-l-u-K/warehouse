@@ -16,7 +16,11 @@ public class Main {
 	- Teile suchen
 	- Standort
 	
+	
+	ToDo für Nacharbeiten:
+	- isCompartmentFree nochmals umbauen
 	- ggf. Listen doch wieder static um besser damit umgehen zu können --> später
+	
 	*/
 
 	public static void main(String[] args) throws FileNotFoundException {
@@ -26,7 +30,7 @@ public class Main {
 
 		new Warehouse();
 		
-		Part part = new Part("Hallo",2,3);
+		//Part part = new Part("Hallo",2,3);
 		//new TransportVehicle().teilEinlagern(part);
 		
 		Random zufall = new Random();

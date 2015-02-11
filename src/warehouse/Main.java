@@ -1,6 +1,7 @@
 package warehouse;
 
 import java.io.*;
+import java.util.LinkedList;
 import java.util.Random;
 
 public class Main {
@@ -42,17 +43,12 @@ public class Main {
 		//Zeigt alle Teile mit Postion an
 		//new TransportVehicle().teileAnzeigen();
 		
-		//System.out.println(TransportVehicle.findPartName("Hallo"));
-		//new TransportVehicle().findPartName("Test");
-		/*
-		for (Part c : deck) {
-			System.out.println(c);
-		}*/
-
 		new MainFrame();
 		
-		Part part = new Part("22", 0, 3);
-		TransportVehicle.teilEinlagern(part, TransportVehicle.findCompartment(part));
+		Part part3 = new Part("22", 4, 3);
+		Part part4 = new Part("22", 5, 3);
+		TransportVehicle.teilEinlagern(part3, TransportVehicle.findCompartment(part3));
+		TransportVehicle.teilEinlagern(part4, TransportVehicle.findCompartment(part4));
 		
 		Random zufall = new Random();
 		for (int a=0; a < 20; a++) {
@@ -60,7 +56,15 @@ public class Main {
 			TransportVehicle.teilEinlagern(part2, TransportVehicle.findCompartment(part2));
 			
 		}
-
+		/*
+		new TransportVehicle();
+		//System.out.println(TransportVehicle.findPartName("Testteil zum Suchen"));
+		LinkedList<Part> saerchedParts = TransportVehicle.findPartName("Testteil zum Suchen");
+		for (Part parts : saerchedParts) {
+			System.out.println(parts);
+			System.out.println(TransportVehicle.teilAuslagern(TransportVehicle.findPartID(parts.getPartnumber())));
+		}
+*/
 	}
 
 }

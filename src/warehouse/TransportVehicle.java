@@ -68,7 +68,7 @@ public class TransportVehicle {
 			for (int j = 0; j < 10; j++)
 				for (int k = 0; k < 10; k++)
 					for (Part parts : Warehouse.get().regale[i].compartments[j][k].partList)
-						if (name == parts.getDescription())
+						if (name.equals(parts.getDescription())) 
 							tempList.add(parts);
 		return tempList.isEmpty() ? null: tempList;
 	}

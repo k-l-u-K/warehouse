@@ -36,19 +36,12 @@ public class ReleaseDialog extends PopupDialog {
 	@Override
 	public void actionPerformed(ActionEvent source) {
 		if (!(inpTextField[0].getText().equals(""))) {
-			//String test = inpTextField[0].getText();
-			String test = "22";
-			LinkedList<Part> saerchedParts = TransportVehicle.findPartName(test);
-			for (Part parts : saerchedParts) {
-				System.out.println(parts);
+			LinkedList<Part> searchedParts = TransportVehicle.findPartName(inpTextField[0].getText());
+			for (Part parts : searchedParts) 
 				System.out.println(TransportVehicle.teilAuslagern(TransportVehicle.findPartID(parts.getPartnumber())));
-			}
 		}
-		if (!inpTextField[1].getText().equals("")) {
-			//inpTextField[0].setText("");
-			System.out.println("Mache was");
+		if (!inpTextField[1].getText().equals(""))
 			System.out.println(TransportVehicle.teilAuslagern(TransportVehicle.findPartID(Integer.parseInt(inpTextField[1].getText()))));
-		}
 	}
 
 	@Override

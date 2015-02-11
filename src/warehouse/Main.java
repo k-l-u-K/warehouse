@@ -45,8 +45,8 @@ public class Main {
 		
 		new MainFrame();
 		
-		Part part3 = new Part("22", 4, 3);
-		Part part4 = new Part("22", 5, 3);
+		Part part3 = new Part("Ein Teil zum Suchen mit übel viel Text, damit das Suchen richtig Spaß macht und Freude aufkommt", 4, 3);
+		Part part4 = new Part("Ein Teil zum Suchen mit übel viel Text, damit das Suchen richtig Spaß macht und Freude aufkommt", 5, 3);
 		TransportVehicle.teilEinlagern(part3, TransportVehicle.findCompartment(part3));
 		TransportVehicle.teilEinlagern(part4, TransportVehicle.findCompartment(part4));
 		
@@ -56,15 +56,7 @@ public class Main {
 			TransportVehicle.teilEinlagern(part2, TransportVehicle.findCompartment(part2));
 			
 		}
-		/*
-		new TransportVehicle();
-		//System.out.println(TransportVehicle.findPartName("Testteil zum Suchen"));
-		LinkedList<Part> saerchedParts = TransportVehicle.findPartName("Testteil zum Suchen");
-		for (Part parts : saerchedParts) {
-			System.out.println(parts);
-			System.out.println(TransportVehicle.teilAuslagern(TransportVehicle.findPartID(parts.getPartnumber())));
-		}
-*/
+
 	}
 
 }

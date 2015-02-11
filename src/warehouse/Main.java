@@ -15,9 +15,6 @@ public class Main {
 	- Auslagern
 	- Teile suchen
 	- Standort
-	- bei freier Fachsuche Bezeichnung eines Teils übergeben (Name)
-	- Unterteilung in komplett freies Fach & passendes Fach
-	
 	*/
 
 	public static void main(String[] args) throws FileNotFoundException {
@@ -28,23 +25,27 @@ public class Main {
 		new Warehouse();
 		
 		Part part = new Part("Hallo",2,3);
+		new TransportVehicle().teilEinlagern(part);
 		Random zufall = new Random();
 		for (int a=0; a < 10; a++) {
-			new TransportVehicle().teilEinlagern(new Part("Teil " + a, a, 5));
+			new TransportVehicle().teilEinlagern(new Part("Teil " + a, a, zufall.nextInt(10)));
 		}
+		new TransportVehicle().teilEinlagern(new Part("Hallo", 11, 3));
 		//zufall.nextInt(10)
 		System.out.println(new TransportVehicle().findCompartment(part));
+		//System.out.println(new TransportVehicle().findPart(2));
 		
 		new MainFrame();
 		
 //		new TransportVehicle().teilEinlagern(new Part("Bezeichnung",2,3));
-//		new TransportVehicle().teileAnzeigen();
+		new TransportVehicle().teileAnzeigen();
 
-		//		Part part = new Part("Hallo",2,3,4);
+//		Part part = new Part("Hallo",2,3,4);
 //		Part part2 = new Part("Hall2fo",22,31,44);
 //
 //		warenhaus.regaleFlo[0].getCompartments()[2][0].addPart(part);
 //		warenhaus.regaleFlo[0].getCompartments()[2][0].addPart(part2);
 		
 	}
+
 }

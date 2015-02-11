@@ -16,7 +16,7 @@ public class Main {
 	- Teile suchen
 	- Standort
 	
-	//Bug: Er füllt alle Regale und Fächer einfach so ^^
+	- ggf. Listen doch wieder static um besser damit umgehen zu können --> später
 	*/
 
 	public static void main(String[] args) throws FileNotFoundException {
@@ -30,9 +30,8 @@ public class Main {
 		new TransportVehicle().teilEinlagern(part);
 		
 		Random zufall = new Random();
-		for (int a=0; a < 2; a++) {
-			//auskommentiert, um den Bug zu finden -,-
-			//new TransportVehicle().teilEinlagern(new Part("Teil " + a, a, zufall.nextInt(10)));
+		for (int a=0; a < 20; a++) {
+			new TransportVehicle().teilEinlagern(new Part("Teil " + a, a, zufall.nextInt(10)));
 		}
 
 		//Testaufrufe zur Suche von Fächern und Teilen

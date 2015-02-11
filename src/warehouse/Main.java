@@ -47,10 +47,4 @@ public class Main {
 //		warenhaus.regaleFlo[0].getCompartments()[2][0].addPart(part2);
 		
 	}
-
-	private static void If(boolean b) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

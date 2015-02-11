@@ -30,14 +30,6 @@ public class Main {
 
 		new Warehouse();
 		
-		//Part part = new Part("Hallo",2,3);
-		//new TransportVehicle().teilEinlagern(part);
-		
-		Random zufall = new Random();
-		for (int a=0; a < 20; a++) {
-		//	new TransportVehicle().teilEinlagern(new Part("Teil " + a, a, zufall.nextInt(10)));
-		}
-
 		//Testaufrufe zur Suche von Fächern und Teilen
 		//System.out.println(new TransportVehicle().findCompartment(part));
 		//System.out.println(new TransportVehicle().findPart(2));
@@ -46,11 +38,28 @@ public class Main {
 		//Gibt nur ein Teil zurück ohne Ort
 		//System.out.println(Part.findPart(null, 5));
 		//System.out.println(Part.findPart(part, -1));
-	
+
 		//Zeigt alle Teile mit Postion an
-		new TransportVehicle().teileAnzeigen();
-	
+		//new TransportVehicle().teileAnzeigen();
+		
+		//System.out.println(TransportVehicle.findPartName("Hallo"));
+		//new TransportVehicle().findPartName("Test");
+		/*
+		for (Part c : deck) {
+			System.out.println(c);
+		}*/
+
 		new MainFrame();
+		
+		Part part = new Part("22", 0, 3);
+		TransportVehicle.teilEinlagern(part, TransportVehicle.findCompartment(part));
+		
+		Random zufall = new Random();
+		for (int a=0; a < 20; a++) {
+			Part part2 = new Part("Teil " + a, 0, zufall.nextInt(10));
+			TransportVehicle.teilEinlagern(part2, TransportVehicle.findCompartment(part2));
+			
+		}
 
 	}
 

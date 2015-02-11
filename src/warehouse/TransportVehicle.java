@@ -1,5 +1,7 @@
 package warehouse;
 
+import java.util.LinkedList;
+
 public class TransportVehicle {
 
 	// Findet ein freies Fach mit ausreichender Kapazität
@@ -27,10 +29,8 @@ public class TransportVehicle {
 			compartment.getPartList().add(part);
 			// Kapazität verringern
 			compartment.setCapacity(compartment.getCapacity() - partSize);
-
+			//Zeile hinzufügen
 			MainFrame.addARow(part, compartment);
-			return;
-			// Schleife anders abbrechen
 		}
 	}
 
@@ -50,19 +50,28 @@ public class TransportVehicle {
 		}
 	}
 
-	// Findet Teile mit Position
-	public static Part findPart(int id) {
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 10; j++) {
-				for (int k = 0; k < 10; k++) {
-					for (Part parts : Warehouse.get().regale[i].compartments[j][k].partList) {
+	// Findet Teile mit Position nach ID
+	public static Part findPartID(int id) {
+		for (int i = 0; i < 8; i++) 
+			for (int j = 0; j < 10; j++) 
+				for (int k = 0; k < 10; k++) 
+					for (Part parts : Warehouse.get().regale[i].compartments[j][k].partList) 
 						if (id == parts.getPartnumber())
 							return parts;
-					}
-				}
-			}
-		}
 		return null;
+	}
+	
+	// Findet Teile mit Position nach Name
+	public static LinkedList<Part> findPartName(String name) {
+		LinkedList<Part> tempList = new LinkedList<Part>();
+		for (int i = 0; i < 8; i++)
+			for (int j = 0; j < 10; j++)
+				for (int k = 0; k < 10; k++)
+					for (Part parts : Warehouse.get().regale[i].compartments[j][k].partList)
+						if (name == parts.getDescription())
+							//tempList.add(parts);
+							System.out.println("Test");
+		return tempList.isEmpty() ? null: tempList;
 	}
 
 	public static String teilAuslagern(Part part) {

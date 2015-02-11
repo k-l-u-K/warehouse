@@ -33,7 +33,7 @@ public class ReleaseDialog extends PopupDialog {
 
 	@Override
 	public void actionPerformed(ActionEvent source) {		
-		System.out.println(TransportVehicle.teilAuslagern(TransportVehicle.findPart(Integer.parseInt(inpTextField[1].getText()))));
+		System.out.println(TransportVehicle.teilAuslagern(TransportVehicle.findPartID(Integer.parseInt(inpTextField[1].getText()))));
 	}
 
 	@Override

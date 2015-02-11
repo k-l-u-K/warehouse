@@ -30,7 +30,7 @@ public class MainFrame extends JFrame implements ActionListener {
 	private String[][] tableContent;
 	private JTextField contentInfoLabel = new JTextField(
 			"Inhaltsanzeige: Alle Regale");
-	int tableLength = 80; // vorlÃ¤ufige Hilfsvariable fÃ¼r TabellenlÃ¤nge
+	int tableLength = 80; // vorläufige Hilfsvariable für Tabellenlänge
 	private JButton sortByNameBtn = new JButton("nach Bezeichnung sortieren");
 	private JButton sortByPartNumberBtn = new JButton("nach Teilenr. sortieren");
 
@@ -44,9 +44,9 @@ public class MainFrame extends JFrame implements ActionListener {
 	// Elemente Info Panel
 	private JLabel positionTransportSystemLabel = new JLabel(
 			"Standort des Fahrzeuges: ");
-	private JLabel drivewayLabel = new JLabel("Zur�ckgelegter Fahrweg: ");
+	private JLabel drivewayLabel = new JLabel("Zurückgelegter Fahrweg: ");
 	private JLabel basicUnitLabel = new JLabel(
-			"Die Gr��e eines Faches entspricht 10 Grundeinheiten.");
+			"Die Größe eines Faches entspricht 10 Grundeinheiten.");
 	private JTextField positionTransportSystemText = new JTextField("x,y,z");
 	private JTextArea drivewayText = new JTextArea(
 			"Weg in x-Richtung: x\nWeg in y-Richtung: y\nWeg in z-Richtung: z");
@@ -65,17 +65,17 @@ public class MainFrame extends JFrame implements ActionListener {
 	private void initTable() {
 		// Die Namen der Columns
 		String[] titles = new String[] { "Regal", "Fach", "Bezeichnung",
-				"Teilenummer", "Gr��e" };
+				"Teilenummer", "Größe" };
 
 		// Das Model das wir verwenden werden. Hier setzten wir gleich die
-		// Titel, aber es ist spÃ¤ter immer noch mÃ¶glich weitere Columns oder
-		// Rows hinzuzufÃ¼gen.
+		// Titel, aber es ist später immer noch möglich weitere Columns oder
+		// Rows hinzuzufügen.
 		model = new DefaultTableModel(titles, 0);
 
 		// Das JTable initialisieren
 		table = new JTable(model);
 
-		// Buttons, damit das alles schÃ¶ner aussieht.
+		// Buttons, damit das alles schöner aussieht.
 		// buttonAddRow = new JButton("add row");
 		// buttonRemRow = new JButton("remove row");
 		//
@@ -250,7 +250,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		// einen neuen Vector mit Daten herstellen
 		Vector newDatas = createDataVector(part,compartment,"neueZeile", 1);
 
-		// eine neue Row hinzufÃ¼gen
+		// eine neue Row hinzufügen
 		model.addRow(newDatas);
 	}
 	

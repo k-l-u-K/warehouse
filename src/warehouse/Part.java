@@ -55,9 +55,9 @@ public class Part {
 	public static Part findPart(Part part, int partid) {
 		for (Part tempTeil : onlyPartList) {
 			if (tempTeil.getPartnumber() == partid && partid != -1)
-				//um später ein Teil zu finden -->
-				//if (tempTeil.getDescription().equals(part.getDescription()) || part == null)
-					return tempTeil;
+				return tempTeil;
+			if (part != null && tempTeil.getDescription().equals(part.getDescription()))
+				return tempTeil;
 		}
 		return null;
 	}

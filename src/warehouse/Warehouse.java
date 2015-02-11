@@ -70,7 +70,7 @@ public class Warehouse {
 	
 	x = 2 + (i * 2)
 	y = 2 + (i * 2)
-	
+
 		x
 		|
 		|

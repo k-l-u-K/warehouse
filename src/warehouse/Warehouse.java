@@ -1,16 +1,5 @@
 package warehouse;
 
-//<<<<<<< HEAD
-////import java.util.HashMap;
-////import java.util.Map;
-//=======
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-//>>>>>>> origin/master
-
 public class Warehouse {
 
 	public static Warehouse warehouse;
@@ -22,6 +11,7 @@ public class Warehouse {
 		if (warehouse == null) {
 			warehouse = new Warehouse();
 		}
+		
 		return warehouse;
 	}
 

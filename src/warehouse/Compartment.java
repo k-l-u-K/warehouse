@@ -10,7 +10,7 @@ public class Compartment {
 	private int posZ;
 	private int capacity = 10;
 	private int idCompartment = 0;
-	public static List<Part> partList = new ArrayList<Part>();
+	public List<Part> partList = new ArrayList<Part>();
 
 	public Compartment(int posX, int posY, int posZ) {
 		super();
@@ -67,7 +67,7 @@ public class Compartment {
 		this.idCompartment = idCompartment;
 	}
 	
-	public static List<Part> getPartList() {
+	public List<Part> getPartList() {
 		return partList;
 	}
 

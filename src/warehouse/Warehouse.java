@@ -44,7 +44,7 @@ public class Warehouse {
 		// wenn noch Platz, dann einlagern
 		if ((compartment.getCapacity() - partSize) >= 0) {
 			//Fahrzeug kann hier mit dem Teil zum Zielort fahren
-			//TransportVehicle.driveToCompartment(part, compartment);
+			TransportVehicle.driveToCompartment(part, compartment);
 			// einlagern
 			compartment.getPartList().add(part);
 			// Kapazität verringern

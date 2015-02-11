@@ -37,7 +37,6 @@ public class MainFrame extends JFrame implements ActionListener {
 	// Testbuttons
 	public static DefaultTableModel model;
 	private TableRowSorter<DefaultTableModel> sorter;
-
 	// private JPanel testBtnPanel;
 	// JButton buttonAddRow = new JButton("add row");
 	// JButton buttonRemRow = new JButton("remove row");
@@ -72,15 +71,15 @@ public class MainFrame extends JFrame implements ActionListener {
 		return positionTransportSystemText;
 	}
 
-	//public static void setPositionTransportSystemText(newPositionTransportSystemText) {
-	//	positionTransportSystemText = new JTextField(newPositionTransportSystemText);
-	//}
+	public static void setPositionTransportSystemText(String newPositionTransportSystemText) {
+		positionTransportSystemText = new JTextField(newPositionTransportSystemText);
+	}
 
 	private void initTable() {
 		// Die Namen der Columns
 		String[] titles = new String[] { "Regal", "Fach", "Bezeichnung",
 				"Teilenummer", "Größe" };
-		//positionTransportSystemText = new JTextField("Test");
+		
 
 		// Das Model das wir verwenden werden. Hier setzten wir gleich die
 		// Titel, aber es ist später immer noch möglich weitere Columns oder
@@ -99,6 +98,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		for (int i = 0; i < 5; i++) {
 			sorter.setSortable(i, false);
 		}
+		
 	}
 
 	public static Vector createDataVector(Part part, Compartment compartment,
@@ -235,7 +235,7 @@ public class MainFrame extends JFrame implements ActionListener {
 							sorter.setRowFilter(RowFilter.regexFilter(" *"));
 						} else {							
 							sorter.setRowFilter(RowFilter.numberFilter(ComparisonType.EQUAL, ((4*i)-4), 0));							
-						}				
+						}		
 					}
 				}
 

@@ -40,7 +40,7 @@ public class Main {
 			Part part2 = new Part("Teil " + a, 0, zufall.nextInt(10));
 			Warehouse.teilEinlagern(part2, Warehouse.findCompartment(part2));
 		}
-
+		
 		Part part = new Part("Das Fahrzeug lagert dieses Teil ein", 4, 3);
 		Warehouse.teilEinlagern(part, Warehouse.findCompartment(part));
 

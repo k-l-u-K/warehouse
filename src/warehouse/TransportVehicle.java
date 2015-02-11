@@ -18,7 +18,7 @@ public class TransportVehicle {
 		setPosX(compartment.getPosX());
 		setPosY(compartment.getPosY());
 		setPosZ(compartment.getPosZ());
-		//MainFrame.setPositionTransportSystemText();
+		MainFrame.setPositionTransportSystemText("muh");
 	}
 	
 

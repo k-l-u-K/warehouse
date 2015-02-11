@@ -1,24 +1,22 @@
 package warehouse;
 
 import java.io.*;
-import java.util.LinkedList;
 import java.util.Random;
 
 public class Main {
 	
 	/*
 	ToDo:
-	- Tabellenanzeige mit konkereten Daten
-	- Sortieren nach Bezeichnung / Teilenr.
-	- Einlagern von Teilen
-	- Daten schreiben / lesen
-	- nächste freie ID suchen
-	- Auslagern
-	- Teile suchen
+	- Auslagern: Switch-Button einfügen, der zwischen Suche nach Teil-Nr. und Bezeichnung switcht --> entweder-oder-Suche
+	- bei mehreren Teilen mit gleicher Bezeichnung -> Abfrage nach ID
+	- Lageranzeige bei Auswahl eines oder mehreren Regalen
+	- korrekte Regalnr.-Anzeige
 	- Standort
-	
+	- Daten in Datei schreiben / lesen
+	- Sortieren nach Bezeichnung / Teilenr.
 	
 	ToDo für Nacharbeiten:
+	- sinnvoll kommentieren
 	- isCompartmentFree nochmals umbauen
 	- ggf. Listen doch wieder static um besser damit umgehen zu können --> später
 	

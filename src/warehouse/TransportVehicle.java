@@ -2,19 +2,23 @@ package warehouse;
 
 public class TransportVehicle {
 
+	//Findet ein freies Fach mit ausreichender Kapazität
 	public Compartment findCompartment(Part part) {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 10; j++) {
 				for (int k = 0; k < 10; k++) {
-					if ((Warehouse.get().regale[i].compartments[j][k].getPartList().isEmpty()) &&
-						!Warehouse.get().regale[i].compartments[j][k].getPartList().contains(part))
-						return Warehouse.get().regale[i].compartments[j][k];
+					for (Part parts : Warehouse.get().regale[i].compartments[j][k].partList) {
+						if ((Warehouse.get().regale[i].compartments[j][k].getCapacity() >= parts.getSize()) &&
+							Compartment.isCompartmentFree(part))
+								return Warehouse.get().regale[i].compartments[j][k];
+					}
 				}
 			}
 		}
 		return null;
 	}
 	
+	//Lagert ein Teil ein
 	public Part teilEinlagern(Part part) {
 		int partSize = part.getSize();
 		for (int i = 0; i < 8; i++) {
@@ -25,8 +29,8 @@ public class TransportVehicle {
 						//einlagern
 						Warehouse.get().regale[i].compartments[j][k].getPartList().add(part);
 						//Kapazität verringern
-						Warehouse.get().regale[i].compartments[j][k].setCapacity(Warehouse.get().regale[i].compartments[j][k].
-								getCapacity() - partSize);
+						Warehouse.get().regale[i].compartments[j][k].setCapacity(Warehouse.get().
+								regale[i].compartments[j][k].getCapacity() - partSize);
 						return null;
 						//Schleife anders abbrechen
 					}
@@ -41,6 +45,8 @@ public class TransportVehicle {
 			for (int j = 0; j < 10; j++) {
 				for (int k = 0; k < 10; k++) {
 					for (Part parts : Warehouse.get().regale[i].compartments[j][k].partList) {
+					//wenn Liste static, würde das gehen:
+					//for (Part parts : Compartment.partList) {
 						System.out.println(parts);
 						System.out.println(i + " " + j + " " + k);
 					}
@@ -48,5 +54,42 @@ public class TransportVehicle {
 			}
 		}
 	}
+
+	//Findet Teile mit Position
+	public Part findPart(int id) {
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 10; j++) {
+				for (int k = 0; k < 10; k++) {
+					for (Part parts : Warehouse.get().regale[i].compartments[j][k].partList) {
+						if (id == parts.getPartnumber())
+							return parts;
+					}
+				}
+			}
+		}
+		return null;
+	}
+	
+	public Part teilAuslagern(Part part) {
+		int partSize = part.getSize();
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 10; j++) {
+				for (int k = 0; k < 10; k++) {
+					//wenn Fach das Teil enthält
+					if ((Warehouse.get().regale[i].compartments[j][k].getPartList()).contains(part)) {
+							//auslagern
+							Warehouse.get().regale[i].compartments[j][k].getPartList().remove(part);
+							//Kapazität vergrößern
+							Warehouse.get().regale[i].compartments[j][k].setCapacity(Warehouse.get().
+								regale[i].compartments[j][k].getCapacity() + partSize);
+						return null;
+						//Schleife anders abbrechen
+					}
+				}
+			}
+		}
+		return null;
+	}
+
 
 }

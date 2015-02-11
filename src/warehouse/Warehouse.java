@@ -1,16 +1,5 @@
 package warehouse;
 
-//<<<<<<< HEAD
-////import java.util.HashMap;
-////import java.util.Map;
-//=======
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-//>>>>>>> origin/master
-
 public class Warehouse {
 
 	public static Warehouse warehouse;
@@ -30,6 +19,16 @@ public class Warehouse {
 			regale[i] = new Regal(4 * i);
 		}
 	}
+	
+	//alle Teile mit den gleichen Namen zurückgeben
+	/*
+	public LinkedList<Part> findeTeile(Part part) {
+		LinkedList<Part> tempList = new LinkedList<Part>(); 
+		for (int i = 0; i < regale.size(); i++)
+			tempList.addAll(regale.get(i).findeTeile(typ));
+		return tempList.isEmpty() ? null: tempList;
+	}
+	*/
 
 //<<<<<<< HEAD
 //	public void setCompartment(int regalnr, int x, int z, int anzahl) {
@@ -71,7 +70,7 @@ public class Warehouse {
 	
 	x = 2 + (i * 2)
 	y = 2 + (i * 2)
-	
+
 		x
 		|
 		|

@@ -3,7 +3,6 @@ package warehouse;
 import java.util.ArrayList;
 import java.util.List;
 
-//Klasse für die Fächer
 public class Compartment {
 
 	private int posX;
@@ -74,6 +73,22 @@ public class Compartment {
 
 	public void setPartList(List<Part> partList) {
 		this.partList = partList;
+	}
+	
+	//gibt true/false zurück, ob ein Fach frei ist
+	public static boolean isCompartmentFree(Part part) {
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 10; j++) {
+				for (int k = 0; k < 10; k++) {
+					for (Part parts : Warehouse.get().regale[i].compartments[j][k].partList) {
+						if (Warehouse.get().regale[i].compartments[j][k].partList.isEmpty() ||
+							part.getDescription().equals(parts.getDescription()))
+							return true;
+					}
+				}
+			}
+		}
+		return false;
 	}
 
 }

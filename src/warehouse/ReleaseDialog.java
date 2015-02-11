@@ -23,27 +23,65 @@ public class ReleaseDialog extends PopupDialog {
 
 	private void initReleaseFrame() {
 		okayBtn = new JButton("Auslagern bestätigen");
-		okayBtn.setBounds(75, 180, 200, 40);
+		okayBtn.setBounds(75, 205, 200, 40);
 		panel.add(okayBtn);
 		okayBtn.addActionListener(this);
 
-		infoLabel.setBounds(110, 140, 250, 30);
-		panel.add(infoLabel);
-
+		infoLabel.setBounds(110, 170, 250, 30);
+		//panel.add(infoLabel);
+		
+		beschreibbutton = new JButton("nach Bezeichnung suchen");
+		beschreibbutton.setBounds(75, 35, 200, 30);
+		panel.add(beschreibbutton);
+		beschreibbutton.addActionListener(this);
+		
+		
+        
+		teilnummerbutton = new JButton ("nach Teilenummer suchen");
+        teilnummerbutton.setBounds(75, 75, 200 , 30);
+        panel.add(teilnummerbutton);
+        teilnummerbutton.addActionListener(this);
+        
+        
+        
 		cp.add(panel);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent source) {
-		if (!(inpTextField[0].getText().equals(""))) {
-			LinkedList<Part> searchedParts = TransportVehicle.findPartName(inpTextField[0].getText());
-			for (Part parts : searchedParts) 
-				System.out.println(TransportVehicle.teilAuslagern(TransportVehicle.findPartID(parts.getPartnumber())));
+		if(source.getSource() == this.beschreibbutton){
+			nameLabel.setVisible(true);
+			inpTextField[0].setVisible(true);
+			teilnummerbutton.setVisible(false);
+			beschreibbutton.setVisible(false);
+           /* if (!(inpTextField[0].getText().equals(""))) {
+            	LinkedList<Part> searchedParts = TransportVehicle.findPartName(inpTextField[0].getText());
+				for (Part parts : searchedParts) 
+					System.out.println(TransportVehicle.teilAuslagern(TransportVehicle.findPartID(parts.getPartnumber())));
+            }*/
 		}
-		if (!inpTextField[1].getText().equals(""))
-			System.out.println(TransportVehicle.teilAuslagern(TransportVehicle.findPartID(Integer.parseInt(inpTextField[1].getText()))));
+		if(source.getSource() == this.teilnummerbutton){
+			itemNrLabel.setVisible(true);
+			inpTextField[1].setVisible(true);
+			beschreibbutton.setVisible(false);
+			teilnummerbutton.setVisible(false);
+           /* if (!inpTextField[1].getText().equals(""))
+            	System.out.println(TransportVehicle.teilAuslagern(TransportVehicle.findPartID(Integer.parseInt(inpTextField[1].getText()))));
+				}*/
+		}
+		if(source.getSource() == this.okayBtn){
+			if (!(inpTextField[0].getText().equals(""))) {
+				LinkedList<Part> searchedParts = TransportVehicle.findPartName(inpTextField[0].getText());
+					for (Part parts : searchedParts){ 
+						System.out.println(TransportVehicle.teilAuslagern(TransportVehicle.findPartID(parts.getPartnumber())));
+					}
+			}
+			if (!inpTextField[1].getText().equals("")){
+         	System.out.println(TransportVehicle.teilAuslagern(TransportVehicle.findPartID(Integer.parseInt(inpTextField[1].getText()))));
+			}
+		}
 	}
-
+	
 	@Override
 	public void keyPressed(KeyEvent source) {
 		if (source.getKeyCode() == KeyEvent.VK_TAB) {

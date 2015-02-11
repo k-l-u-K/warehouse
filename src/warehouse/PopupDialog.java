@@ -12,6 +12,8 @@ public abstract class PopupDialog extends JDialog implements ActionListener,
 	protected JPanel panel;
 
 	protected JButton okayBtn;
+	protected JButton beschreibbutton;
+	protected JButton teilnummerbutton;
 	protected JLabel nameLabel = new JLabel("Bezeichnung: *");
 	protected JLabel itemNrLabel = new JLabel("Teilenummer: ");
 	//protected JLabel itemCountLabel = new JLabel("Anzahl: *");
@@ -29,9 +31,11 @@ public abstract class PopupDialog extends JDialog implements ActionListener,
 
 		nameLabel.setBounds(20, 20, 150, 30);
 		panel.add(nameLabel);
+		nameLabel.setVisible(false);
 
 		itemNrLabel.setBounds(20, 60, 150, 30);
 		panel.add(itemNrLabel);
+		itemNrLabel.setVisible(false);
 
 //		itemCountLabel.setBounds(20, 100, 150, 30);
 //		panel.add(itemCountLabel);
@@ -44,9 +48,11 @@ public abstract class PopupDialog extends JDialog implements ActionListener,
 
 		inpTextField[0].setBounds(140, 25, 170, 20);
 		panel.add(inpTextField[0]);
+		inpTextField[0].setVisible(false);
 
 		inpTextField[1].setBounds(140, 65, 100, 20);
 		panel.add(inpTextField[1]);
+		inpTextField[1].setVisible(false);
 
 //		inpTextField[2].setBounds(140, 105, 100, 20);
 //		panel.add(inpTextField[2]);

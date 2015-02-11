@@ -1,7 +1,6 @@
 package warehouse;
 
 import java.awt.event.*;
-import java.util.Random;
 
 import javax.swing.*;
 

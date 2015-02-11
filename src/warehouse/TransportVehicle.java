@@ -19,6 +19,9 @@ public class TransportVehicle {
 		setPosY(compartment.getPosY());
 		setPosZ(compartment.getPosZ());
 		MainFrame.setDrivewayText();
+		setPosX(0);
+		setPosY(0);
+		setPosZ(0);
 	}
 	
 

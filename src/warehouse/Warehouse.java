@@ -100,6 +100,8 @@ public class Warehouse {
 				for (int k = 0; k < 10; k++) {
 					// wenn Fach das Teil enthält
 					if ((Warehouse.get().regale[i].compartments[j][k].getPartList()).contains(part)) {
+						// Transportfahrzeug kann zum Zielort fahren
+						TransportVehicle.driveToCompartment(part, Warehouse.get().regale[i].compartments[j][k]);
 						// auslagern
 						Warehouse.get().regale[i].compartments[j][k].getPartList().remove(part);
 						// Kapazität vergrößern

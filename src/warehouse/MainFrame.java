@@ -28,8 +28,7 @@ public class MainFrame extends JFrame implements ActionListener {
 	private JPanel tableTopPanel;
 	private JTable table;
 	private String[][] tableContent;
-	private JTextField contentInfoLabel = new JTextField(
-			"Inhaltsanzeige: Alle Regale");
+	private JTextField contentInfoLabel = new JTextField("Inhaltsanzeige: Alle Regale");
 	int tableLength = 80; // vorläufige Hilfsvariable für Tabellenlänge
 	private JButton sortByNameBtn = new JButton("nach Bezeichnung sortieren");
 	private JButton sortByPartNumberBtn = new JButton("nach Teilenr. sortieren");
@@ -42,15 +41,12 @@ public class MainFrame extends JFrame implements ActionListener {
 	// JButton buttonRemRow = new JButton("remove row");
 
 	// Elemente Info Panel
-	private JLabel positionTransportSystemLabel = new JLabel(
-			"Standort des Fahrzeuges: ");
+	private JLabel positionTransportSystemLabel = new JLabel("Standort des Fahrzeuges: ");
 	private JLabel drivewayLabel = new JLabel("Zurückgelegter Fahrweg: ");
-	private JLabel basicUnitLabel = new JLabel(
-			"Die Größe eines Faches entspricht 10 Grundeinheiten.");
-	private JTextField positionTransportSystemText = new JTextField("x,y,z");
-	private JTextArea drivewayText = new JTextArea(
-			"Weg in x-Richtung: x\nWeg in y-Richtung: y\nWeg in z-Richtung: z");
-
+	private JLabel basicUnitLabel = new JLabel("Die Größe eines Faches entspricht 10 Grundeinheiten.");
+	private static JTextField positionTransportSystemText = new JTextField(TransportVehicle.getPosX() + " " + TransportVehicle.getPosY() + " " + TransportVehicle.getPosZ());
+	private JTextArea drivewayText = new JTextArea("Weg in x-Richtung: x\nWeg in y-Richtung: y\nWeg in z-Richtung: z");
+	
 	public MainFrame() {
 		initTable();
 		initGUI();
@@ -62,10 +58,27 @@ public class MainFrame extends JFrame implements ActionListener {
 		this.setVisible(true);
 	}
 
+	public JLabel getPositionTransportSystemLabel() {
+		return positionTransportSystemLabel;
+	}
+
+	public void setPositionTransportSystemLabel(JLabel positionTransportSystemLabel) {
+		this.positionTransportSystemLabel = positionTransportSystemLabel;
+	}
+
+	public JTextField getPositionTransportSystemText() {
+		return positionTransportSystemText;
+	}
+
+	//public static void setPositionTransportSystemText(newPositionTransportSystemText) {
+	//	positionTransportSystemText = new JTextField(newPositionTransportSystemText);
+	//}
+
 	private void initTable() {
 		// Die Namen der Columns
 		String[] titles = new String[] { "Regal", "Fach", "Bezeichnung",
 				"Teilenummer", "Größe" };
+		//positionTransportSystemText = new JTextField("Test");
 
 		// Das Model das wir verwenden werden. Hier setzten wir gleich die
 		// Titel, aber es ist später immer noch möglich weitere Columns oder
@@ -184,7 +197,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		infoPanel.add(positionTransportSystemLabel);
 
 		positionTransportSystemText.setBounds(190, 85, 150, 20);
-		positionTransportSystemText.setEditable(false);
+		positionTransportSystemText.enable(false);
 		positionTransportSystemText.setBackground(infoPanel.getBackground());
 		positionTransportSystemText.setBorder(null);
 		infoPanel.add(positionTransportSystemText);

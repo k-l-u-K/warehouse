@@ -55,9 +55,9 @@ public class ReleaseDialog extends PopupDialog {
 			teilnummerbutton.setVisible(false);
 			beschreibbutton.setVisible(false);
            /* if (!(inpTextField[0].getText().equals(""))) {
-            	LinkedList<Part> searchedParts = TransportVehicle.findPartName(inpTextField[0].getText());
+            	LinkedList<Part> searchedParts = Warehouse.findPartName(inpTextField[0].getText());
 				for (Part parts : searchedParts) 
-					System.out.println(TransportVehicle.teilAuslagern(TransportVehicle.findPartID(parts.getPartnumber())));
+					System.out.println(Warehouse.teilAuslagern(Warehouse.findPartID(parts.getPartnumber())));
             }*/
 		}
 		if(source.getSource() == this.teilnummerbutton){
@@ -66,18 +66,18 @@ public class ReleaseDialog extends PopupDialog {
 			beschreibbutton.setVisible(false);
 			teilnummerbutton.setVisible(false);
            /* if (!inpTextField[1].getText().equals(""))
-            	System.out.println(TransportVehicle.teilAuslagern(TransportVehicle.findPartID(Integer.parseInt(inpTextField[1].getText()))));
+            	System.out.println(Warehouse.teilAuslagern(Warehouse.findPartID(Integer.parseInt(inpTextField[1].getText()))));
 				}*/
 		}
 		if(source.getSource() == this.okayBtn){
 			if (!(inpTextField[0].getText().equals(""))) {
-				LinkedList<Part> searchedParts = TransportVehicle.findPartName(inpTextField[0].getText());
+				LinkedList<Part> searchedParts = Warehouse.findPartName(inpTextField[0].getText());
 					for (Part parts : searchedParts){ 
-						System.out.println(TransportVehicle.teilAuslagern(TransportVehicle.findPartID(parts.getPartnumber())));
+						System.out.println(Warehouse.teilAuslagern(Warehouse.findPartID(parts.getPartnumber())));
 					}
 			}
 			if (!inpTextField[1].getText().equals("")){
-         	System.out.println(TransportVehicle.teilAuslagern(TransportVehicle.findPartID(Integer.parseInt(inpTextField[1].getText()))));
+         	System.out.println(Warehouse.teilAuslagern(Warehouse.findPartID(Integer.parseInt(inpTextField[1].getText()))));
 			}
 		}
 	}

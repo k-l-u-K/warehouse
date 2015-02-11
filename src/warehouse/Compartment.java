@@ -8,7 +8,7 @@ public class Compartment {
 	private int posX;
 	private int posY;
 	private int posZ;
-	private int capacity = 10;
+	private int capacity;
 	private int idCompartment = 0;
 	public List<Part> partList = new ArrayList<Part>();
 
@@ -17,6 +17,7 @@ public class Compartment {
 		this.posX = posX;
 		this.posY = posY;
 		this.posZ = posZ;
+		this.capacity = 10;
 		idCompartment = idCompartment++;
 	}
 
@@ -88,7 +89,9 @@ public class Compartment {
 				}
 			}
 		}
-		return false;
+		//return false;
+		
+		return true;
 	}
 
 }

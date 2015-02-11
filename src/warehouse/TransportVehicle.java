@@ -2,42 +2,37 @@ package warehouse;
 
 public class TransportVehicle {
 
-	//Findet ein freies Fach mit ausreichender Kapazität
-	public Compartment findCompartment(Part part) {
+	// Findet ein freies Fach mit ausreichender Kapazität
+	public static Compartment findCompartment(Part part) {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 10; j++) {
 				for (int k = 0; k < 10; k++) {
-					for (Part parts : Warehouse.get().regale[i].compartments[j][k].partList) {
-						if ((Warehouse.get().regale[i].compartments[j][k].getCapacity() >= parts.getSize()) &&
-							Compartment.isCompartmentFree(part))
-								return Warehouse.get().regale[i].compartments[j][k];
+					if (Warehouse.get().regale[i].compartments[j][k]
+								.getCapacity() >= part.getSize()
+								&& Compartment.isCompartmentFree(part)) {
+						return Warehouse.get().regale[i].compartments[j][k];
 					}
 				}
 			}
 		}
+		System.out.println("Kein Fach gefunden! Error!");
 		return null;
 	}
-	
-	//Lagert ein Teil ein
-	public Part teilEinlagern(Part part) {
+
+	// Lagert ein Teil ein
+	public static void teilEinlagern(Part part, Compartment compartment) {
 		int partSize = part.getSize();
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 10; j++) {
-				for (int k = 0; k < 10; k++) {
-					//wenn noch Platz, dann einlagern
-					if ((Warehouse.get().regale[i].compartments[j][k].getCapacity() - partSize) > 0) {
-						//einlagern
-						Warehouse.get().regale[i].compartments[j][k].getPartList().add(part);
-						//Kapazität verringern
-						Warehouse.get().regale[i].compartments[j][k].setCapacity(Warehouse.get().
-								regale[i].compartments[j][k].getCapacity() - partSize);
-						return null;
-						//Schleife anders abbrechen
-					}
-				}
-			}
+		// wenn noch Platz, dann einlagern
+		if ((compartment.getCapacity() - partSize) >= 0) {
+			// einlagern
+			compartment.getPartList().add(part);
+			// Kapazität verringern
+			compartment.setCapacity(compartment.getCapacity() - partSize);
+
+			MainFrame.addARow(part, compartment);
+			return;
+			// Schleife anders abbrechen
 		}
-		return null;
 	}
 
 	public void teileAnzeigen() {
@@ -45,17 +40,18 @@ public class TransportVehicle {
 			for (int j = 0; j < 10; j++) {
 				for (int k = 0; k < 10; k++) {
 					for (Part parts : Warehouse.get().regale[i].compartments[j][k].partList) {
-					//wenn Liste static, würde das gehen:
-					//for (Part parts : Compartment.partList) {
+						// wenn Liste static, würde das gehen:
+						// for (Part parts : Compartment.partList) {
 						System.out.println(parts);
 						System.out.println(i + " " + j + " " + k);
+
 					}
 				}
 			}
 		}
 	}
 
-	//Findet Teile mit Position
+	// Findet Teile mit Position
 	public Part findPart(int id) {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 10; j++) {
@@ -69,27 +65,29 @@ public class TransportVehicle {
 		}
 		return null;
 	}
-	
-	public Part teilAuslagern(Part part) {
+
+	public String teilAuslagern(Part part) {
 		int partSize = part.getSize();
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 10; j++) {
 				for (int k = 0; k < 10; k++) {
-					//wenn Fach das Teil enthält
-					if ((Warehouse.get().regale[i].compartments[j][k].getPartList()).contains(part)) {
-							//auslagern
-							Warehouse.get().regale[i].compartments[j][k].getPartList().remove(part);
-							//Kapazität vergrößern
-							Warehouse.get().regale[i].compartments[j][k].setCapacity(Warehouse.get().
-								regale[i].compartments[j][k].getCapacity() + partSize);
-						return null;
-						//Schleife anders abbrechen
+					// wenn Fach das Teil enthält
+					if ((Warehouse.get().regale[i].compartments[j][k]
+							.getPartList()).contains(part)) {
+						// auslagern
+						Warehouse.get().regale[i].compartments[j][k]
+								.getPartList().remove(part);
+						// Kapazität vergrößern
+						Warehouse.get().regale[i].compartments[j][k]
+								.setCapacity(Warehouse.get().regale[i].compartments[j][k]
+										.getCapacity() + partSize);
+						return "Auslagern erfolgreich!";
+						// Schleife anders abbrechen
 					}
 				}
 			}
 		}
-		return null;
+		return "Auslagern fehlgeschlagen!";
 	}
-
 
 }

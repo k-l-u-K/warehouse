@@ -27,11 +27,11 @@ public class Main {
 		new Warehouse();
 		
 		Part part = new Part("Hallo",2,3);
-		new TransportVehicle().teilEinlagern(part);
+		//new TransportVehicle().teilEinlagern(part);
 		
 		Random zufall = new Random();
 		for (int a=0; a < 20; a++) {
-			new TransportVehicle().teilEinlagern(new Part("Teil " + a, a, zufall.nextInt(10)));
+		//	new TransportVehicle().teilEinlagern(new Part("Teil " + a, a, zufall.nextInt(10)));
 		}
 
 		//Testaufrufe zur Suche von Fächern und Teilen

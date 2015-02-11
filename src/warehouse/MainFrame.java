@@ -8,6 +8,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class MainFrame extends JFrame implements ActionListener {
+	
 	private static final long serialVersionUID = 7462047233762639130L;
 
 	// Container, Panel
@@ -29,29 +30,28 @@ public class MainFrame extends JFrame implements ActionListener {
 	private String[][] tableContent;
 	private JTextField contentInfoLabel = new JTextField(
 			"Inhaltsanzeige: Alle Regale");
-	int tableLength = 80; // vorläufige Hilfsvariable für Tabellenlänge
+	int tableLength = 80; // vorlÃ¤ufige Hilfsvariable fÃ¼r TabellenlÃ¤nge
 	private JButton sortByNameBtn = new JButton("nach Bezeichnung sortieren");
 	private JButton sortByPartNumberBtn = new JButton("nach Teilenr. sortieren");
 
 	// Testbuttons
-	DefaultTableModel model;
+	public static DefaultTableModel model;
 
-	private JPanel testBtnPanel;
-	JButton buttonAddRow = new JButton("add row");
-	JButton buttonRemRow = new JButton("remove row");
+	// private JPanel testBtnPanel;
+	// JButton buttonAddRow = new JButton("add row");
+	// JButton buttonRemRow = new JButton("remove row");
 
 	// Elemente Info Panel
 	private JLabel positionTransportSystemLabel = new JLabel(
 			"Standort des Fahrzeuges: ");
-	private JLabel drivewayLabel = new JLabel("Zurückgelegter Fahrweg: ");
+	private JLabel drivewayLabel = new JLabel("Zur�ckgelegter Fahrweg: ");
 	private JLabel basicUnitLabel = new JLabel(
-			"Die Größe eines Faches entspricht 10 Grundeinheiten.");
+			"Die Gr��e eines Faches entspricht 10 Grundeinheiten.");
 	private JTextField positionTransportSystemText = new JTextField("x,y,z");
 	private JTextArea drivewayText = new JTextArea(
 			"Weg in x-Richtung: x\nWeg in y-Richtung: y\nWeg in z-Richtung: z");
 
 	public MainFrame() {
-		// dataRead(); - im Main (GUI-Init erst danach)
 		initTable();
 		initGUI();
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -62,49 +62,46 @@ public class MainFrame extends JFrame implements ActionListener {
 		this.setVisible(true);
 	}
 
-	// private void dataRead() { - outgesourced im Main
-	// }
-
 	private void initTable() {
 		// Die Namen der Columns
 		String[] titles = new String[] { "Regal", "Fach", "Bezeichnung",
-				"Teilenummer", "Größe" };
+				"Teilenummer", "Gr��e" };
 
 		// Das Model das wir verwenden werden. Hier setzten wir gleich die
-		// Titel, aber es ist später immer noch möglich weitere Columns oder
-		// Rows hinzuzufügen.
+		// Titel, aber es ist spÃ¤ter immer noch mÃ¶glich weitere Columns oder
+		// Rows hinzuzufÃ¼gen.
 		model = new DefaultTableModel(titles, 0);
 
 		// Das JTable initialisieren
 		table = new JTable(model);
 
-		// Buttons, damit das alles schöner aussieht.
-		buttonAddRow = new JButton("add row");
-		buttonRemRow = new JButton("remove row");
-
-		buttonRemRow.setEnabled(false);
+		// Buttons, damit das alles schÃ¶ner aussieht.
+		// buttonAddRow = new JButton("add row");
+		// buttonRemRow = new JButton("remove row");
+		//
+		// buttonRemRow.setEnabled(false);
 
 		// Den Buttons ein paar Reaktionen geben
-		buttonAddRow.addActionListener(this);
-
-		int size = model.getRowCount();
-
-		buttonRemRow.addActionListener(this);
-		
-		testBtnPanel = new JPanel();
-		testBtnPanel.setLayout(new GridLayout(1,2));
-		testBtnPanel.add(buttonAddRow);
-		testBtnPanel.add(buttonRemRow);
+		// buttonAddRow.addActionListener(this);
+		//
+		// int size = model.getRowCount();
+		//
+		// buttonRemRow.addActionListener(this);
+		//
+		// testBtnPanel = new JPanel();
+		// testBtnPanel.setLayout(new GridLayout(1,2));
+		// testBtnPanel.add(buttonAddRow);
+		// testBtnPanel.add(buttonRemRow);
 
 	}
 
-	public static Vector createDataVector(String neueZeile, int datenbreite) {
+	public static Vector createDataVector(Part part, Compartment compartment, String neueZeile, int datenbreite) {
 		Vector vector = new Vector(5);
-		vector.add("Hier sind die Regalnummern");
-		vector.add("Fachnummeranzeige");
-		vector.add("Bezeichnungsanzeige");
-		vector.add("Teilenummeranzeige");
-		vector.add("Größeanzeige");
+		vector.add(compartment.getPosY());
+		vector.add(compartment.getPosX() + " " + compartment.getPosZ());
+		vector.add(part.getDescription());
+		vector.add(part.getPartnumber());
+		vector.add(part.getSize());
 
 		return vector;
 	}
@@ -175,7 +172,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		sortByPartNumberBtn.addActionListener(this);
 
 		tablePanel.add(new JScrollPane(table), BorderLayout.CENTER);
-		tablePanel.add(testBtnPanel,BorderLayout.SOUTH);
+		// tablePanel.add(testBtnPanel,BorderLayout.SOUTH);
 	}
 
 	private void initInfoPanel() {
@@ -215,29 +212,6 @@ public class MainFrame extends JFrame implements ActionListener {
 				sortByPartNumber();
 				// nach Nummer sortieren
 			}
-
-			if (source.getSource().equals(buttonAddRow)) {
-				// Die Anzahl Columns (Breite) der Tabelle
-				int size = model.getColumnCount();
-
-				// einen neuen Vector mit Daten herstellen
-				Vector newDatas = createDataVector("neueZeile", 1);
-
-				// eine neue Row hinzufügen
-				model.addRow(newDatas);
-				// model.addColumn();
-
-				// das Entfernen erlauben
-				buttonRemRow.setEnabled(true);
-
-			}
-			if (source.getSource().equals(buttonRemRow)) {
-				int size = model.getRowCount();
-			    int index = (int)(Math.random() * size);
-			    model.removeRow( index );
-			     
-			    buttonRemRow.setEnabled( size > 1 );
-			}
 		} else {
 			if (source.getSource().equals(transferToStock)) {
 				new TransferDialog();
@@ -272,33 +246,19 @@ public class MainFrame extends JFrame implements ActionListener {
 		// TODO Auto-generated method stub
 	}
 	
-	private void tableActual() {
-		String[] tableHead = { "Regal", "Fach", "Bezeichnung", "Teilenummer", "Größe" };
-		tableContent = new String[tableLength][5];
-		table = new JTable(tableContent, tableHead);
+	public static void addARow(Part part, Compartment compartment) {
+		// einen neuen Vector mit Daten herstellen
+		Vector newDatas = createDataVector(part,compartment,"neueZeile", 1);
 
-		for (int i = 0; i < tableLength; i++) {
-			
-			for (int j = 0; j < 8; j++) {
-				for (int k = 0; k < 10; k++) {
-					for (int l = 0; l < 10; l++) {
-						tableContent[i][0] = "hier gehts noch";
-						for (Part parts : Warehouse.get().regale[j].compartments[k][l].partList) {
-							tableContent[i][1] = ("hier nicht mehr");
-							System.out.println(parts.getDescription());
-							System.out.println(i);
-							//new TransportVehicle().getRegal();
-							//System.out.println(parts);
-							//System.out.println(j + " " + k + " " + l);
-							//tableContent[i][0] = Integer.toString(j);
-							//tableContent[i][1] = Integer.toString(k) + "" + Integer.toString(l);
-							//tableContent[i][2] = parts.getDescription();
-							//tableContent[i][3] = Integer.toString(3);
-							//tableContent[i][4] = Integer.toString(4);*/
-						}
-					}
-				}
-			}
-		}
+		// eine neue Row hinzufÃ¼gen
+		model.addRow(newDatas);
 	}
+	
+	public void removeARow() {
+		int size = model.getRowCount();
+	    //int index = (int)(Math.random() * size);
+	    model.removeRow( size - 1 );
+	}
+	
+	
 }

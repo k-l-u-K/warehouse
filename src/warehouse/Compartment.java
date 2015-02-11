@@ -10,7 +10,7 @@ public class Compartment {
 	private int posZ;
 	private int capacity = 10;
 	private int idCompartment = 0;
-	public List<Part> partList = new ArrayList<Part>();
+	public static List<Part> partList = new ArrayList<Part>();
 
 	public Compartment(int posX, int posY, int posZ) {
 		super();
@@ -67,7 +67,7 @@ public class Compartment {
 		this.idCompartment = idCompartment;
 	}
 	
-	public List<Part> getPartList() {
+	public static List<Part> getPartList() {
 		return partList;
 	}
 
@@ -75,6 +75,7 @@ public class Compartment {
 		this.partList = partList;
 	}
 	
+	//gibt true/false zurück, ob ein Fach frei ist
 	public static boolean isCompartmentFree(Part part) {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 10; j++) {

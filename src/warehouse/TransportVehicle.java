@@ -36,7 +36,7 @@ public class TransportVehicle {
 					}
 				}
 			}
-		}	
+		}
 		return null;
 	}
 
@@ -45,6 +45,8 @@ public class TransportVehicle {
 			for (int j = 0; j < 10; j++) {
 				for (int k = 0; k < 10; k++) {
 					for (Part parts : Warehouse.get().regale[i].compartments[j][k].partList) {
+					//wenn Liste static, würde das gehen:
+					//for (Part parts : Compartment.partList) {
 						System.out.println(parts);
 						System.out.println(i + " " + j + " " + k);
 					}

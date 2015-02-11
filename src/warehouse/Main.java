@@ -15,6 +15,8 @@ public class Main {
 	- Auslagern
 	- Teile suchen
 	- Standort
+	
+	//Bug: Er füllt alle Regale und Fächer einfach so ^^
 	*/
 
 	public static void main(String[] args) throws FileNotFoundException {
@@ -26,25 +28,24 @@ public class Main {
 		
 		Part part = new Part("Hallo",2,3);
 		new TransportVehicle().teilEinlagern(part);
+		
 		Random zufall = new Random();
-		for (int a=0; a < 10; a++) {
-			new TransportVehicle().teilEinlagern(new Part("Teil " + a, a, zufall.nextInt(10)));
+		for (int a=0; a < 2; a++) {
+			//auskommentiert, um den Bug zu finden -,-
+			//new TransportVehicle().teilEinlagern(new Part("Teil " + a, a, zufall.nextInt(10)));
 		}
-		new TransportVehicle().teilEinlagern(new Part("Hallo", 11, 3));
-		//zufall.nextInt(10)
-		System.out.println(new TransportVehicle().findCompartment(part));
+
+		//Testaufrufe zur Suche von Fächern und Teilen
+		//System.out.println(new TransportVehicle().findCompartment(part));
 		//System.out.println(new TransportVehicle().findPart(2));
 		
-		new MainFrame();
-		
-//		new TransportVehicle().teilEinlagern(new Part("Bezeichnung",2,3));
+		//Gibt nur ein Teil zurück ohne Ort
+		//System.out.println(Part.findPart(null, 5));
+	
+		//Zeigt alle Teile mit Postion an
 		new TransportVehicle().teileAnzeigen();
-
-//		Part part = new Part("Hallo",2,3,4);
-//		Part part2 = new Part("Hall2fo",22,31,44);
-//
-//		warenhaus.regaleFlo[0].getCompartments()[2][0].addPart(part);
-//		warenhaus.regaleFlo[0].getCompartments()[2][0].addPart(part2);
+	
+		new MainFrame();
 		
 	}
 

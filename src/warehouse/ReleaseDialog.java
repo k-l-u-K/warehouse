@@ -7,7 +7,8 @@ import javax.swing.*;
 
 public class ReleaseDialog extends PopupDialog {
 	private static final long serialVersionUID = -5702112735084889000L;
-
+	public JComboBox comboboxTeile = new JComboBox();
+    public DefaultComboBoxModel model = new DefaultComboBoxModel();
 	public ReleaseDialog() {
 		inpTextField = new JTextField[3];
 		initPopupDialog();
@@ -19,6 +20,7 @@ public class ReleaseDialog extends PopupDialog {
 		this.setLocation(200, 200);
 		this.setResizable(false);
 		this.setVisible(true);
+	
 	}
 
 	private void initReleaseFrame() {
@@ -26,6 +28,7 @@ public class ReleaseDialog extends PopupDialog {
 		okayBtn.setBounds(75, 205, 200, 40);
 		panel.add(okayBtn);
 		okayBtn.addActionListener(this);
+		okayBtn.setVisible(false);
 
 		infoLabel.setBounds(110, 170, 250, 30);
 		//panel.add(infoLabel);
@@ -35,14 +38,21 @@ public class ReleaseDialog extends PopupDialog {
 		panel.add(beschreibbutton);
 		beschreibbutton.addActionListener(this);
 		
-		
+		comboboxTeile.setBounds(10, 80, 320, 30);
+		panel.add(comboboxTeile);
+		comboboxTeile.setVisible(false);
         
+		auswahlBtn = new JButton("Teile suchen");
+		auswahlBtn.setBounds(75, 205, 200, 40);
+		panel.add(auswahlBtn);
+		auswahlBtn.addActionListener(this);
+		auswahlBtn.setVisible(false);
+		
 		teilnummerbutton = new JButton ("nach Teilenummer suchen");
         teilnummerbutton.setBounds(75, 75, 200 , 30);
         panel.add(teilnummerbutton);
         teilnummerbutton.addActionListener(this);
-        
-        
+       
         
 		cp.add(panel);
 	}
@@ -54,30 +64,44 @@ public class ReleaseDialog extends PopupDialog {
 			inpTextField[0].setVisible(true);
 			teilnummerbutton.setVisible(false);
 			beschreibbutton.setVisible(false);
+			auswahlBtn.setVisible(true);
            /* if (!(inpTextField[0].getText().equals(""))) {
             	LinkedList<Part> searchedParts = Warehouse.findPartName(inpTextField[0].getText());
 				for (Part parts : searchedParts) 
 					System.out.println(Warehouse.teilAuslagern(Warehouse.findPartID(parts.getPartnumber())));
             }*/
 		}
+		
 		if(source.getSource() == this.teilnummerbutton){
 			itemNrLabel.setVisible(true);
 			inpTextField[1].setVisible(true);
 			beschreibbutton.setVisible(false);
 			teilnummerbutton.setVisible(false);
+			okayBtn.setVisible(true);
            /* if (!inpTextField[1].getText().equals(""))
             	System.out.println(Warehouse.teilAuslagern(Warehouse.findPartID(Integer.parseInt(inpTextField[1].getText()))));
 				}*/
 		}
-		if(source.getSource() == this.okayBtn){
+		
+		if
+		(source.getSource() == this.auswahlBtn){
 			if (!(inpTextField[0].getText().equals(""))) {
 				LinkedList<Part> searchedParts = Warehouse.findPartName(inpTextField[0].getText());
-					for (Part parts : searchedParts){ 
-						System.out.println(Warehouse.teilAuslagern(Warehouse.findPartID(parts.getPartnumber())));
-					}
+				for (Part parts : searchedParts){
+					comboboxTeile.setVisible(true);
+					model.addElement(parts);
+					comboboxTeile.setModel(model);
+					okayBtn.setVisible(true);
+				}
+			}	
+		}
+		
+		if(source.getSource() == this.okayBtn){
+			if (!(inpTextField[0].getText().equals(""))) {
+				System.out.println(Warehouse.teilAuslagern(Warehouse.findPartID(((Part) comboboxTeile.getSelectedItem()).getPartnumber())));
 			}
 			if (!inpTextField[1].getText().equals("")){
-         	System.out.println(Warehouse.teilAuslagern(Warehouse.findPartID(Integer.parseInt(inpTextField[1].getText()))));
+				System.out.println(Warehouse.teilAuslagern(Warehouse.findPartID(Integer.parseInt(inpTextField[1].getText()))));
 			}
 		}
 	}

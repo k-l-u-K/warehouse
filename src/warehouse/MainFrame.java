@@ -2,6 +2,7 @@ package warehouse;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Collections;
 import java.util.Vector;
 
 import javax.swing.*;
@@ -189,7 +190,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		if (source.getSource() instanceof JButton) {
 			if (source.getSource().equals(sortByNameBtn)) {
 				sortByNames();
-				// nach Namen sortieren
+				//Nach Namen sortieren
 			}
 
 			if (source.getSource().equals(sortByPartNumberBtn)) {
@@ -222,9 +223,34 @@ public class MainFrame extends JFrame implements ActionListener {
 	}
 
 	private void sortByPartNumber() {
+		Collections.sort(Part.onlyPartList, new SortPartnumber());
+		for (int i=model.getRowCount()-1;i>=0;i--) {
+			model.removeRow(i);
+		}						
+		for (Part a : Part.onlyPartList) {
+			for (int i = 0; i < 8; i++) 
+				for (int j = 0; j < 10; j++) 
+					for (int k = 0; k < 10; k++) 
+						// wenn Fach das Teil enthält
+						if ((Warehouse.get().regale[i].compartments[j][k].getPartList()).contains(a))
+							addARow(a , Warehouse.get().regale[i].compartments[j][k]);  
+		}
+	
 	}
-
+	
 	private void sortByNames() {
+		Collections.sort(Part.onlyPartList, new SortDescription());
+		for (int i=model.getRowCount()-1;i>=0;i--) {
+			model.removeRow(i);
+		}
+		for (Part a : Part.onlyPartList) {
+			for (int i = 0; i < 8; i++) 
+				for (int j = 0; j < 10; j++) 
+					for (int k = 0; k < 10; k++) 
+						// wenn Fach das Teil enthält
+						if ((Warehouse.get().regale[i].compartments[j][k].getPartList()).contains(a))
+							addARow(a , Warehouse.get().regale[i].compartments[j][k]);    
+		}
 	}
 
 	public static void addARow(Part part, Compartment compartment) {

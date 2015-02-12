@@ -3,7 +3,7 @@ package warehouse;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Part {
+public class Part /*implements Comparable<Part>*/ {
 
 	private String description;
 	private int partnumber;
@@ -72,6 +72,16 @@ public class Part {
 		} else
 			return getFreeID(++testID);
 	}
+	
+	/*@Override
+	  public int compareTo(Part part) {
+	  return this.description.compareTo(part.getDescription());
+	  }*/
+	
+	/*public int compareToPartnumber(Part part) {
+	  return this.partnumber.compareTo(part.getPartnumber());
+	  }*/
+	
 
 //	public void delPart() {
 //		PartList.remove(this);

@@ -6,9 +6,9 @@ public class TransportVehicle {
 	private static int posZ;
 	
 	public TransportVehicle(int posX, int posY, int posZ) {
-		this.posX = posX;
-		this.posY = posY;
-		this.posZ = posZ;
+		TransportVehicle.posX = posX;
+		TransportVehicle.posY = posY;
+		TransportVehicle.posZ = posZ;
 	}
 
 	public static void driveToCompartment(Part transportPart, Compartment compartment) {

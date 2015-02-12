@@ -11,9 +11,9 @@ public class Main {
 	- freien Platz (Kapazität) und Anzahl ausgeben(Anzahl der leeren Fächer vllt mit der Fach suche machen und ein fach für ein objekt der größe 10 suchen?)
 	- sinnvolles zufälligen
 	- korrekte Regalnr.-/Fach-Anzeige
-	- letzte Aktion einfügen (welches Teil wurde wo ein-/ausgelagert)
+	- Hinweis auf automatische Setzung der Teile-ID
 	- Daten in Datei schreiben / lesen
-	- Exceptions sinnvoll abfangen (volles Lager, ungültige Eingaben beim Ein-/Auslagern)
+	- Exceptions sinnvoll abfangen (ungültige Eingaben beim Auslagern)
 	
 	ToDo für Nacharbeiten:
 	- Fenster sinnvoll aufteilen
@@ -22,7 +22,7 @@ public class Main {
 	- sinnvoll kommentieren
 	- isCompartmentFree nochmals umbauen (zumindest korrigiert schonmal)
 	- Switch-Button beim Auslagern einfügen
-	- Sortieren entscheidet gleichwertig bei Groß/Kleinbuchstaben
+	- Sortieren entscheidet nicht gleichwertig bei Groß/Kleinbuchstaben
 	
 	*/
 
@@ -34,9 +34,6 @@ public class Main {
 		new Warehouse();
 		new TransportVehicle(0, 0, 0);
 		
-		//Zeigt alle Teile mit Postion an
-		//new TransportVehicle().teileAnzeigen();
-		
 		new MainFrame();
 		
 		Random zufall = new Random();
@@ -45,9 +42,11 @@ public class Main {
 			Warehouse.teilEinlagern(part2, Warehouse.findCompartment(part2));
 		}
 		
-		Part part = new Part("Das Fahrzeug lagert dieses Teil ein", 4, 3);
-		Warehouse.teilEinlagern(part, Warehouse.findCompartment(part));
-
+		// Lager automatisch vollständig befüllen
+		// for (int a=0; a < 801; a++) {
+		//		Part part2 = new Part("Teil " + a, 0, zufall.nextInt(10)+1);
+		//		System.out.println(Warehouse.teilEinlagern(part2, Warehouse.findCompartment(part2)));
+		// }
 	}
 
 }

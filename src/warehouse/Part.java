@@ -13,7 +13,7 @@ public class Part /*implements Comparable<Part>*/ {
 
 	public Part(String description, int partnumber, int size) {
 		this.description = description;
-		if (partnumber == 0 || findPart(null, partnumber) != null)
+		if (partnumber <= 0 || findPart(null, partnumber) != null)
 			partnumber = getFreeID();
 		this.partnumber = partnumber;
 		this.size = size;

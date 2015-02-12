@@ -25,12 +25,12 @@ public class TransferDialog extends PopupDialog {
 	private void initTransferFrame() {
 		itemSizeLabel.setBounds(20, 100, 150, 30);
 		panel.add(itemSizeLabel);
-		
+
 		nameLabel.setVisible(true);
 		itemNrLabel.setVisible(true);
 		inpTextField[0].setVisible(true);
 		inpTextField[1].setVisible(true);
-		
+
 		inpTextField[2] = new JTextField("");
 		inpTextField[2].setFocusTraversalKeysEnabled(false);
 		inpTextField[2].addKeyListener(this);
@@ -41,9 +41,7 @@ public class TransferDialog extends PopupDialog {
 		okayBtn.setBounds(75, 180, 200, 40);
 		panel.add(okayBtn);
 		okayBtn.addActionListener(this);
-		
-		
-		
+
 		infoLabel.setBounds(110, 140, 250, 30);
 		panel.add(infoLabel);
 
@@ -59,26 +57,29 @@ public class TransferDialog extends PopupDialog {
 		// Daher muss die Eingabe auf Zahlen beschränkt werden, wo nur Zahlen
 		// sinnvoll sind
 
-		Part part = new Part(inpTextField[0].getText(),
-			Integer.parseInt(inpTextField[1].getText()),
-			Integer.parseInt(inpTextField[2].getText()));
+		try {
+			// Prüfung ob Teilenr.-feld leer ist
+			if (inpTextField[1].getText().isEmpty())
+				inpTextField[1].setText(Integer.toString(Part.getFreeID()));
+			
+			Part part = new Part(inpTextField[0].getText(),
+					Integer.parseInt(inpTextField[1].getText()),
+					Integer.parseInt(inpTextField[2].getText()));
+			
+			// Dialog (Erfolg bzw. Fehlermeldung)
+			JOptionPane.showMessageDialog(this,Warehouse.teilEinlagern(part,Warehouse.findCompartment(part)));
+			this.setVisible(false);
+		} catch (NumberFormatException e) {
+			JOptionPane
+					.showMessageDialog(this,
+							"Bei der Eingabe der Teilenummer und\nder Größe sind nur Zahlen möglich!");
+			inpTextField[1].setText("");
+			inpTextField[2].setText("");
+		}
 
 		// Compartment compartment =
 		// Warehouse.get().regale[0].compartments[0][0];
 		// Compartment compartment = TransportVehicle.findCompartment(part);
-
-		Warehouse.teilEinlagern(part, Warehouse.findCompartment(part));
-
-		// Zufallserzeugung
-		// Random zufall = new Random();
-		// for (int a = 0; a < 500; a++) {
-		// new TransportVehicle().teilEinlagern(new Part("Teil " + a + 1,
-		// a + 1, zufall.nextInt(10)));
-		// }
-		
-		// schnellere Erzeugung von Items
-		// this.setVisible(false);
-
 	}
 
 	@Override

@@ -85,7 +85,7 @@ public class ReleaseDialog extends PopupDialog {
 		
 		if
 		(source.getSource() == this.auswahlBtn){
-			if (!(inpTextField[0].getText().equals(""))) {
+			if (!(inpTextField[0].getText().isEmpty())) {
 				LinkedList<Part> searchedParts = Warehouse.findPartName(inpTextField[0].getText());
 				for (Part parts : searchedParts){
 					comboboxTeile.setVisible(true);
@@ -97,10 +97,10 @@ public class ReleaseDialog extends PopupDialog {
 		}
 		
 		if(source.getSource() == this.okayBtn){
-			if (!(inpTextField[0].getText().equals(""))) {
+			if (!(inpTextField[0].getText().isEmpty())) {
 				Warehouse.teilAuslagern(Warehouse.findPartID(((Part) comboboxTeile.getSelectedItem()).getPartnumber()));
 			}
-			if (!inpTextField[1].getText().equals("")){
+			if (!inpTextField[1].getText().isEmpty()){
 				Warehouse.teilAuslagern(Warehouse.findPartID(Integer.parseInt(inpTextField[1].getText())));
 			}
 		}

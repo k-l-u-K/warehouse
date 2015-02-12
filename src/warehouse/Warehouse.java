@@ -107,7 +107,9 @@ public class Warehouse {
 						// Kapazität vergrößern
 						Warehouse.get().regale[i].compartments[j][k].setCapacity(Warehouse.get().regale[i].compartments[j][k]
 										.getCapacity() + partSize);
-						MainFrame.removeARow(part,Warehouse.get().regale[i].compartments[j][k]);
+						MainFrame.removeARow(part);
+						Part.onlyPartList.remove(part);
+						
 						return "Auslagern erfolgreich!";
 					}
 				}

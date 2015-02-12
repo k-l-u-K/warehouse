@@ -9,19 +9,18 @@ public class Main {
 	ToDo:
 	- Infofeld mit Gesamtanzahl eines Teils mit gleichem Namen
 	- freien Platz (Kapazität) und Anzahl ausgeben
-	- onlyPartList -> Teil löschen beim Auslagern
-	- sinnvolles zufälligen 
+	- sinnvolles zufälligen
 	- Fenster sinnvoll aufteilen
 	- korrekte Regalnr.-/Fach-Anzeige
 	- letzte Aktion einfügen (welches Teil wurde wo ein-/ausgelagert)
 	- Daten in Datei schreiben / lesen
-	- Sortieren nach Bezeichnung / Teilenr.
+	- Exceptions sinnvoll abfangen (volles Lager, ungültige Eingaben beim Ein-/Auslagern)
 	
 	ToDo für Nacharbeiten:
 	- Dialog schließen nach Ausführung einer Aktion
 	- Variablen einheitlich in englischer Sprache 
 	- sinnvoll kommentieren
-	- isCompartmentFree nochmals umbauen
+	- isCompartmentFree nochmals umbauen (zumindest korrigiert schonmal)
 	- Switch-Button beim Auslagern einfügen
 	
 	*/

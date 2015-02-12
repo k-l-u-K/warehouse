@@ -217,7 +217,6 @@ public class MainFrame extends JFrame implements ActionListener {
 						}
 					}
 				}
-
 			}
 		}
 	}
@@ -260,7 +259,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		model.addRow(newDatas);
 	}
 
-	public static void removeARow(Part part, Compartment compartment) {
+	public static void removeARow(Part part) {
 		int size = model.getRowCount();
 
 		for (int i = 0; i < size; i++) {

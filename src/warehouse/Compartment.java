@@ -76,16 +76,17 @@ public class Compartment {
 		this.partList = partList;
 	}
 
-	// gibt true/false zurück, ob ein Fach frei ist
+	// gibt true/false zurück, ob ein spezielles! Fach frei ist
 	public boolean isCompartmentFree(Part part, Compartment compartment) {
 		if (compartment.partList.isEmpty())
 			return true;
 		else {
+			// Das Fach ist ebenfalls "leer", wenn ein Teil mit gleicher
+			// Beschreibung eingelagert werden soll.
 			for (Part parts : compartment.partList) {
 				if (part.getDescription().equals(parts.getDescription()))
 					return true;
 			}
-
 		}
 		return false;
 	}

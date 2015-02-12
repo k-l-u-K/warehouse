@@ -8,15 +8,15 @@ public class Main {
 	/*
 	ToDo:
 	- Infofeld mit Gesamtanzahl eines Teils mit gleichem Namen
-	- freien Platz (Kapazität) und Anzahl ausgeben
+	- freien Platz (Kapazität) und Anzahl ausgeben(Anzahl der leeren Fächer vllt mit der Fach suche machen und ein fach für ein objekt der größe 10 suchen?)
 	- sinnvolles zufälligen
-	- Fenster sinnvoll aufteilen
 	- korrekte Regalnr.-/Fach-Anzeige
 	- letzte Aktion einfügen (welches Teil wurde wo ein-/ausgelagert)
 	- Daten in Datei schreiben / lesen
 	- Exceptions sinnvoll abfangen (volles Lager, ungültige Eingaben beim Ein-/Auslagern)
 	
 	ToDo für Nacharbeiten:
+	- Fenster sinnvoll aufteilen
 	- Dialog schließen nach Ausführung einer Aktion
 	- Variablen einheitlich in englischer Sprache 
 	- sinnvoll kommentieren

@@ -10,7 +10,7 @@ public class ReleaseDialog extends PopupDialog {
 	private JComboBox<Part> comboboxTeile = new JComboBox<Part>();
     private DefaultComboBoxModel<Part> model = new DefaultComboBoxModel<Part>();
 	public ReleaseDialog() {
-		inpTextField = new JTextField[3];
+		inpTextField = new JTextField[2];
 		initPopupDialog();
 		initReleaseFrame();
 		this.setTitle("Auslagern");
@@ -30,7 +30,7 @@ public class ReleaseDialog extends PopupDialog {
 		okayBtn.addActionListener(this);
 		okayBtn.setVisible(false);
 
-		infoLabel.setBounds(110, 170, 250, 30);
+		// infoLabel.setBounds(110, 170, 250, 30);
 		//panel.add(infoLabel);
 		
 		beschreibbutton = new JButton("nach Bezeichnung suchen");
@@ -59,7 +59,7 @@ public class ReleaseDialog extends PopupDialog {
 
 	@Override
 	public void actionPerformed(ActionEvent source) {
-		if(source.getSource() == this.beschreibbutton){
+		if (source.getSource().equals(beschreibbutton)){
 			nameLabel.setVisible(true);
 			inpTextField[0].setVisible(true);
 			teilnummerbutton.setVisible(false);
@@ -72,7 +72,7 @@ public class ReleaseDialog extends PopupDialog {
             }*/
 		}
 		
-		if(source.getSource() == this.teilnummerbutton){
+		if (source.getSource().equals(teilnummerbutton)){
 			itemNrLabel.setVisible(true);
 			inpTextField[1].setVisible(true);
 			beschreibbutton.setVisible(false);
@@ -83,8 +83,7 @@ public class ReleaseDialog extends PopupDialog {
 				}*/
 		}
 		
-		if
-		(source.getSource() == this.auswahlBtn){
+		if (source.getSource().equals(auswahlBtn)){
 			if (!(inpTextField[0].getText().isEmpty())) {
 				LinkedList<Part> searchedParts = Warehouse.findPartName(inpTextField[0].getText());
 				for (Part parts : searchedParts){
@@ -96,13 +95,15 @@ public class ReleaseDialog extends PopupDialog {
 			}	
 		}
 		
-		if(source.getSource() == this.okayBtn){
+		if (source.getSource().equals(okayBtn)){
 			if (!(inpTextField[0].getText().isEmpty())) {
 				Warehouse.teilAuslagern(Warehouse.findPartID(((Part) comboboxTeile.getSelectedItem()).getPartnumber()));
 			}
 			if (!inpTextField[1].getText().isEmpty()){
 				Warehouse.teilAuslagern(Warehouse.findPartID(Integer.parseInt(inpTextField[1].getText())));
 			}
+			
+			this.setVisible(false);
 		}
 	}
 	

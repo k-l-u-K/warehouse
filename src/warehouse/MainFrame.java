@@ -41,7 +41,7 @@ public class MainFrame extends JFrame implements ActionListener {
 
 	// Elemente Info Panel
 	private JLabel basicUnitLabel = new JLabel(
-			"Die Größe eines Faches entspricht 10 Grundeinheiten.");
+			"Die Größe eines Faches entspricht 10 Grundeinheiten (GE).");
 	private JLabel lastActionLabel = new JLabel("Letzte Aktion:");
 	private JLabel drivewayLabel = new JLabel("Zurückgelegter Fahrweg: ");
 	private static JTextArea drivewayText = new JTextArea(
@@ -62,7 +62,7 @@ public class MainFrame extends JFrame implements ActionListener {
 	private void initTable() {
 		// Die Namen der Columns
 		String[] titles = new String[] { "Regal", "Fach", "Bezeichnung",
-				"Teilenummer", "Größe" };
+				"Teilenummer", "Größe in GE" };
 
 		// Das Model das wir verwenden werden. Hier setzten wir gleich die
 		// Titel, aber es ist später immer noch möglich weitere Rows
@@ -193,7 +193,7 @@ public class MainFrame extends JFrame implements ActionListener {
 	public static void setLastActionText(String lastAction, Part part) {
 		lastActionText.setText(lastAction + part.getDescription()
 				+ " \n(Teilenummer: " + part.getPartnumber() + ", Größe: "
-				+ part.getSize() + ") war erfolgreich!");
+				+ part.getSize() + ")");
 	}
 
 	public static void setDrivewayText() {

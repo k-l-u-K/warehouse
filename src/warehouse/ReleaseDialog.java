@@ -38,6 +38,11 @@ public class ReleaseDialog extends PopupDialog {
 		panel.add(beschreibbutton);
 		beschreibbutton.addActionListener(this);
 		
+		teilnummerbutton = new JButton ("nach Teilenummer suchen");
+        teilnummerbutton.setBounds(75, 75, 200 , 30);
+        panel.add(teilnummerbutton);
+        teilnummerbutton.addActionListener(this);
+       		
 		comboboxTeile.setBounds(10, 80, 320, 30);
 		panel.add(comboboxTeile);
 		comboboxTeile.setVisible(false);
@@ -47,12 +52,6 @@ public class ReleaseDialog extends PopupDialog {
 		panel.add(auswahlBtn);
 		auswahlBtn.addActionListener(this);
 		auswahlBtn.setVisible(false);
-		
-		teilnummerbutton = new JButton ("nach Teilenummer suchen");
-        teilnummerbutton.setBounds(75, 75, 200 , 30);
-        panel.add(teilnummerbutton);
-        teilnummerbutton.addActionListener(this);
-       
         
 		cp.add(panel);
 	}
@@ -83,45 +82,54 @@ public class ReleaseDialog extends PopupDialog {
 				}*/
 		}
 		
-		if (source.getSource().equals(auswahlBtn)){
-			if (!(inpTextField[0].getText().isEmpty())) {
+		if (source.getSource().equals(auswahlBtn)) {
+			if (inpTextField[0].getText().isEmpty()) {
+				JOptionPane.showMessageDialog(this,"Es wurde keine Beschreibung eingegeben.");
+				return;
+			} 
+			
+			try {
 				LinkedList<Part> searchedParts = Warehouse.findPartName(inpTextField[0].getText());
-				for (Part parts : searchedParts){
-					comboboxTeile.setVisible(true);
+				for (Part parts : searchedParts)
 					model.addElement(parts);
-					comboboxTeile.setModel(model);
-					okayBtn.setVisible(true);
-				}
-			}	
+				
+				inpTextField[0].setEnabled(false);
+				auswahlBtn.setVisible(false);				
+				comboboxTeile.setModel(model);
+				comboboxTeile.setVisible(true);
+				okayBtn.setVisible(true);
+			} catch (NullPointerException e) {
+				JOptionPane.showMessageDialog(this,"Zu dieser Beschreibung konnte\nkein Teil im Lager gefunden werden.");
+				inpTextField[0].setText("");
+			}
 		}
 		
+		
 		if (source.getSource().equals(okayBtn)){
+			// Auslagern via Beschreibung
 			if (!(inpTextField[0].getText().isEmpty())) {
 				Warehouse.teilAuslagern(Warehouse.findPartID(((Part) comboboxTeile.getSelectedItem()).getPartnumber()));
-			}
-			if (!inpTextField[1].getText().isEmpty()){
-				Warehouse.teilAuslagern(Warehouse.findPartID(Integer.parseInt(inpTextField[1].getText())));
+				this.setVisible(false);
+				return;
 			}
 			
-			this.setVisible(false);
-		}
-	}
-	
-	@Override
-	public void keyPressed(KeyEvent source) {
-		if (source.getKeyCode() == KeyEvent.VK_TAB) {
-			for (int i = 0; i < 3; i++) {
-				if (source.getSource().equals(inpTextField[i])) {
-					if (i == 2) {
-						inpTextField[0].requestFocus();
-						break;
-					}
-					inpTextField[i + 1].requestFocus();
-				}
+			// Auslagern via Teilenummer
+			if (inpTextField[1].getText().isEmpty()) {
+				JOptionPane.showMessageDialog(this,"Es wurde keine Teilenummer eingegeben.");
+				return;			
+			} 
+			
+			try {
+				Warehouse.teilAuslagern(Warehouse.findPartID(Integer.parseInt(inpTextField[1].getText())));
+				this.setVisible(false);
+			} catch (NullPointerException e) {
+				JOptionPane.showMessageDialog(this,"Zu dieser Teilenummer konnte\nkein Teil im Lager gefunden werden.");				
+			} catch (NumberFormatException e) {
+				JOptionPane.showMessageDialog(this,"Die eingegebene Teilenummer darf nur aus Ziffern bestehen.");
+			} finally {
+				inpTextField[1].setText("");				
 			}
 		}
 	}
 }
 
-// Idee aus http://www.coderanch.com/t/379737/java/java/catching-TAB-key-event
-// übernommen

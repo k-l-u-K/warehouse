@@ -2,10 +2,10 @@ package warehouse;
 
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
 
-public abstract class PopupDialog extends JDialog implements ActionListener,
-		KeyListener {
+public abstract class PopupDialog extends JDialog implements ActionListener, KeyListener {
 	private static final long serialVersionUID = 6795242289802898275L;
 
 	protected Container cp;
@@ -45,6 +45,7 @@ public abstract class PopupDialog extends JDialog implements ActionListener,
 			inpTextField[i] = new JTextField("");
 			inpTextField[i].setFocusTraversalKeysEnabled(false);
 			inpTextField[i].addKeyListener(this);
+			inpTextField[i].setDisabledTextColor(Color.black);			
 		}
 
 		inpTextField[0].setBounds(140, 25, 170, 20);
@@ -58,7 +59,11 @@ public abstract class PopupDialog extends JDialog implements ActionListener,
 //		inpTextField[2].setBounds(140, 105, 100, 20);
 //		panel.add(inpTextField[2]);
 	}
-
+	
+	@Override
+	public void keyPressed(KeyEvent source) {
+	}
+	
 	@Override
 	public void keyReleased(KeyEvent source) {
 	}
@@ -66,5 +71,4 @@ public abstract class PopupDialog extends JDialog implements ActionListener,
 	@Override
 	public void keyTyped(KeyEvent source) {
 	}
-
 }

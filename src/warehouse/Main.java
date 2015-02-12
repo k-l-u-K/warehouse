@@ -14,16 +14,15 @@ public class Main {
 	- korrekte Regalnr.-/Fach-Anzeige
 	- Hinweis auf automatische Setzung der Teile-ID
 	- Daten in Datei schreiben / lesen
-	- Exceptions sinnvoll abfangen (ungültige Eingaben beim Auslagern)
 	
 	ToDo für Nacharbeiten:
 	- Fenster sinnvoll aufteilen
-	- Dialog schließen nach Ausführung einer Aktion
 	- Variablen einheitlich in englischer Sprache 
 	- sinnvoll kommentieren
 	- isCompartmentFree nochmals umbauen (zumindest korrigiert schonmal)
 	- Switch-Button beim Auslagern einfügen
 	- Sortieren entscheidet nicht gleichwertig bei Groß/Kleinbuchstaben
+	- Exceptionsbehandlung ggf. überarbeiten
 	
 	*/
 

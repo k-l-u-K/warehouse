@@ -4,7 +4,7 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
-public class TransferDialog extends PopupDialog {
+public class TransferDialog extends PopupDialog  {
 	private static final long serialVersionUID = -6861367256789342389L;
 
 	private JLabel itemSizeLabel = new JLabel("Größe in GE: *");
@@ -56,26 +56,29 @@ public class TransferDialog extends PopupDialog {
 		// Name, Nummer, Menge, Größe
 		// Daher muss die Eingabe auf Zahlen beschränkt werden, wo nur Zahlen
 		// sinnvoll sind
-
+		
+		if ((inpTextField[0].getText().isEmpty()) || (inpTextField[2].getText().isEmpty())) {
+			JOptionPane.showMessageDialog(this,"Die erforderlichen Pflichtfelder wurden nicht ausgefüllt.");
+			return;
+		}
+			
 		try {
 			// Prüfung ob Teilenr.-feld leer ist
 			if (inpTextField[1].getText().isEmpty())
 				inpTextField[1].setText(Integer.toString(Part.getFreeID()));
-			
+
 			Part part = new Part(inpTextField[0].getText(),
 					Integer.parseInt(inpTextField[1].getText()),
 					Integer.parseInt(inpTextField[2].getText()));
-			
+
 			// Dialog (Erfolg bzw. Fehlermeldung)
 			JOptionPane.showMessageDialog(this,Warehouse.teilEinlagern(part,Warehouse.findCompartment(part)));
 			this.setVisible(false);
 		} catch (NumberFormatException e) {
-			JOptionPane
-					.showMessageDialog(this,
-							"Bei der Eingabe der Teilenummer und\nder Größe sind nur Zahlen möglich!");
+			JOptionPane.showMessageDialog(this,"Bei der Eingabe der Teilenummer und\nder Größe sind nur Ziffern möglich!");
 			inpTextField[1].setText("");
 			inpTextField[2].setText("");
-		}
+		}		
 
 		// Compartment compartment =
 		// Warehouse.get().regale[0].compartments[0][0];
@@ -96,5 +99,7 @@ public class TransferDialog extends PopupDialog {
 			}
 		}
 	}
-
 }
+
+//Idee aus http://www.coderanch.com/t/379737/java/java/catching-TAB-key-event
+//übernommen

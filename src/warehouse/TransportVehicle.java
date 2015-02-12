@@ -1,7 +1,5 @@
 package warehouse;
 
-import javax.swing.JTextField;
-
 public class TransportVehicle {
 	private static int posX;
 	private static int posY;

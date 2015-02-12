@@ -22,7 +22,7 @@ public class Part {
 
 	@Override
 	public String toString() {
-		return "Part [description=" + description + ", partnumber="+ partnumber + ", size=" + size + "]";
+		return "Bezeichnung: " + description + ", Teilenummer: "+ partnumber + ", Größe in GE: " + size;
 	}
 
 	public String getDescription() {

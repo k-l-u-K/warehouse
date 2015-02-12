@@ -29,23 +29,22 @@ public class MainFrame extends JFrame implements ActionListener {
 	// Elemente Table Panel
 	private JPanel tableTopPanel;
 	private JTable table;
-	private JTextField contentInfoLabel = new JTextField("Inhaltsanzeige: Alle Regale");
-	int tableLength = 80; // vorläufige Hilfsvariable für Tabellenlänge
+	private JTextField contentInfoLabel = new JTextField(
+			"Inhaltsanzeige: Alle Regale");
 	private JButton sortByNameBtn = new JButton("nach Bezeichnung sortieren");
 	private JButton sortByPartNumberBtn = new JButton("nach Teilenr. sortieren");
 
 	// Testbuttons
-	public static DefaultTableModel model;
+	private static DefaultTableModel model;
 	private TableRowSorter<DefaultTableModel> sorter;
-	// private JPanel testBtnPanel;
-	// JButton buttonAddRow = new JButton("add row");
-	// JButton buttonRemRow = new JButton("remove row");
 
 	// Elemente Info Panel
 	private JLabel drivewayLabel = new JLabel("Zurückgelegter Fahrweg: ");
-	private JLabel basicUnitLabel = new JLabel("Die Größe eines Faches entspricht 10 Grundeinheiten.");
-	private static JTextArea drivewayText = new JTextArea("Weg in x-Richtung: 0\nWeg in y-Richtung: 0\nWeg in z-Richtung: 0");
-	
+	private JLabel basicUnitLabel = new JLabel(
+			"Die Größe eines Faches entspricht 10 Grundeinheiten.");
+	private static JTextArea drivewayText = new JTextArea(
+			"Weg in x-Richtung: 0\nWeg in y-Richtung: 0\nWeg in z-Richtung: 0");
+
 	public MainFrame() {
 		initTable();
 		initGUI();
@@ -58,34 +57,34 @@ public class MainFrame extends JFrame implements ActionListener {
 	}
 
 	public static void setDrivewayText() {
-		drivewayText.setText("Weg in x-Richtung: " + TransportVehicle.getPosX() +
-				"\nWeg in y-Richtung: " + TransportVehicle.getPosY() + 
-				"\nWeg in z-Richtung: " + TransportVehicle.getPosZ());
+		drivewayText.setText("Weg in x-Richtung: " + TransportVehicle.getPosX()
+				+ "\nWeg in y-Richtung: " + TransportVehicle.getPosY()
+				+ "\nWeg in z-Richtung: " + TransportVehicle.getPosZ());
 	}
+
 	private void initTable() {
 		// Die Namen der Columns
 		String[] titles = new String[] { "Regal", "Fach", "Bezeichnung",
 				"Teilenummer", "Größe" };
-		
 
 		// Das Model das wir verwenden werden. Hier setzten wir gleich die
-		// Titel, aber es ist später immer noch möglich weitere Columns oder
-		// Rows hinzuzufügen.
+		// Titel, aber es ist später immer noch möglich weitere Rows
+		// hinzuzufügen.
 		model = new DefaultTableModel(titles, 0);
 
 		// Das JTable initialisieren
 		table = new JTable(model);
 		table.setEnabled(false);
-		
+
 		sorter = new TableRowSorter<DefaultTableModel>();
 		table.setRowSorter(sorter);
 		sorter.setModel(model);
-		
+
 		// Keine Tabelle ist Sortierbar über den Tabellenkopf
 		for (int i = 0; i < 5; i++) {
 			sorter.setSortable(i, false);
 		}
-		
+
 	}
 
 	public static Vector createDataVector(Part part, Compartment compartment,
@@ -178,6 +177,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		drivewayText.setBounds(190, 143, 200, 60);
 		drivewayText.setEnabled(false);
 		drivewayText.setBackground(infoPanel.getBackground());
+		drivewayText.setDisabledTextColor(Color.BLACK);
 		infoPanel.add(drivewayText);
 
 		basicUnitLabel.setBounds(20, 20, 350, 40);
@@ -210,9 +210,10 @@ public class MainFrame extends JFrame implements ActionListener {
 								+ storageRacks[i].getText());
 						if (i == 0) {
 							sorter.setRowFilter(RowFilter.regexFilter(" *"));
-						} else {							
-							sorter.setRowFilter(RowFilter.numberFilter(ComparisonType.EQUAL, ((4*i)-4), 0));							
-						}		
+						} else {
+							sorter.setRowFilter(RowFilter.numberFilter(
+									ComparisonType.EQUAL, ((4 * i) - 4), 0));
+						}
 					}
 				}
 

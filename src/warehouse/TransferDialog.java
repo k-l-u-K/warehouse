@@ -15,7 +15,7 @@ public class TransferDialog extends PopupDialog {
 		initTransferFrame();
 		this.setTitle("Einlagern");
 		this.setModal(true);
-		this.setSize(350, 330);
+		this.setSize(350, 270);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setLocation(200, 200);
 		this.setResizable(false);
@@ -23,26 +23,28 @@ public class TransferDialog extends PopupDialog {
 	}
 
 	private void initTransferFrame() {
-		itemSizeLabel.setBounds(20, 140, 150, 30);
+		itemSizeLabel.setBounds(20, 100, 150, 30);
 		panel.add(itemSizeLabel);
-
-		inpTextField[2] = new JTextField("");
-		inpTextField[2].setFocusTraversalKeysEnabled(false);
-		inpTextField[2].addKeyListener(this);
-		inpTextField[2].setBounds(140, 145, 100, 20);
-		panel.add(inpTextField[2]);
-
-		okayBtn = new JButton("Einlagern bestätigen");
-		okayBtn.setBounds(75, 230, 200, 40);
-		panel.add(okayBtn);
-		okayBtn.addActionListener(this);
 		
 		nameLabel.setVisible(true);
 		itemNrLabel.setVisible(true);
 		inpTextField[0].setVisible(true);
 		inpTextField[1].setVisible(true);
 		
-		infoLabel.setBounds(110, 180, 250, 30);
+		inpTextField[2] = new JTextField("");
+		inpTextField[2].setFocusTraversalKeysEnabled(false);
+		inpTextField[2].addKeyListener(this);
+		inpTextField[2].setBounds(140, 100, 100, 20);
+		panel.add(inpTextField[2]);
+
+		okayBtn = new JButton("Einlagern bestätigen");
+		okayBtn.setBounds(75, 180, 200, 40);
+		panel.add(okayBtn);
+		okayBtn.addActionListener(this);
+		
+		
+		
+		infoLabel.setBounds(110, 140, 250, 30);
 		panel.add(infoLabel);
 
 		cp.add(panel);

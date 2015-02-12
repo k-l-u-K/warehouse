@@ -7,8 +7,8 @@ import javax.swing.*;
 
 public class ReleaseDialog extends PopupDialog {
 	private static final long serialVersionUID = -5702112735084889000L;
-	public JComboBox comboboxTeile = new JComboBox();
-    public DefaultComboBoxModel model = new DefaultComboBoxModel();
+	private JComboBox<Part> comboboxTeile = new JComboBox<Part>();
+    private DefaultComboBoxModel<Part> model = new DefaultComboBoxModel<Part>();
 	public ReleaseDialog() {
 		inpTextField = new JTextField[3];
 		initPopupDialog();

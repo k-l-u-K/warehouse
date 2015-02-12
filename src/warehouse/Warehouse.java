@@ -27,14 +27,14 @@ public class Warehouse {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 10; j++) {
 				for (int k = 0; k < 10; k++) {
-					if (Warehouse.get().regale[i].compartments[j][k].getCapacity() >= part.getSize()
-						&& Compartment.isCompartmentFree(part)) {
+					if ((Warehouse.get().regale[i].compartments[j][k].getCapacity() >= part.getSize())
+						&& Warehouse.get().regale[i].compartments[j][k].isCompartmentFree(part,Warehouse.get().regale[i].compartments[j][k])) {
 							return Warehouse.get().regale[i].compartments[j][k];
 					}
 				}
 			}
 		}
-		System.out.println("Kein Fach gefunden! Error!");
+		System.out.println("Kein Fach gefunden! Lager voll!");
 		return null;
 	}
 

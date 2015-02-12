@@ -67,7 +67,7 @@ public class Compartment {
 	public void setIdCompartment(int idCompartment) {
 		this.idCompartment = idCompartment;
 	}
-	
+
 	public List<Part> getPartList() {
 		return partList;
 	}
@@ -75,22 +75,17 @@ public class Compartment {
 	public void setPartList(List<Part> partList) {
 		this.partList = partList;
 	}
-	
-	//gibt true/false zurück, ob ein Fach frei ist
-	public static boolean isCompartmentFree(Part part) {
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 10; j++) {
-				for (int k = 0; k < 10; k++) {
-					if (Warehouse.get().regale[i].compartments[j][k].partList.isEmpty())
-						return true;
-					else {
-						for (Part parts : Warehouse.get().regale[i].compartments[j][k].partList) {
-							if (part.getDescription().equals(parts.getDescription()))
-								return true;
-						}
-					}
-				}
+
+	// gibt true/false zurück, ob ein Fach frei ist
+	public boolean isCompartmentFree(Part part, Compartment compartment) {
+		if (compartment.partList.isEmpty())
+			return true;
+		else {
+			for (Part parts : compartment.partList) {
+				if (part.getDescription().equals(parts.getDescription()))
+					return true;
 			}
+
 		}
 		return false;
 	}

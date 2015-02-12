@@ -41,7 +41,7 @@ public class Main {
 		
 		Random zufall = new Random();
 		for (int a=0; a < 20; a++) {
-			Part part2 = new Part("Teil " + a, 0, zufall.nextInt(10));
+			Part part2 = new Part("Teil " + a, 0, zufall.nextInt(10)+1);
 			Warehouse.teilEinlagern(part2, Warehouse.findCompartment(part2));
 		}
 		

@@ -40,11 +40,13 @@ public class MainFrame extends JFrame implements ActionListener {
 	private TableRowSorter<DefaultTableModel> sorter;
 
 	// Elemente Info Panel
-	private JLabel drivewayLabel = new JLabel("Zurückgelegter Fahrweg: ");
 	private JLabel basicUnitLabel = new JLabel(
 			"Die Größe eines Faches entspricht 10 Grundeinheiten.");
+	private JLabel lastActionLabel = new JLabel("Letzte Aktion:");
+	private JLabel drivewayLabel = new JLabel("Zurückgelegter Fahrweg: ");
 	private static JTextArea drivewayText = new JTextArea(
 			"Weg in x-Richtung: 0\nWeg in y-Richtung: 0\nWeg in z-Richtung: 0");
+	private static JTextArea lastActionText = new JTextArea("");
 
 	public MainFrame() {
 		initTable();
@@ -56,13 +58,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		this.setTitle("Lagerverwaltung");
 		this.setVisible(true);
 	}
-
-	public static void setDrivewayText() {
-		drivewayText.setText("Weg in x-Richtung: " + TransportVehicle.getPosX()
-				+ "\nWeg in y-Richtung: " + TransportVehicle.getPosY()
-				+ "\nWeg in z-Richtung: " + TransportVehicle.getPosZ());
-	}
-
+	
 	private void initTable() {
 		// Die Namen der Columns
 		String[] titles = new String[] { "Regal", "Fach", "Bezeichnung",
@@ -171,6 +167,18 @@ public class MainFrame extends JFrame implements ActionListener {
 	private void initInfoPanel() {
 		infoPanel = new JPanel();
 		infoPanel.setLayout(null);
+		
+		basicUnitLabel.setBounds(20, 20, 350, 40);
+		infoPanel.add(basicUnitLabel);
+		
+		lastActionLabel.setBounds(20, 80, 100, 30);
+		infoPanel.add(lastActionLabel);
+		
+		lastActionText.setBounds(120, 80, 350, 40);
+		lastActionText.setEnabled(false);
+		lastActionText.setBackground(infoPanel.getBackground());
+		lastActionText.setDisabledTextColor(Color.BLACK);
+		infoPanel.add(lastActionText);
 
 		drivewayLabel.setBounds(20, 150, 150, 30);
 		infoPanel.add(drivewayLabel);
@@ -179,10 +187,19 @@ public class MainFrame extends JFrame implements ActionListener {
 		drivewayText.setEnabled(false);
 		drivewayText.setBackground(infoPanel.getBackground());
 		drivewayText.setDisabledTextColor(Color.BLACK);
-		infoPanel.add(drivewayText);
+		infoPanel.add(drivewayText);	
+	}
+	
+	public static void setLastActionText(String lastAction, Part part) {
+		lastActionText.setText(lastAction + part.getDescription()
+				+ " \n(Teilenummer: " + part.getPartnumber() + ", Größe: "
+				+ part.getSize() + ") war erfolgreich!");
+	}
 
-		basicUnitLabel.setBounds(20, 20, 350, 40);
-		infoPanel.add(basicUnitLabel);
+	public static void setDrivewayText() {
+		drivewayText.setText("Weg in x-Richtung: " + TransportVehicle.getPosX()
+				+ "\nWeg in y-Richtung: " + TransportVehicle.getPosY()
+				+ "\nWeg in z-Richtung: " + TransportVehicle.getPosZ());
 	}
 
 	@Override
@@ -190,12 +207,10 @@ public class MainFrame extends JFrame implements ActionListener {
 		if (source.getSource() instanceof JButton) {
 			if (source.getSource().equals(sortByNameBtn)) {
 				sortByNames();
-				//Nach Namen sortieren
 			}
 
 			if (source.getSource().equals(sortByPartNumberBtn)) {
 				sortByPartNumber();
-				// nach Nummer sortieren
 			}
 		} else {
 			if (source.getSource().equals(transferToStock)) {

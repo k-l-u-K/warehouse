@@ -22,6 +22,7 @@ public class Main {
 	- sinnvoll kommentieren
 	- isCompartmentFree nochmals umbauen (zumindest korrigiert schonmal)
 	- Switch-Button beim Auslagern einfügen
+	- Sortieren entscheidet gleichwertig bei Groß/Kleinbuchstaben
 	
 	*/
 

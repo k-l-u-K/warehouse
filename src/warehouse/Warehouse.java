@@ -51,6 +51,8 @@ public class Warehouse {
 			compartment.setCapacity(compartment.getCapacity() - partSize);
 			//Zeile hinzufügen
 			MainFrame.addARow(part, compartment);
+			// Letzte Aktion aktualisieren
+			MainFrame.setLastActionText("Einlagern von ",part);
 		}
 	}
 	
@@ -93,7 +95,7 @@ public class Warehouse {
 		return tempList.isEmpty() ? null: tempList;
 	}
 
-	public static String teilAuslagern(Part part) {
+	public static void teilAuslagern(Part part) {
 		int partSize = part.getSize();
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 10; j++) {
@@ -107,15 +109,17 @@ public class Warehouse {
 						// Kapazität vergrößern
 						Warehouse.get().regale[i].compartments[j][k].setCapacity(Warehouse.get().regale[i].compartments[j][k]
 										.getCapacity() + partSize);
+						// Zeile aus der Tabelle entfernen
 						MainFrame.removeARow(part);
+						// Teil aus der Liste aller eingelagerten Teile (ohne Pos.) entfernen
 						Part.onlyPartList.remove(part);
-						
-						return "Auslagern erfolgreich!";
+						// Letzte Aktion aktualisieren
+						MainFrame.setLastActionText("Auslagern von ",part);			
+						return;						
 					}
 				}
 			}
-		}
-		return "Auslagern fehlgeschlagen!";
+		}		
 	}
 
 	

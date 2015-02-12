@@ -98,10 +98,10 @@ public class ReleaseDialog extends PopupDialog {
 		
 		if(source.getSource() == this.okayBtn){
 			if (!(inpTextField[0].getText().equals(""))) {
-				System.out.println(Warehouse.teilAuslagern(Warehouse.findPartID(((Part) comboboxTeile.getSelectedItem()).getPartnumber())));
+				Warehouse.teilAuslagern(Warehouse.findPartID(((Part) comboboxTeile.getSelectedItem()).getPartnumber()));
 			}
 			if (!inpTextField[1].getText().equals("")){
-				System.out.println(Warehouse.teilAuslagern(Warehouse.findPartID(Integer.parseInt(inpTextField[1].getText()))));
+				Warehouse.teilAuslagern(Warehouse.findPartID(Integer.parseInt(inpTextField[1].getText())));
 			}
 		}
 	}

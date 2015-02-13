@@ -31,7 +31,7 @@ public class Main {
 		OutputStream ostream = new FileOutputStream(file);
 		PrintWriter writer = new PrintWriter(ostream);
 
-		new Warehouse();
+		//new Warehouse();
 		new TransportVehicle(0, 0, 0);
 		
 		new MainFrame();

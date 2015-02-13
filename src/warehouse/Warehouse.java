@@ -65,7 +65,8 @@ public class Warehouse {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 10; j++) {
 				for (int k = 0; k < 10; k++) {
-					for (Part parts : Warehouse.get().regale[i].compartments[j][k].partList) {
+					//for (Part parts : Warehouse.get().regale[i].compartments[j][k].partList) {
+					for (Part parts : Warehouse.get().regale[i].compartments[j][k].getPartList()) {
 						// wenn Liste static, würde das gehen:
 						// for (Part parts : Compartment.partList) {
 						System.out.println(parts);
@@ -82,7 +83,7 @@ public class Warehouse {
 		for (int i = 0; i < 8; i++)
 			for (int j = 0; j < 10; j++)
 				for (int k = 0; k < 10; k++)
-					for (Part parts : Warehouse.get().regale[i].compartments[j][k].partList)
+					for (Part parts : Warehouse.get().regale[i].compartments[j][k].getPartList())
 						if (id == parts.getPartnumber())
 							return parts;
 		return null;
@@ -94,7 +95,7 @@ public class Warehouse {
 		for (int i = 0; i < 8; i++)
 			for (int j = 0; j < 10; j++)
 				for (int k = 0; k < 10; k++)
-					for (Part parts : Warehouse.get().regale[i].compartments[j][k].partList)
+					for (Part parts : Warehouse.get().regale[i].compartments[j][k].getPartList())
 						if (name.equals(parts.getDescription()))
 							tempList.add(parts);
 		return tempList.isEmpty() ? null : tempList;

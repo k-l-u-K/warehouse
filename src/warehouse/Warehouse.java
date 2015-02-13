@@ -39,13 +39,10 @@ public class Warehouse {
 	// Lagert ein Teil ein
 	public static String teilEinlagern(Part part, Compartment compartment) {
 		int partSize = part.getSize();
-		
-		if (partSize <= 0) 
+		if (partSize <= 0)
 			return "Größe muss größer null sein!";
-		
 		if (compartment == null) 
-			return "Lager voll!";			
-		
+			return "Lager voll!";
 		// wenn noch Platz, dann einlagern
 		if ((compartment.getCapacity() - partSize) >= 0) {
 			//Fahrzeug kann hier mit dem Teil zum Zielort fahren
@@ -59,6 +56,10 @@ public class Warehouse {
 			// Letzte Aktion aktualisieren
 			MainFrame.setLastActionText("Einlagern von ", part);
 		}
+		System.out.println(TransferDialog.getInpPartNumber());
+		System.out.println(part.getPartnumber());
+		if (part.getPartnumber() != TransferDialog.getInpPartNumber())
+			return "Einlagern erfolgreich\nID war bereits vergeben und wurde daher auf " + part.getPartnumber() + " gesetzt.";
 		return "Einlagern erfolgreich";
 	}
 

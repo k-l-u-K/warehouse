@@ -8,14 +8,15 @@ public class Main {
 	 * ToDo:
 	 * Infofeld mit Gesamtanzahl eines Teils mit gleichem Namen
 	 * freien Platz (Kapazität) und Anzahl ausgeben (Anzahl der leeren Fächer vllt mit der Fach suche machen und 
-	 * ein Fach für ein Objekt der größe 10 suchen?
-	 * 	Flo: Die Fachsuche bricht aber ab, wenn sie ein Fach gefunden hat, 
-	 * 	aber die Schleife ansich müsste man verwenden können ju.)
+	 * 	ein Fach für ein Objekt der größe 10 suchen?
+	 * 		Flo: Die Fachsuche bricht aber ab, wenn sie ein Fach gefunden hat, 
+	 * 		aber die Schleife ansich müsste man verwenden können ju.)
 	 * korrekte Regalnr.-/Fach-Anzeige
 	 * Hinweis auf automatische Setzung der Teile-ID
 	 * Daten in Datei schreiben / lesen
-	 * 
+
 	 * ToDo für Nacharbeiten:
+	 * alle Variablen auf Korrektheit von private / public kontrollieren
 	 * Fenster sinnvoll aufteilen
 	 * Variablen einheitlich in englischer Sprache
 	 * sinnvoll kommentieren

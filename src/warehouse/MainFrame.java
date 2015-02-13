@@ -90,7 +90,7 @@ public class MainFrame extends JFrame implements ActionListener {
 	@SuppressWarnings("rawtypes")
 	public static Vector<Comparable> createDataVector(Part part, Compartment compartment, String neueZeile, int datenbreite) {
 		Vector<Comparable> vector = new Vector<Comparable>(5);
-		vector.add(compartment.getPosY());
+		vector.add((compartment.getPosY()/4)+1);
 		vector.add(compartment.getPosX() + " " + compartment.getPosZ());
 		vector.add(part.getDescription());
 		vector.add(part.getPartnumber());
@@ -215,8 +215,7 @@ public class MainFrame extends JFrame implements ActionListener {
 					if (i == 0) {
 						sorter.setRowFilter(RowFilter.regexFilter(" *"));
 					} else {
-						sorter.setRowFilter(RowFilter.numberFilter(
-								ComparisonType.EQUAL, ((4 * i) - 4), 0));
+						sorter.setRowFilter(RowFilter.numberFilter(ComparisonType.EQUAL, i, 0));
 					}
 				}
 			}

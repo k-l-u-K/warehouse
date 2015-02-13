@@ -81,7 +81,10 @@ public class MainFrame extends JFrame implements ActionListener {
 
 		// Alle Spalten sind Sortierbar über den Spaltenkopf
 		for (int i = 0; i < 5; i++) {
-			sorter.setSortable(i, true);
+			if (i==2 || i==3)
+				sorter.setSortable(i, true);
+			else
+				sorter.setSortable(i, false);
 		}
 	}
 

@@ -51,19 +51,18 @@ public class Warehouse implements Serializable {
 
 	// Lagert ein Teil ein
 	public static String teilEinlagern(Part part, Compartment compartment) {
-		int partSize = part.getSize();
-		if (partSize <= 0)
-			return "Größe muss größer null sein!";
+		if (part.getSize() <= 0 || part.getSize() > 10)
+			return "Größe muss zwischen 1 und 10 GE betragen!";
 		if (compartment == null) 
 			return "Lager voll!";
 		// wenn noch Platz, dann einlagern
-		if ((compartment.getCapacity() - partSize) >= 0) {
+		if ((compartment.getCapacity() - part.getSize()) >= 0) {
 			//Fahrzeug kann hier mit dem Teil zum Zielort fahren
 			TransportVehicle.driveToCompartment(part, compartment);
 			// einlagern
 			compartment.getPartList().add(part);
 			// Kapazität verringern
-			compartment.setCapacity(compartment.getCapacity() - partSize);
+			compartment.setCapacity(compartment.getCapacity() - part.getSize());
 			//Zeile hinzufügen
 			MainFrame.addARow(part, compartment);
 			//Teil der Anzahlliste hinzufügen

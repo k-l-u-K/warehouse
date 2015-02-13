@@ -8,9 +8,8 @@ import java.util.Random;
 
 public class Warehouse implements Serializable {
 	private static final long serialVersionUID = 957905515144635530L;
-	
-	public static Warehouse warehouse;
-	public Regal[] regale = new Regal[8];
+	private static Warehouse warehouse;
+	private Regal[] regale = new Regal[8];
 	private static Map<String, Integer> map = new HashMap<String, Integer>();
 
 	public static Warehouse get() {
@@ -22,18 +21,27 @@ public class Warehouse implements Serializable {
 
 	public Warehouse() {
 		for (int i = 0; i < 8; i++) {
-			regale[i] = new Regal(4 * i);
+			getRegale()[i] = new Regal(4 * i);
 		}
 	}
+	
+	public Regal[] getRegale() {
+		return regale;
+	}
 
+	public void setRegale(Regal[] regale) {
+		this.regale = regale;
+	}
+	
 	// Findet ein freies Fach mit ausreichender Kapazität
 	public static Compartment findCompartment(Part part) {		
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 10; j++) {
 				for (int k = 0; k < 10; k++) {
-					if ((Warehouse.get().regale[i].compartments[j][k].getCapacity() >= part.getSize())
-							&& Warehouse.get().regale[i].compartments[j][k]	.isCompartmentFree(part,Warehouse.get().regale[i].compartments[j][k])) {
-						return Warehouse.get().regale[i].compartments[j][k];
+					Warehouse.get();
+					if ((Warehouse.get().getRegale()[i].compartments[j][k].getCapacity() >= part.getSize())
+							&& Warehouse.get().getRegale()[i].compartments[j][k].isCompartmentFree(part,Warehouse.get().getRegale()[i].compartments[j][k])) {
+						return Warehouse.get().getRegale()[i].compartments[j][k];
 					}
 				}
 			}
@@ -73,7 +81,7 @@ public class Warehouse implements Serializable {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 10; j++) {
 				for (int k = 0; k < 10; k++) {
-					for (Part parts : Warehouse.get().regale[i].compartments[j][k].getPartList()) {
+					for (Part parts : Warehouse.get().getRegale()[i].compartments[j][k].getPartList()) {
 						// wenn Liste static, würde das gehen:
 						// for (Part parts : Compartment.partList) {
 						System.out.println(parts);
@@ -90,7 +98,7 @@ public class Warehouse implements Serializable {
 		for (int i = 0; i < 8; i++)
 			for (int j = 0; j < 10; j++)
 				for (int k = 0; k < 10; k++)
-					for (Part parts : Warehouse.get().regale[i].compartments[j][k].getPartList())
+					for (Part parts : Warehouse.get().getRegale()[i].compartments[j][k].getPartList())
 						if (id == parts.getPartnumber())
 							return parts;
 		return null;
@@ -102,7 +110,7 @@ public class Warehouse implements Serializable {
 		for (int i = 0; i < 8; i++)
 			for (int j = 0; j < 10; j++)
 				for (int k = 0; k < 10; k++)
-					for (Part parts : Warehouse.get().regale[i].compartments[j][k].getPartList())
+					for (Part parts : Warehouse.get().getRegale()[i].compartments[j][k].getPartList())
 						if (name.equals(parts.getDescription()))
 							tempList.add(parts);
 		return tempList.isEmpty() ? null : tempList;
@@ -114,17 +122,17 @@ public class Warehouse implements Serializable {
 			for (int j = 0; j < 10; j++) {
 				for (int k = 0; k < 10; k++) {
 					// wenn Fach das Teil enthält
-					if ((Warehouse.get().regale[i].compartments[j][k]
+					if ((Warehouse.get().getRegale()[i].compartments[j][k]
 							.getPartList()).contains(part)) {
 						// Transportfahrzeug kann zum Zielort fahren
 						TransportVehicle.driveToCompartment(part,
-								Warehouse.get().regale[i].compartments[j][k]);
+								Warehouse.get().getRegale()[i].compartments[j][k]);
 						// auslagern
-						Warehouse.get().regale[i].compartments[j][k]
+						Warehouse.get().getRegale()[i].compartments[j][k]
 								.getPartList().remove(part);
 						// Kapazität vergrößern
-						Warehouse.get().regale[i].compartments[j][k]
-								.setCapacity(Warehouse.get().regale[i].compartments[j][k]
+						Warehouse.get().getRegale()[i].compartments[j][k]
+								.setCapacity(Warehouse.get().getRegale()[i].compartments[j][k]
 										.getCapacity() + partSize);
 						// Zeile aus der Tabelle entfernen
 						MainFrame.removeARow(part);

@@ -12,7 +12,7 @@ public class Main {
 	 * 		Flo: Die Fachsuche bricht aber ab, wenn sie ein Fach gefunden hat, 
 	 * 		aber die Schleife ansich müsste man verwenden können ju.)
 	 * korrekte Regalnr.-/Fach-Anzeige
-	 * Hinweis auf automatische Setzung der Teile-ID
+	 * Beim zufälligen Befüllen werden IDs übersprungen, die man nachträglich auch nicht nutzen kann
 	 * Daten in Datei schreiben / lesen
 
 	 * ToDo für Nacharbeiten:

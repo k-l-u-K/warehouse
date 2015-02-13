@@ -62,11 +62,10 @@ public class Warehouse {
 		return "Einlagern erfolgreich";
 	}
 
-	public void teileAnzeigen() {
+	public static void teileAnzeigen() {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 10; j++) {
 				for (int k = 0; k < 10; k++) {
-					//for (Part parts : Warehouse.get().regale[i].compartments[j][k].partList) {
 					for (Part parts : Warehouse.get().regale[i].compartments[j][k].getPartList()) {
 						// wenn Liste static, würde das gehen:
 						// for (Part parts : Compartment.partList) {
@@ -140,9 +139,9 @@ public class Warehouse {
 		for (int i=0; i <= 800; i++) {
 			switch(zufall.nextInt(5)) {
 			case 0:
-				//Ein Teil der Größe 0 wird nicht eingelagert
-				partName = "nur Luft";
-				partSize = 0;
+				//Ein Teil der Größe 0 wird zwar eingelagert, aber nicht angezeigt -> nicht zu empfehlen
+				partName = "Schrank";
+				partSize = 10;
 				break;
 			case 1:
 				partName = "Computer";

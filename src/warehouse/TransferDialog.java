@@ -8,7 +8,7 @@ public class TransferDialog extends PopupDialog  {
 	private static final long serialVersionUID = -6861367256789342389L;
 
 	private JLabel itemSizeLabel = new JLabel("Größe in GE: *");
-	private static int inpPartNumber = 0;
+	private static int inpPartNumber;
 
 	public static int getInpPartNumber() {
 		return inpPartNumber;
@@ -69,9 +69,10 @@ public class TransferDialog extends PopupDialog  {
 
 		try {
 			// Prüfung ob Teilenr.-feld leer ist
-			inpPartNumber = Integer.parseInt(inpTextField[1].getText());
-			if (inpTextField[1].getText().isEmpty())
+			if (inpTextField[1].getText().isEmpty()) {
 				inpTextField[1].setText(Integer.toString(Part.getFreeID()));
+			}
+			inpPartNumber = Integer.parseInt(inpTextField[1].getText());
 
 			Part part = new Part(inpTextField[0].getText(),
 					Integer.parseInt(inpTextField[1].getText()),

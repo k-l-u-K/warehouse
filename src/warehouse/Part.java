@@ -69,6 +69,7 @@ public class Part /*implements Comparable<Part>*/ {
 	private static int getFreeID(int testID) {
 		if (findPart(null, testID) == null) {
 			return testID;
+			// Info-Dialog an den Benutzer, dass ID auf testID festgelegt wurde
 		} else
 			return getFreeID(++testID);
 	}

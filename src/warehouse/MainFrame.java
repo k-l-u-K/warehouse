@@ -9,6 +9,7 @@ import javax.swing.*;
 import javax.swing.RowFilter.ComparisonType;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+import javax.xml.crypto.Data;
 
 public class MainFrame extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 7462047233762639130L;
@@ -335,10 +336,18 @@ public class MainFrame extends JFrame implements ActionListener {
 	}
 	
 	private void saveFile() {
+		FileHandle.serialize();
+		/*
 		for (int i = 0; i < 8; i++)
 			for (int j = 0; j < 10; j++)
 				for (int k = 0; k < 10; k++)
-					FileHandle.serialize(Warehouse.get().getRegale());
+					for (Part parts : Warehouse.get().getRegale()[i].compartments[j][k].getPartList())
+					*/	
+
+	}
+	
+	private void loadFile() {
+	//	FileHandle.serialize(parts);
 	}
 
 }

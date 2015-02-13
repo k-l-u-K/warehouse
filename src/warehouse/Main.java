@@ -1,5 +1,7 @@
 package warehouse;
 
+import javax.xml.crypto.Data;
+
 public class Main {
 
 	/*
@@ -29,7 +31,13 @@ public class Main {
 		//Beim Aufruf des zufälligen Einordnens kann als Parameter eine Zahl (sinnvoll größer 5 ;-)) übergeben werden
 		//damit jedes Fach im Lager mit einem Teil befüllt wird -> Lager voll kann getestet werden
 		//bei 0 wird eine definierte Größe für jedes Teil eingetragen -> das Lager wird so nicht komplett gefüllt
-		Warehouse.fillRandom(0);
+		//Warehouse.fillRandom(0);
+
+		Part parts = FileHandle.deserialize();
+		System.out.println(parts);
+		//data[1000000-1].change();
+		//Data[] data = (Data[]) FileHandle.deserialize();
+		//FileHandle.deserialize();
 	}
 
 }

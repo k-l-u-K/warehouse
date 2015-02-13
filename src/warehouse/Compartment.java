@@ -9,7 +9,7 @@ public class Compartment {
 	private int posY;
 	private int posZ;
 	private int capacity;
-	public List<Part> partList = new ArrayList<Part>();
+	private List<Part> partList = new ArrayList<Part>();
 
 	public Compartment(int posX, int posY, int posZ) {
 		super();

@@ -2,7 +2,7 @@ package warehouse;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.Vector;
 
 import javax.swing.*;
@@ -30,10 +30,7 @@ public class MainFrame extends JFrame implements ActionListener {
 	// Elemente Table Panel
 	private JPanel tableTopPanel;
 	private JTable table;
-	private JTextField contentInfoLabel = new JTextField(
-			"Inhaltsanzeige: Alle Regale");
-	private JButton sortByNameBtn = new JButton("nach Bezeichnung sortieren");
-	private JButton sortByPartNumberBtn = new JButton("nach Teilenr. sortieren");
+	private JTextField contentInfoLabel = new JTextField("Inhaltsanzeige: Alle Regale");
 
 	// Testbuttons
 	private static DefaultTableModel model;
@@ -61,32 +58,36 @@ public class MainFrame extends JFrame implements ActionListener {
 	
 	private void initTable() {
 		// Die Namen der Columns
-		String[] titles = new String[] { "Regal", "Fach", "Bezeichnung",
-				"Teilenummer", "Größe in GE" };
+		String[] titles = new String[] { "Regal", "Fach", "Bezeichnung", "Teilenummer", "Größe in GE" };
 
-		// Das Model das wir verwenden werden. Hier setzten wir gleich die
-		// Titel, aber es ist später immer noch möglich weitere Rows
-		// hinzuzufügen.
+		// Das Model das wir verwenden werden. Hier setzten wir gleich die Titel,
+		// aber es ist später immer noch möglich weitere Rows hinzuzufügen.
 		model = new DefaultTableModel(titles, 0);
 
 		// Das JTable initialisieren
 		table = new JTable(model);
 		table.setEnabled(false);
 
-		sorter = new TableRowSorter<DefaultTableModel>();
+		//sorter = new TableRowSorter<DefaultTableModel>();
+		final TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<DefaultTableModel>(model);
 		table.setRowSorter(sorter);
 		sorter.setModel(model);
 
-		// Keine Tabelle ist Sortierbar über den Tabellenkopf
-		for (int i = 0; i < 5; i++) {
-			sorter.setSortable(i, false);
-		}
+		sorter.setComparator(3, new Comparator<Integer>() {
+			public int compare(Integer arg0, Integer arg1) {
+				return arg0 - arg1;
+			}
+		});
 
+		// Alle Spalten sind Sortierbar über den Spaltenkopf
+		for (int i = 0; i < 5; i++) {
+			sorter.setSortable(i, true);
+		}
 	}
 
-	public static Vector createDataVector(Part part, Compartment compartment,
-			String neueZeile, int datenbreite) {
-		Vector vector = new Vector(5);
+	@SuppressWarnings("rawtypes")
+	public static Vector<Comparable> createDataVector(Part part, Compartment compartment, String neueZeile, int datenbreite) {
+		Vector<Comparable> vector = new Vector<Comparable>(5);
 		vector.add(compartment.getPosY());
 		vector.add(compartment.getPosX() + " " + compartment.getPosZ());
 		vector.add(part.getDescription());
@@ -154,12 +155,6 @@ public class MainFrame extends JFrame implements ActionListener {
 		contentInfoLabel.setBorder(null);
 		tableTopPanel.add(contentInfoLabel);
 
-		tableTopPanel.add(sortByNameBtn);
-		tableTopPanel.add(sortByPartNumberBtn);
-
-		sortByNameBtn.addActionListener(this);
-		sortByPartNumberBtn.addActionListener(this);
-
 		tablePanel.add(new JScrollPane(table), BorderLayout.CENTER);
 		// tablePanel.add(testBtnPanel,BorderLayout.SOUTH);
 	}
@@ -204,72 +199,32 @@ public class MainFrame extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent source) {
-		if (source.getSource() instanceof JButton) {
-			if (source.getSource().equals(sortByNameBtn)) {
-				sortByNames();
-			}
+		if (source.getSource().equals(transferToStock)) {
+			new TransferDialog();
+		}
 
-			if (source.getSource().equals(sortByPartNumberBtn)) {
-				sortByPartNumber();
-			}
+		if (source.getSource().equals(releaseFromStock)) {
+			new ReleaseDialog();
 		} else {
-			if (source.getSource().equals(transferToStock)) {
-				new TransferDialog();
-			}
-
-			if (source.getSource().equals(releaseFromStock)) {
-				new ReleaseDialog();
-			} else {
-				for (int i = 0; i < 9; i++) {
-					if (source.getSource().equals(storageRacks[i])) {
-						contentInfoLabel.setText("Inhaltsanzeige: "
-								+ storageRacks[i].getText());
-						if (i == 0) {
-							sorter.setRowFilter(RowFilter.regexFilter(" *"));
-						} else {
-							sorter.setRowFilter(RowFilter.numberFilter(
-									ComparisonType.EQUAL, ((4 * i) - 4), 0));
-						}
+			for (int i = 0; i < 9; i++) {
+				if (source.getSource().equals(storageRacks[i])) {
+					contentInfoLabel.setText("Inhaltsanzeige: "
+							+ storageRacks[i].getText());
+					if (i == 0) {
+						sorter.setRowFilter(RowFilter.regexFilter(" *"));
+					} else {
+						sorter.setRowFilter(RowFilter.numberFilter(
+								ComparisonType.EQUAL, ((4 * i) - 4), 0));
 					}
 				}
 			}
 		}
 	}
 
-	private void sortByPartNumber() {
-		Collections.sort(Part.onlyPartList, new SortPartnumber());
-		for (int i=model.getRowCount()-1;i>=0;i--) {
-			model.removeRow(i);
-		}						
-		for (Part a : Part.onlyPartList) {
-			for (int i = 0; i < 8; i++) 
-				for (int j = 0; j < 10; j++) 
-					for (int k = 0; k < 10; k++) 
-						// wenn Fach das Teil enthält
-						if ((Warehouse.get().regale[i].compartments[j][k].getPartList()).contains(a))
-							addARow(a , Warehouse.get().regale[i].compartments[j][k]);  
-		}
-	
-	}
-	
-	private void sortByNames() {
-		Collections.sort(Part.onlyPartList, new SortDescription());
-		for (int i=model.getRowCount()-1;i>=0;i--) {
-			model.removeRow(i);
-		}
-		for (Part a : Part.onlyPartList) {
-			for (int i = 0; i < 8; i++) 
-				for (int j = 0; j < 10; j++) 
-					for (int k = 0; k < 10; k++) 
-						// wenn Fach das Teil enthält
-						if ((Warehouse.get().regale[i].compartments[j][k].getPartList()).contains(a))
-							addARow(a , Warehouse.get().regale[i].compartments[j][k]);    
-		}
-	}
-
 	public static void addARow(Part part, Compartment compartment) {
 		// einen neuen Vector mit Daten herstellen
-		Vector newDatas = createDataVector(part, compartment, "neueZeile", 1);
+		@SuppressWarnings("rawtypes")
+		Vector<Comparable> newDatas = createDataVector(part, compartment, "neueZeile", 1);
 		// eine neue Row hinzufügen
 		model.addRow(newDatas);
 	}

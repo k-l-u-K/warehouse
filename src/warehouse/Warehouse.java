@@ -121,9 +121,8 @@ public class Warehouse {
 										.getCapacity() + partSize);
 						// Zeile aus der Tabelle entfernen
 						MainFrame.removeARow(part);
-						// Teil aus der Liste aller eingelagerten Teile (ohne
-						// Pos.) entfernen
-						Part.onlyPartList.remove(part);
+						// Teil aus der Liste aller eingelagerten Teile (ohne Pos.) entfernen
+						Part.removePart(part);
 						// Letzte Aktion aktualisieren
 						MainFrame.setLastActionText("Auslagern von ", part);
 						return;

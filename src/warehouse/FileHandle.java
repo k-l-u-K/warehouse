@@ -14,11 +14,11 @@ public class FileHandle implements Serializable {
 	//OutputStream ostream = new FileOutputStream(file);
 	//PrintWriter writer = new PrintWriter(ostream);
 
-	public static void serialize(Regal[] regale) {
+	public static void serialize(Compartment[][] compartments) {
     	try {
-    		System.out.println(regale);
+    		System.out.println(compartments);
     		ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream(file,true));
-    		stream.writeObject(regale);
+    		stream.writeObject(compartments);
     		stream.close();
     	}
     	catch ( IOException e ) { System.err.println( e ); }

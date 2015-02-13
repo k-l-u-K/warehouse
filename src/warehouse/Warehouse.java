@@ -1,6 +1,7 @@
 package warehouse;
 
 import java.util.LinkedList;
+import java.util.Random;
 
 public class Warehouse {
 
@@ -129,6 +130,48 @@ public class Warehouse {
 					}
 				}
 			}
+		}
+	}
+	
+	public static void fillRandom(int fillCompleteWithThisSize) {
+		Random zufall = new Random();
+		String partName = null;
+		int partSize = 0;
+		for (int i=0; i <= 800; i++) {
+			switch(zufall.nextInt(5)) {
+			case 0:
+				//Ein Teil der Größe 0 wird nicht eingelagert
+				partName = "nur Luft";
+				partSize = 0;
+				break;
+			case 1:
+				partName = "Computer";
+				partSize = 5;
+				break;
+			case 2:
+				partName = "Buch";
+				partSize = 1;
+				break;
+			case 3:
+				partName = "Drucker";
+				partSize = 4;
+				break;
+			case 4:
+				partName = "Tisch";
+				partSize = 9;
+				break;
+			case 5:
+	        	partName = "Stuhl";
+				partSize = 6;
+				break;
+	        default:
+	        	//sollte nie auftreten
+	        	continue;
+			}
+			if (fillCompleteWithThisSize != 0)
+				partSize = fillCompleteWithThisSize;
+			Part part = new Part(partName, 0, partSize);
+			Warehouse.teilEinlagern(part, findCompartment(part));
 		}
 	}
 

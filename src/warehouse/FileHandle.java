@@ -18,8 +18,11 @@ public class FileHandle implements Serializable {
 			for (int i = 0; i < 8; i++)
 				for (int j = 0; j < 10; j++)
 					for (int k = 0; k < 10; k++)
-						for (Part parts : Warehouse.get().getRegale()[i].compartments[j][k].getPartList())
+						for (Part parts : Warehouse.get().getRegale()[i].compartments[j][k].getPartList()) {
 							out.writeObject(parts);
+							out.writeObject(Warehouse.get().getRegale()[i].compartments[j][k]);
+						}
+						
 			System.out.println("Speichern erfolgreich");
 			System.out.println();
 		} catch (Exception e) {
@@ -27,21 +30,33 @@ public class FileHandle implements Serializable {
 		}
 	}
   	
-	public static Part deserialize() {
+	public static List<Part> deserializePart() {
 		List<Part> loadedPartList = new ArrayList<Part>();
 		try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
-  			for (int i = 0; i < 800; i++) {
+  			for (int i = 0; i < 700 ; i++) {
   				//if (!in.readObject().equals(null))
-  					//loadedPartList.add((Part) in.readObject());
-  				//return (Part) in.readObject();
-  				//data[i] = (Data)  in.readObject();
-  				System.out.println(in.readObject());
+  					loadedPartList.add((Part) in.readObject());
   			}
   			System.out.println("Deserialization succeeded\n");
   		} catch (Exception e) {
   			System.out.println("Deserialization failed\n");
   			System.err.println(e);
   		}
-  	    return null;
+  	    return loadedPartList;
+	}
+	
+	public static List<Compartment> deserializeCompartment() {
+		List<Compartment> loadedCompartmentList = new ArrayList<Compartment>();
+		try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
+  			for (int i = 1; i < 701 ; i++) {
+  				//if (!in.readObject().equals(null))
+  					loadedCompartmentList.add((Compartment) in.readObject());
+  			}
+  			System.out.println("Deserialization succeeded\n");
+  		} catch (Exception e) {
+  			System.out.println("Deserialization failed\n");
+  			System.err.println(e);
+  		}
+  	    return loadedCompartmentList;
 	}
 }

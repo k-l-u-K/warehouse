@@ -1,5 +1,7 @@
 package warehouse;
 
+import java.util.List;
+
 import javax.xml.crypto.Data;
 
 public class Main {
@@ -33,8 +35,7 @@ public class Main {
 		//bei 0 wird eine definierte Größe für jedes Teil eingetragen -> das Lager wird so nicht komplett gefüllt
 		//Warehouse.fillRandom(0);
 
-		Part parts = FileHandle.deserialize();
-		System.out.println(parts);
+		MainFrame.loadFile();
 		//data[1000000-1].change();
 		//Data[] data = (Data[]) FileHandle.deserialize();
 		//FileHandle.deserialize();

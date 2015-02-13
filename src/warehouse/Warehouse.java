@@ -57,7 +57,8 @@ public class Warehouse {
 			MainFrame.setLastActionText("Einlagern von ", part);
 		}
 		if (part.getPartnumber() != TransferDialog.getInpPartNumber())
-			return "Einlagern erfolgreich\nID war bereits vergeben und wurde daher auf " + part.getPartnumber() + " gesetzt.";
+			return "Einlagern erfolgreich\nID war bereits vergeben oder ungültig und wurde daher auf " 
+				+ part.getPartnumber() + " gesetzt.";
 		return "Einlagern erfolgreich";
 	}
 

@@ -29,6 +29,7 @@ public class MainFrame extends JFrame implements ActionListener {
 	// Elemente Table Panel
 	private JPanel tableTopPanel;
 	private JTable mainTable;
+	private JButton saveBtn = new JButton("Speichern");
 	private JTextField contentInfoLabel = new JTextField("Inhaltsanzeige: Alle Regale");
 
 	// Testbuttons
@@ -124,7 +125,7 @@ public class MainFrame extends JFrame implements ActionListener {
 	@SuppressWarnings("rawtypes")
 	public static Vector<Comparable> createVectorMainTable(Part part, Compartment compartment) {
 		Vector<Comparable> vector = new Vector<Comparable>(5);
-		vector.add(compartment.getPosY());
+		vector.add((compartment.getPosY()/4)+1);
 		vector.add(compartment.getPosX() + " " + compartment.getPosZ());
 		vector.add(part.getDescription());
 		vector.add(part.getPartnumber());
@@ -199,6 +200,9 @@ public class MainFrame extends JFrame implements ActionListener {
 		contentInfoLabel.setBorder(null);
 		tableTopPanel.add(contentInfoLabel);
 
+		tableTopPanel.add(saveBtn);
+		saveBtn.addActionListener(this);
+
 		tablePanel.add(new JScrollPane(mainTable), BorderLayout.CENTER);
 		// tablePanel.add(testBtnPanel,BorderLayout.SOUTH);
 	}
@@ -256,6 +260,11 @@ public class MainFrame extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent source) {
+		if (source.getSource() instanceof JButton) {
+			if (source.getSource().equals(saveBtn)) {
+				saveFile();
+			}
+		}
 		if (source.getSource().equals(transferToStock)) {
 			new TransferDialog();
 		}
@@ -323,5 +332,13 @@ public class MainFrame extends JFrame implements ActionListener {
 				return;
 			}
 		}
-	}	
+	}
+	
+	private void saveFile() {
+		for (int i = 0; i < 8; i++)
+			for (int j = 0; j < 10; j++)
+				for (int k = 0; k < 10; k++)
+					FileHandle.serialize(Warehouse.get().regale[i].compartments);
+	}
+
 }

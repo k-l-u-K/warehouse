@@ -9,7 +9,6 @@ public class Compartment {
 	private int posY;
 	private int posZ;
 	private int capacity;
-	private int idCompartment = 0;
 	public List<Part> partList = new ArrayList<Part>();
 
 	public Compartment(int posX, int posY, int posZ) {
@@ -18,14 +17,12 @@ public class Compartment {
 		this.posY = posY;
 		this.posZ = posZ;
 		this.capacity = 10;
-		idCompartment = idCompartment++;
 	}
 
 	@Override
 	public String toString() {
 		return "Compartment [posX=" + posX + ", posY=" + posY + ", posZ="
-				+ posZ + ", capacity=" + capacity + ", idCompartment="
-				+ idCompartment + "]";
+				+ posZ + ", capacity=" + capacity + "]";
 	}
 
 	public int getPosX() {
@@ -58,14 +55,6 @@ public class Compartment {
 
 	public void setCapacity(int capacity) {
 		this.capacity = capacity;
-	}
-
-	public int getIdCompartment() {
-		return idCompartment;
-	}
-
-	public void setIdCompartment(int idCompartment) {
-		this.idCompartment = idCompartment;
 	}
 
 	public List<Part> getPartList() {

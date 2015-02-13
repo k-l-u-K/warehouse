@@ -9,7 +9,7 @@ public class Part /*implements Comparable<Part>*/ {
 	private int partnumber;
 	private int size;
 	//Liste, um nur nach Parts zu suchen - ggf. besser&schneller, wenn man nur nach doppelter o.ä. ID sucht
-	public static List<Part> onlyPartList = new ArrayList<Part>();
+	private static List<Part> onlyPartList = new ArrayList<Part>();
 
 	public Part(String description, int partnumber, int size) {
 		this.description = description;
@@ -73,6 +73,10 @@ public class Part /*implements Comparable<Part>*/ {
 			return getFreeID(++testID);
 	}
 	
+	public static void removePart(Part part) {
+		onlyPartList.remove(part);
+	}
+	
 	/*@Override
 	  public int compareTo(Part part) {
 	  return this.description.compareTo(part.getDescription());
@@ -81,10 +85,5 @@ public class Part /*implements Comparable<Part>*/ {
 	/*public int compareToPartnumber(Part part) {
 	  return this.partnumber.compareTo(part.getPartnumber());
 	  }*/
-	
-
-//	public void delPart() {
-//		PartList.remove(this);
-//	}
 
 }

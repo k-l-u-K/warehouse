@@ -68,8 +68,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		table = new JTable(model);
 		table.setEnabled(false);
 
-		//sorter = new TableRowSorter<DefaultTableModel>();
-		final TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<DefaultTableModel>(model);
+		sorter = new TableRowSorter<DefaultTableModel>(model);
 		table.setRowSorter(sorter);
 		sorter.setModel(model);
 

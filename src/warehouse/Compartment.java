@@ -1,10 +1,12 @@
 package warehouse;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Compartment {
-
+public class Compartment implements Serializable {
+	private static final long serialVersionUID = -4383443164283909126L;
+	
 	private int posX;
 	private int posY;
 	private int posZ;

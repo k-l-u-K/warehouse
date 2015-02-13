@@ -1,10 +1,12 @@
 package warehouse;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Part /*implements Comparable<Part>*/ {
-
+public class Part implements Serializable/*implements Comparable<Part>*/ {
+	private static final long serialVersionUID = -7831438907397267073L;
+	
 	private String description;
 	private int partnumber;
 	private int size;

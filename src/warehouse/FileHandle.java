@@ -7,8 +7,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-public class HandleFile implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class FileHandle implements Serializable {
+	private static final long serialVersionUID = -7725023475097213226L;
+	
 	private static String file =".\\data\\DateiZumEinlesen.ser";
 	//OutputStream ostream = new FileOutputStream(file);
 	//PrintWriter writer = new PrintWriter(ostream);

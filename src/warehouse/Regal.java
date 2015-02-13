@@ -1,8 +1,10 @@
 package warehouse;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
-public class Regal {
+public class Regal implements Serializable {
+	private static final long serialVersionUID = -6667366784503647516L;
 
 	private static int position;
 	

@@ -1,12 +1,14 @@
 package warehouse;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Random;
 
-public class Warehouse {
-
+public class Warehouse implements Serializable {
+	private static final long serialVersionUID = 957905515144635530L;
+	
 	public static Warehouse warehouse;
 	public Regal[] regale = new Regal[8];
 	private static Map<String, Integer> map = new HashMap<String, Integer>();

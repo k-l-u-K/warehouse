@@ -11,7 +11,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
 public class MainFrame extends JFrame implements ActionListener {
-
 	private static final long serialVersionUID = 7462047233762639130L;
 
 	// Container, Panel
@@ -29,14 +28,21 @@ public class MainFrame extends JFrame implements ActionListener {
 
 	// Elemente Table Panel
 	private JPanel tableTopPanel;
-	private JTable table;
+	private JTable mainTable;
 	private JTextField contentInfoLabel = new JTextField("Inhaltsanzeige: Alle Regale");
 
 	// Testbuttons
-	private static DefaultTableModel model;
-	private TableRowSorter<DefaultTableModel> sorter;
+	private static DefaultTableModel modelMain;
+	private static DefaultTableModel modelPartAmount;
+	private TableRowSorter<DefaultTableModel> sorterMain;
+	private TableRowSorter<DefaultTableModel> sorterPartAmount;
 
-	// Elemente Info Panel
+	// Elemente Info Panel	
+	private JPanel infoTopPanel;
+	private JPanel infoBottomPanel;
+	
+	private JTable partAmountTable;
+	
 	private JLabel basicUnitLabel = new JLabel(
 			"Die Größe eines Faches entspricht 10 Grundeinheiten (GE).");
 	private JLabel lastActionLabel = new JLabel("Letzte Aktion:");
@@ -44,9 +50,12 @@ public class MainFrame extends JFrame implements ActionListener {
 	private static JTextArea drivewayText = new JTextArea(
 			"Weg in x-Richtung: 0\nWeg in y-Richtung: 0\nWeg in z-Richtung: 0");
 	private static JTextArea lastActionText = new JTextArea("");
+	
+
 
 	public MainFrame() {
-		initTable();
+		initMainTable();
+		initPartAmountTable();
 		initGUI();
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setMinimumSize(new Dimension(1150, 750));
@@ -56,23 +65,23 @@ public class MainFrame extends JFrame implements ActionListener {
 		this.setVisible(true);
 	}
 	
-	private void initTable() {
+	private void initMainTable() {
 		// Die Namen der Columns
 		String[] titles = new String[] { "Regal", "Fach", "Bezeichnung", "Teilenummer", "Größe in GE" };
 
 		// Das Model das wir verwenden werden. Hier setzten wir gleich die Titel,
 		// aber es ist später immer noch möglich weitere Rows hinzuzufügen.
-		model = new DefaultTableModel(titles, 0);
+		modelMain = new DefaultTableModel(titles, 0);
 
 		// Das JTable initialisieren
-		table = new JTable(model);
-		table.setEnabled(false);
+		mainTable = new JTable(modelMain);
+		mainTable.setEnabled(false);
 
-		sorter = new TableRowSorter<DefaultTableModel>(model);
-		table.setRowSorter(sorter);
-		sorter.setModel(model);
+		sorterMain = new TableRowSorter<DefaultTableModel>(modelMain);
+		mainTable.setRowSorter(sorterMain);
+		sorterMain.setModel(modelMain);
 
-		sorter.setComparator(3, new Comparator<Integer>() {
+		sorterMain.setComparator(3, new Comparator<Integer>() {
 			public int compare(Integer arg0, Integer arg1) {
 				return arg0 - arg1;
 			}
@@ -81,21 +90,54 @@ public class MainFrame extends JFrame implements ActionListener {
 		// Alle Spalten sind Sortierbar über den Spaltenkopf
 		for (int i = 0; i < 5; i++) {
 			if (i==2 || i==3)
-				sorter.setSortable(i, true);
+				sorterMain.setSortable(i, true);
 			else
-				sorter.setSortable(i, false);
+				sorterMain.setSortable(i, false);
 		}
+	}
+	
+	private void initPartAmountTable() {
+		String[] titles = new String[] { "Bezeichnung", "Anzahl" };
+
+		// Das Model das wir verwenden werden. Hier setzten wir gleich die Titel,
+		// aber es ist später immer noch möglich weitere Rows hinzuzufügen.
+		modelPartAmount = new DefaultTableModel(titles, 0);
+
+		// Das JTable initialisieren
+		partAmountTable = new JTable(modelPartAmount);
+		partAmountTable.setEnabled(false);
+
+		sorterPartAmount = new TableRowSorter<DefaultTableModel>(modelPartAmount);
+		partAmountTable.setRowSorter(sorterPartAmount);
+		sorterPartAmount.setModel(modelPartAmount);
+
+		sorterPartAmount.setComparator(1, new Comparator<Integer>() {
+			public int compare(Integer arg0, Integer arg1) {
+				return arg0 - arg1;
+			}
+		});
+		
+		sorterPartAmount.setSortable(0, false);
+		partAmountTable.setEnabled(false);
 	}
 
 	@SuppressWarnings("rawtypes")
-	public static Vector<Comparable> createDataVector(Part part, Compartment compartment, String neueZeile, int datenbreite) {
+	public static Vector<Comparable> createVectorMainTable(Part part, Compartment compartment) {
 		Vector<Comparable> vector = new Vector<Comparable>(5);
-		vector.add((compartment.getPosY()/4)+1);
+		vector.add(compartment.getPosY());
 		vector.add(compartment.getPosX() + " " + compartment.getPosZ());
 		vector.add(part.getDescription());
 		vector.add(part.getPartnumber());
 		vector.add(part.getSize());
 
+		return vector;
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public static Vector<Comparable> createVectorPartAmountTable(Part part, int i) {
+		Vector<Comparable> vector = new Vector<Comparable>(2);
+		vector.add(part.getDescription());
+		vector.add(i);
 		return vector;
 	}
 
@@ -157,34 +199,47 @@ public class MainFrame extends JFrame implements ActionListener {
 		contentInfoLabel.setBorder(null);
 		tableTopPanel.add(contentInfoLabel);
 
-		tablePanel.add(new JScrollPane(table), BorderLayout.CENTER);
+		tablePanel.add(new JScrollPane(mainTable), BorderLayout.CENTER);
 		// tablePanel.add(testBtnPanel,BorderLayout.SOUTH);
 	}
 
 	private void initInfoPanel() {
 		infoPanel = new JPanel();
-		infoPanel.setLayout(null);
+		infoPanel.setLayout(new GridLayout(2,1));
+		infoPanel.setBorder(BorderFactory.createEmptyBorder(30, 20, 50, 20));
+		
+		infoTopPanel = new JPanel();
+		infoTopPanel.setLayout(null);
+		
+		infoBottomPanel = new JPanel();
+		infoBottomPanel.setLayout(new BorderLayout());
+		infoBottomPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 100));
 		
 		basicUnitLabel.setBounds(20, 20, 350, 40);
-		infoPanel.add(basicUnitLabel);
+		infoTopPanel.add(basicUnitLabel);
 		
 		lastActionLabel.setBounds(20, 80, 100, 30);
-		infoPanel.add(lastActionLabel);
+		infoTopPanel.add(lastActionLabel);
 		
 		lastActionText.setBounds(120, 80, 350, 40);
 		lastActionText.setEnabled(false);
 		lastActionText.setBackground(infoPanel.getBackground());
 		lastActionText.setDisabledTextColor(Color.BLACK);
-		infoPanel.add(lastActionText);
+		infoTopPanel.add(lastActionText);
 
 		drivewayLabel.setBounds(20, 150, 150, 30);
-		infoPanel.add(drivewayLabel);
+		infoTopPanel.add(drivewayLabel);
 
 		drivewayText.setBounds(190, 143, 200, 60);
 		drivewayText.setEnabled(false);
 		drivewayText.setBackground(infoPanel.getBackground());
 		drivewayText.setDisabledTextColor(Color.BLACK);
-		infoPanel.add(drivewayText);	
+		infoTopPanel.add(drivewayText);	
+		
+		infoBottomPanel.add(new JScrollPane(partAmountTable));
+		
+		infoPanel.add(infoTopPanel);
+		infoPanel.add(infoBottomPanel);
 	}
 	
 	public static void setLastActionText(String lastAction, Part part) {
@@ -213,9 +268,9 @@ public class MainFrame extends JFrame implements ActionListener {
 					contentInfoLabel.setText("Inhaltsanzeige: "
 							+ storageRacks[i].getText());
 					if (i == 0) {
-						sorter.setRowFilter(RowFilter.regexFilter(" *"));
+						sorterMain.setRowFilter(RowFilter.regexFilter(" *"));
 					} else {
-						sorter.setRowFilter(RowFilter.numberFilter(ComparisonType.EQUAL, i, 0));
+						sorterMain.setRowFilter(RowFilter.numberFilter(ComparisonType.EQUAL, i, 0));
 					}
 				}
 			}
@@ -225,20 +280,48 @@ public class MainFrame extends JFrame implements ActionListener {
 	public static void addARow(Part part, Compartment compartment) {
 		// einen neuen Vector mit Daten herstellen
 		@SuppressWarnings("rawtypes")
-		Vector<Comparable> newDatas = createDataVector(part, compartment, "neueZeile", 1);
+		Vector<Comparable> newDatas = createVectorMainTable(part, compartment);
 		// eine neue Row hinzufügen
-		model.addRow(newDatas);
+		modelMain.addRow(newDatas);
 	}
-
+	
 	public static void removeARow(Part part) {
-		int size = model.getRowCount();
+		int size = modelMain.getRowCount();
 
 		for (int i = 0; i < size; i++) {
-			if (model.getValueAt(i, 3).equals(part.getPartnumber())) {
-				model.removeRow(i);
+			if (modelMain.getValueAt(i, 3).equals(part.getPartnumber())) {
+				modelMain.removeRow(i);
 				return;
 			}
 		}
 	}
 
+	
+	@SuppressWarnings("rawtypes")
+	public static void addARowNewPartDiscription (Part part) {	
+		Vector<Comparable> newPartDiscription = createVectorPartAmountTable(part,1);
+		modelPartAmount.addRow(newPartDiscription);
+	}
+	
+	public static void editRowPartDis (Part part, int j) {
+		int size = modelPartAmount.getRowCount();
+		for (int i = 0; i < size; i++) {
+			if (modelPartAmount.getValueAt(i, 0).equals(part.getDescription())) {
+				modelPartAmount.setValueAt(j, i, 1);
+				return;
+			}
+		}
+		
+	}
+	
+	public static void removeRowPartDis (Part part) {
+		int size = modelPartAmount.getRowCount();
+
+		for (int i = 0; i < size; i++) {
+			if (modelPartAmount.getValueAt(i, 0).equals(part.getDescription())) {
+				modelPartAmount.removeRow(i);
+				return;
+			}
+		}
+	}	
 }

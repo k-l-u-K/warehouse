@@ -1,12 +1,15 @@
 package warehouse;
 
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Random;
 
 public class Warehouse {
 
 	public static Warehouse warehouse;
 	public Regal[] regale = new Regal[8];
+	private static Map<String, Integer> map = new HashMap<String, Integer>();
 
 	public static Warehouse get() {
 		if (warehouse == null) {
@@ -53,6 +56,8 @@ public class Warehouse {
 			compartment.setCapacity(compartment.getCapacity() - partSize);
 			//Zeile hinzufügen
 			MainFrame.addARow(part, compartment);
+			//Teil der Anzahlliste hinzufügen
+			Warehouse.partCountAdd(part);	
 			// Letzte Aktion aktualisieren
 			MainFrame.setLastActionText("Einlagern von ", part);
 		}
@@ -123,12 +128,34 @@ public class Warehouse {
 						MainFrame.removeARow(part);
 						// Teil aus der Liste aller eingelagerten Teile (ohne Pos.) entfernen
 						Part.removePart(part);
+						// Teil aus der Anzahlliste entfernen
+						Warehouse.partCountRemove(part);
 						// Letzte Aktion aktualisieren
 						MainFrame.setLastActionText("Auslagern von ", part);
 						return;
 					}
 				}
 			}
+		}
+	}
+	
+	public static void partCountAdd(Part part) {		
+		if (!map.containsKey(part.getDescription())) {
+			map.put(part.getDescription(), 1);
+			MainFrame.addARowNewPartDiscription(part);
+		} else {
+			map.put(part.getDescription(), map.get(part.getDescription()) + 1);
+			MainFrame.editRowPartDis(part, map.get(part.getDescription()));
+		}		
+	}
+	
+	public static void partCountRemove(Part part) {
+		if (map.get(part.getDescription()).equals(1)) {
+			map.remove(part.getDescription());
+			MainFrame.removeRowPartDis(part);
+		} else {
+			map.put(part.getDescription(), map.get(part.getDescription()) - 1);
+			MainFrame.editRowPartDis(part, map.get(part.getDescription()));
 		}
 	}
 	

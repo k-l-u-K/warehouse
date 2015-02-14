@@ -340,6 +340,7 @@ public class MainFrame extends JFrame implements ActionListener {
 	
 	private void saveFile() {
 		FileHandle.serialize();
+		System.out.println("Speichern erfolgreich!");
 	}
 	
 	static void loadFile() {

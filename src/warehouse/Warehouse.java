@@ -3,6 +3,7 @@ package warehouse;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -10,8 +11,8 @@ public class Warehouse implements Serializable {
 	private static final long serialVersionUID = 957905515144635530L;
 	private static Warehouse warehouse;
 	private static Map<Integer,Regal> regal;
-	private static Map<String, Integer> map = new HashMap<String, Integer>();
-
+	private static Map<String, Integer> partAmountMap = new HashMap<String, Integer>();
+	
 	public static Warehouse get() {
 		if (warehouse == null) {
 			warehouse = new Warehouse();
@@ -42,6 +43,8 @@ public class Warehouse implements Serializable {
 			Part.setNewPart(part);
 			// Kapazität verringern
 			compartment.setCapacity(compartment.getCapacity() - part.getSize());
+			// Teil der Warenliste hinzufügen
+			compartment.getPartList().add(part);
 			//Zeile hinzufügen
 			MainFrame.addARow(part, compartment);
 			//Teil der Anzahlliste hinzufügen
@@ -68,7 +71,7 @@ public class Warehouse implements Serializable {
 		for (int i = 0; i < regal.size(); i++)
 			for (int j = 0; j < 10; j++)
 				for (int k = 0; k < 10; k++)
-					for (Part parts : Part.getPartList()) {
+					for (Part parts : regal.get(i).getCompartments()[j][k].getPartList()) {
 						System.out.println(parts);
 						System.out.println(i + " " + j + " " + k);
 					}
@@ -79,7 +82,7 @@ public class Warehouse implements Serializable {
 		for (int i = 0; i < regal.size(); i++)
 			for (int j = 0; j < 10; j++)
 				for (int k = 0; k < 10; k++)
-					for (Part parts : Part.getPartList())
+					for (Part parts : regal.get(i).getCompartments()[j][k].getPartList())
 						if (id == parts.getPartnumber())
 							return parts;
 		return null;
@@ -91,7 +94,7 @@ public class Warehouse implements Serializable {
 		for (int i = 0; i < regal.size(); i++)
 			for (int j = 0; j < 10; j++)
 				for (int k = 0; k < 10; k++)
-					for (Part parts : Part.getPartList())
+					for (Part parts : regal.get(i).getCompartments()[j][k].getPartList())
 						if (name.equals(parts.getDescription()))
 							tempList.add(parts);
 		return tempList.isEmpty() ? null : tempList;
@@ -103,7 +106,7 @@ public class Warehouse implements Serializable {
 		for (int i = 0; i < 8; i++)
 			for (int j = 0; j < 10; j++)
 				for (int k = 0; k < 10; k++)
-					for (Part parts : Part.getPartList())
+					for (Part parts : regal.get(i).getCompartments()[j][k].getPartList())
 						tempList.add(parts);
 		return tempList.isEmpty() ? null : tempList;
 	}
@@ -112,13 +115,13 @@ public class Warehouse implements Serializable {
 		for (int i = 0; i < regal.size(); i++)
 			for (int j = 0; j < 10; j++)
 				for (int k = 0; k < 10; k++)
-					if (Part.getPartList().contains(part)) {
+					if (regal.get(i).getCompartments()[j][k].getPartList().contains(part)) {
 						// Transportfahrzeug kann zum Zielort fahren
-						TransportVehicle.driveToCompartment(part, Regal.getCompartments()[j][k]);
+						TransportVehicle.driveToCompartment(part, regal.get(i).getCompartments()[j][k]);
 						// auslagern
 						Part.removePart(part);
 						// Kapazität vergrößern
-						Regal.getCompartments()[j][k].setCapacity(Regal.getCompartments()[j][k].getCapacity() + part.getSize());
+						regal.get(i).getCompartments()[j][k].setCapacity(regal.get(i).getCompartments()[j][k].getCapacity() + part.getSize());
 						// Zeile aus der Tabelle entfernen
 						MainFrame.removeARow(part);
 						// Teil aus der Anzahlliste entfernen
@@ -130,37 +133,49 @@ public class Warehouse implements Serializable {
 	}
 	
 	public static void partCountAdd(Part part) {		
-		if (!map.containsKey(part.getDescription())) {
-			map.put(part.getDescription(), 1);
+		if (!partAmountMap.containsKey(part.getDescription())) {
+			partAmountMap.put(part.getDescription(), 1);
 			MainFrame.addARowNewPartDiscription(part);
 		} else {
-			map.put(part.getDescription(), map.get(part.getDescription()) + 1);
-			MainFrame.editRowPartDis(part, map.get(part.getDescription()));
+			partAmountMap.put(part.getDescription(), partAmountMap.get(part.getDescription()) + 1);
+			MainFrame.editRowPartDis(part, partAmountMap.get(part.getDescription()));
 		}		
 	}
 	
 	public static void partCountRemove(Part part) {
-		if (map.get(part.getDescription()).equals(1)) {
-			map.remove(part.getDescription());
+		if (partAmountMap.get(part.getDescription()).equals(1)) {
+			partAmountMap.remove(part.getDescription());
 			MainFrame.removeRowPartDis(part);
 		} else {
-			map.put(part.getDescription(), map.get(part.getDescription()) - 1);
-			MainFrame.editRowPartDis(part, map.get(part.getDescription()));
+			partAmountMap.put(part.getDescription(), partAmountMap.get(part.getDescription()) - 1);
+			MainFrame.editRowPartDis(part, partAmountMap.get(part.getDescription()));
 		}
 	}
 	
-	public static void loadPartsIntoWarehouse(Part part, Compartment loadedCompartment) {
+	public static void loadPartsIntoWarehouse(List<Part> part, Compartment loadedCompartment, int i, int j, int k) {
 		Compartment compartment = loadedCompartment;
 		// einlagern
-		Part.setNewPart(part);
+		regal.get(i).getCompartments()[j][k].setPartList(part);
+				
+		System.out.println(loadedCompartment.getPartList());
 		// Kapazität verringern
 		compartment.setCapacity(compartment.getCapacity());
 		//Zeile hinzufügen
-		MainFrame.addARow(part, compartment);
+		for (Part parts : part) {
+			MainFrame.addARow(parts, compartment);
+			Warehouse.partCountAdd(parts);
+		}
 		//Teil der Anzahlliste hinzufügen
-		Warehouse.partCountAdd(part);	
 		// Letzte Aktion aktualisieren
-		MainFrame.setLastActionText("Einlagern von ", part);
+		//MainFrame.setLastActionText("Einlagern von ", part);
+	}
+
+	public static Map<Integer, Regal> getRegal() {
+		return regal;
+	}
+
+	public static void setRegal(Map<Integer, Regal> regal) {
+		Warehouse.regal = regal;
 	}
 
 	public static void fillRandom(int fillCompleteWithThisSize) {
@@ -169,9 +184,8 @@ public class Warehouse implements Serializable {
 		String partName = null;
 		int partSize = 0;
 		for (int i=0; i <= 800; i++) {
-			switch(zufall.nextInt(5)) {
+			switch(zufall.nextInt(6)) {
 			case 0:
-				//Ein Teil der Größe 0 wird zwar eingelagert, aber nicht angezeigt -> nicht zu empfehlen
 				partName = "Schrank";
 				partSize = 10;
 				break;

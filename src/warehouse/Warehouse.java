@@ -54,6 +54,15 @@ public class Warehouse implements Serializable {
 				+ part.getPartnumber() + " gesetzt.";
 		return "Einlagern erfolgreich";
 	}
+	
+	public static Compartment findPlace(Part part){
+		for (int i = 0; i < 8; i++) {
+			Compartment temp = regal.get(i).findCompartment(part);
+			if (temp != null)
+				return temp;
+		}
+		return null;
+	}
 
 	public static void teileAnzeigen() {
 		for (int i = 0; i < regal.size(); i++)
@@ -67,7 +76,7 @@ public class Warehouse implements Serializable {
 
 	// Findet Teile mit Position nach ID
 	public static Part findPartID(int id) {
-		for (int i = 0; i < 8; i++)
+		for (int i = 0; i < regal.size(); i++)
 			for (int j = 0; j < 10; j++)
 				for (int k = 0; k < 10; k++)
 					for (Part parts : Part.getPartList())
@@ -79,7 +88,7 @@ public class Warehouse implements Serializable {
 	// Findet Teile mit Position nach Name
 	public static LinkedList<Part> findPartName(String name) {
 		LinkedList<Part> tempList = new LinkedList<Part>();
-		for (int i = 0; i < 8; i++)
+		for (int i = 0; i < regal.size(); i++)
 			for (int j = 0; j < 10; j++)
 				for (int k = 0; k < 10; k++)
 					for (Part parts : Part.getPartList())
@@ -193,7 +202,7 @@ public class Warehouse implements Serializable {
 			if (fillCompleteWithThisSize != 0)
 				partSize = fillCompleteWithThisSize;
 			Part part = new Part(partName, 0, partSize);
-			Warehouse.teilEinlagern(part, Regal.findCompartment(part));
+			Warehouse.teilEinlagern(part, findPlace(part));
 		}
 	}
 	

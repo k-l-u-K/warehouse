@@ -24,7 +24,6 @@ public class Regal implements Serializable {
 
 	// Findet ein freies Fach mit ausreichender Kapazität
 	public static Compartment findCompartment(Part part) {		
-		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 10; j++) {
 				for (int k = 0; k < 10; k++) {
 					if ((compartments[j][k].getCapacity() >= part.getSize()) 
@@ -33,7 +32,6 @@ public class Regal implements Serializable {
 					}
 				}
 			}
-		}
 		return null;
 	}
 

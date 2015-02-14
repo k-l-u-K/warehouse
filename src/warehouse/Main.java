@@ -4,24 +4,22 @@ public class Main {
 
 	/*
 	 * ToDo:
-	 * Bug: Teile werden beim Laden zwar angezeigt, aber sind nicht "richtig" eingefügt
 	 * Beim Beenden nach Speicherung fragen
 	 * Hinweis, dass Speicherung erfolgreich/fehlgeschlagen als Dialogfenster
 	 * freien Platz (Kapazität) und Anzahl ausgeben (Anzahl der leeren Fächer vllt mit der Fach suche machen und 
 	 * 	ein Fach für ein Objekt der größe 10 suchen?
 	 * 		Flo: Die Fachsuche bricht aber ab, wenn sie ein Fach gefunden hat, 
 	 * 		aber die Schleife ansich müsste man verwenden können ju.)
+	 * Dopplung der Teile-ID entfernen
 
 	 * ToDo für Nacharbeiten:
 	 * alle Variablen auf Korrektheit von private / public kontrollieren
-	 * Fenster sinnvoll aufteilen
+	 * Buttonverteilung (Layout)
 	 * Variablen einheitlich in englischer Sprache
 	 * sinnvoll kommentieren
-	 * isCompartmentFree nochmals umbauen (zumindest korrigiert schonmal)
 	 * Switch-Button beim Auslagern einfügen
-	 * Sortieren entscheidet nicht gleichwertig bei Groß/Kleinbuchstaben
 	 * Exceptionsbehandlung ggf. überarbeiten
-	 * ggf. Fehlerbehandlungen einbauen beim Einlesen der Daten
+	 * (ggf. Fehlerbehandlungen einbauen beim Einlesen der Daten)?
 	 */
 
 	public static void main(String[] args) {

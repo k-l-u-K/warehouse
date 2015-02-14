@@ -30,6 +30,8 @@ public class MainFrame extends JFrame implements ActionListener {
 	private JPanel tableTopPanel;
 	private JTable mainTable;
 	private JButton saveBtn = new JButton("Speichern");
+	private JButton removeAllBtn = new JButton("Lager leeren");
+	private JButton fillWarehouseBtn = new JButton("Lager mit zufälligen Werten befüllen");
 	private JTextField contentInfoLabel = new JTextField("Inhaltsanzeige: Alle Regale");
 
 	// Testbuttons
@@ -41,17 +43,14 @@ public class MainFrame extends JFrame implements ActionListener {
 	// Elemente Info Panel	
 	private JPanel infoTopPanel;
 	private JPanel infoBottomPanel;
-	
+
 	private JTable partAmountTable;
-	
-	private JLabel basicUnitLabel = new JLabel(
-			"Die Größe eines Faches entspricht 10 Grundeinheiten (GE).");
+
+	private JLabel basicUnitLabel = new JLabel("Die Größe eines Faches entspricht 10 Grundeinheiten (GE).");
 	private JLabel lastActionLabel = new JLabel("Letzte Aktion:");
 	private JLabel drivewayLabel = new JLabel("Zurückgelegter Fahrweg: ");
-	private static JTextArea drivewayText = new JTextArea(
-			"Weg in x-Richtung: 0\nWeg in y-Richtung: 0\nWeg in z-Richtung: 0");
+	private static JTextArea drivewayText = new JTextArea("Weg in x-Richtung: 0\nWeg in y-Richtung: 0\nWeg in z-Richtung: 0");
 	private static JTextArea lastActionText = new JTextArea("");
-	
 
 
 	public MainFrame() {
@@ -65,7 +64,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		this.setTitle("Lagerverwaltung");
 		this.setVisible(true);
 	}
-	
+
 	private void initMainTable() {
 		// Die Namen der Columns
 		String[] titles = new String[] { "Regal", "Fach", "Bezeichnung", "Teilenummer", "Größe in GE" };
@@ -88,7 +87,7 @@ public class MainFrame extends JFrame implements ActionListener {
 			}
 		});
 
-		// Alle Spalten sind Sortierbar über den Spaltenkopf
+		// Spalten 2 und 3 sind Sortierbar über den Spaltenkopf
 		for (int i = 0; i < 5; i++) {
 			if (i==2 || i==3)
 				sorterMain.setSortable(i, true);
@@ -152,7 +151,6 @@ public class MainFrame extends JFrame implements ActionListener {
 		cp.setLayout(new GridLayout(1, 2));
 		cp.add(tablePanel);
 		cp.add(infoPanel);
-		
 	}
 
 	private void initMenu() {
@@ -203,7 +201,13 @@ public class MainFrame extends JFrame implements ActionListener {
 
 		tableTopPanel.add(saveBtn);
 		saveBtn.addActionListener(this);
+		
+		tableTopPanel.add(removeAllBtn);
+		removeAllBtn.addActionListener(this);
 
+		tableTopPanel.add(fillWarehouseBtn);
+		fillWarehouseBtn.addActionListener(this);
+		
 		tablePanel.add(new JScrollPane(mainTable), BorderLayout.CENTER);
 		// tablePanel.add(testBtnPanel,BorderLayout.SOUTH);
 	}
@@ -262,26 +266,25 @@ public class MainFrame extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent source) {
 		if (source.getSource() instanceof JButton) {
-			if (source.getSource().equals(saveBtn)) {
+			if (source.getSource().equals(saveBtn))
 				saveFile();
-			}
+			if (source.getSource().equals(removeAllBtn))
+				Warehouse.removeAll();
+			if (source.getSource().equals(fillWarehouseBtn))
+				Warehouse.fillRandom(0);
 		}
-		if (source.getSource().equals(transferToStock)) {
+		if (source.getSource().equals(transferToStock))
 			new TransferDialog();
-		}
-
-		if (source.getSource().equals(releaseFromStock)) {
+		if (source.getSource().equals(releaseFromStock))
 			new ReleaseDialog();
-		} else {
+		else {
 			for (int i = 0; i < 9; i++) {
 				if (source.getSource().equals(storageRacks[i])) {
-					contentInfoLabel.setText("Inhaltsanzeige: "
-							+ storageRacks[i].getText());
-					if (i == 0) {
+					contentInfoLabel.setText("Inhaltsanzeige: " + storageRacks[i].getText());
+					if (i == 0)
 						sorterMain.setRowFilter(RowFilter.regexFilter(" *"));
-					} else {
+					else
 						sorterMain.setRowFilter(RowFilter.numberFilter(ComparisonType.EQUAL, i, 0));
-					}
 				}
 			}
 		}

@@ -2,6 +2,7 @@ package warehouse;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Part implements Serializable/*implements Comparable<Part>*/ {
@@ -10,8 +11,7 @@ public class Part implements Serializable/*implements Comparable<Part>*/ {
 	private String description;
 	private int partnumber;
 	private int size;
-	//Liste, um nur nach Parts zu suchen - ggf. besser&schneller, wenn man nur nach doppelter o.ä. ID sucht
-	private static List<Part> onlyPartList = new ArrayList<Part>();
+	private static List<Part> partList = new ArrayList<Part>();
 
 	public Part(String description, int partnumber, int size) {
 		this.description = description;
@@ -19,7 +19,27 @@ public class Part implements Serializable/*implements Comparable<Part>*/ {
 			partnumber = getFreeID();
 		this.partnumber = partnumber;
 		this.size = size;
-		onlyPartList.add(this);
+		partList.add(this);
+	}
+	
+	//public static List<Part> getPartList() {
+	//	return partList;
+	//}
+
+	public static void setPartList(List<Part> partList) {
+		Part.partList = partList;
+	}
+	
+	public static void setNewPart(Part part) {
+		partList.add(part);
+	}
+	
+	public static void removePart(Part part) {
+		partList.remove(part);
+	}
+	
+	public static List<Part> getPartList() {
+		return Collections.unmodifiableList(partList);
 	}
 
 	@Override
@@ -47,15 +67,9 @@ public class Part implements Serializable/*implements Comparable<Part>*/ {
 		return size;
 	}
 	
-	//Test
-	/*
-	public static List<Part> getOnlyPartList() {
-		return Collections.unmodifiableList(onlyPartList);
-	}*/
-	
 	//Gibt ein Teil ohne Ort zurück
 	public static Part findPart(Part part, int partid) {
-		for (Part tempTeil : onlyPartList) {
+		for (Part tempTeil : partList) {
 			if (tempTeil.getPartnumber() == partid && partid != -1)
 				return tempTeil;
 			if (part != null && tempTeil.getDescription().equals(part.getDescription()))
@@ -75,18 +89,5 @@ public class Part implements Serializable/*implements Comparable<Part>*/ {
 		} else
 			return getFreeID(++testID);
 	}
-	
-	public static void removePart(Part part) {
-		onlyPartList.remove(part);
-	}
-	
-	/*@Override
-	  public int compareTo(Part part) {
-	  return this.description.compareTo(part.getDescription());
-	  }*/
-	
-	/*public int compareToPartnumber(Part part) {
-	  return this.partnumber.compareTo(part.getPartnumber());
-	  }*/
 
 }

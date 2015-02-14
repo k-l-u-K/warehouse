@@ -1,8 +1,6 @@
 package warehouse;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Compartment implements Serializable {
 	private static final long serialVersionUID = -4383443164283909126L;
@@ -11,7 +9,6 @@ public class Compartment implements Serializable {
 	private int posY;
 	private int posZ;
 	private int capacity;
-	private List<Part> partList = new ArrayList<Part>();
 
 	public Compartment(int posX, int posY, int posZ) {
 		super();
@@ -59,27 +56,23 @@ public class Compartment implements Serializable {
 		this.capacity = capacity;
 	}
 
-	public List<Part> getPartList() {
-		return partList;
-	}
-
-	public void setPartList(List<Part> partList) {
-		this.partList = partList;
-	}
-
 	// gibt true/false zurück, ob ein spezielles! Fach frei ist
-	public boolean isCompartmentFree(Part part, Compartment compartment) {
-		if (compartment.partList.isEmpty())
+	public static boolean isCompartmentFree(Part part, Compartment compartment) {
+		if (Part.getPartList().isEmpty())
 			return true;
 		else {
 			// Das Fach ist ebenfalls "leer", wenn ein Teil mit gleicher
 			// Beschreibung eingelagert werden soll.
-			for (Part parts : compartment.partList) {
+			for (Part parts : Part.getPartList())
 				if (part.getDescription().equals(parts.getDescription()))
 					return true;
-			}
 		}
 		return false;
+	}
+
+	
+	public Part findPart(Part part) {
+		return Part.findPart(part, -1);
 	}
 
 }

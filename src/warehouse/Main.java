@@ -4,6 +4,8 @@ public class Main {
 
 	/*
 	 * ToDo:
+	 * Bug: Teile werden beim Laden zwar angezeigt, aber sind nicht "richtig" eingefügt
+	 * Beim Beenden nach Speicherung fragen
 	 * Hinweis, dass Speicherung erfolgreich/fehlgeschlagen als Dialogfenster
 	 * freien Platz (Kapazität) und Anzahl ausgeben (Anzahl der leeren Fächer vllt mit der Fach suche machen und 
 	 * 	ein Fach für ein Objekt der größe 10 suchen?
@@ -24,13 +26,16 @@ public class Main {
 
 	public static void main(String[] args) {
 		new TransportVehicle(0, 0, 0);
+		Warehouse.get();
 		new MainFrame();
+		
 		//Beim Aufruf des zufälligen Einordnens kann als Parameter eine Zahl (sinnvoll größer 5 ;-)) übergeben werden
 		//damit jedes Fach im Lager mit einem Teil befüllt wird -> Lager voll kann getestet werden
 		//bei 0 wird eine definierte Größe für jedes Teil eingetragen -> das Lager wird so nicht komplett gefüllt
-		//Warehouse.fillRandom(9);
-
-		MainFrame.loadFile();
+		Warehouse.fillRandom(0);
+		//Warehouse.teileAnzeigen();
+		//System.out.println(Compartment.getCompartments());
+		//MainFrame.loadFile();
 	}
 
 }

@@ -3,7 +3,6 @@ package warehouse;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Vector;
 
 import javax.swing.*;
@@ -341,10 +340,7 @@ public class MainFrame extends JFrame implements ActionListener {
 	}
 	
 	static void loadFile() {
-		List<Part> parts = FileHandle.deserializePart();
-		System.out.println(parts);
-		List<Compartment> Compartment = FileHandle.deserializeCompartment();
-		System.out.println(Compartment);
+		FileHandle.deserialize();
 	}
 
 }

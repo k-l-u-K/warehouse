@@ -5,8 +5,6 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class FileHandle implements Serializable {
@@ -22,41 +20,21 @@ public class FileHandle implements Serializable {
 							out.writeObject(parts);
 							out.writeObject(Warehouse.get().getRegale()[i].compartments[j][k]);
 						}
-						
-			System.out.println("Speichern erfolgreich");
-			System.out.println();
 		} catch (Exception e) {
 			System.out.println("Speichern fehlgeschlagen");
 		}
 	}
   	
-	public static List<Part> deserializePart() {
-		List<Part> loadedPartList = new ArrayList<Part>();
-		try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
-  			for (int i = 0; i < 700 ; i++) {
-  				//if (!in.readObject().equals(null))
-  					loadedPartList.add((Part) in.readObject());
-  			}
-  			System.out.println("Deserialization succeeded\n");
-  		} catch (Exception e) {
-  			System.out.println("Deserialization failed\n");
-  			System.err.println(e);
-  		}
-  	    return loadedPartList;
+	public static void deserialize() {
+		try (FileInputStream istream = new FileInputStream(file);) {
+			@SuppressWarnings("resource")
+			ObjectInputStream ois = new ObjectInputStream(istream);
+			while( istream.available() > 0) 
+				Warehouse.loadPartsIntoWarehouse((Part) ois.readObject(), (Compartment) ois.readObject());
+		} catch (Exception e) {
+			System.out.println("Deserialization failed\n");
+			System.err.println(e);
+		}
 	}
-	
-	public static List<Compartment> deserializeCompartment() {
-		List<Compartment> loadedCompartmentList = new ArrayList<Compartment>();
-		try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
-  			for (int i = 1; i < 701 ; i++) {
-  				//if (!in.readObject().equals(null))
-  					loadedCompartmentList.add((Compartment) in.readObject());
-  			}
-  			System.out.println("Deserialization succeeded\n");
-  		} catch (Exception e) {
-  			System.out.println("Deserialization failed\n");
-  			System.err.println(e);
-  		}
-  	    return loadedCompartmentList;
-	}
+
 }

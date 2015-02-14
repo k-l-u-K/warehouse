@@ -64,6 +64,7 @@ public class Warehouse implements Serializable {
 			// Kapazität verringern
 			compartment.setCapacity(compartment.getCapacity() - part.getSize());
 			//Zeile hinzufügen
+			
 			MainFrame.addARow(part, compartment);
 			//Teil der Anzahlliste hinzufügen
 			Warehouse.partCountAdd(part);	
@@ -168,6 +169,13 @@ public class Warehouse implements Serializable {
 		}
 	}
 	
+	public static void loadPartsIntoWarehouse(Part part, Compartment compartment) {
+		compartment.getPartList().add(part);
+		compartment.setCapacity(compartment.getCapacity() - part.getSize());
+		MainFrame.addARow(part, compartment);
+		Warehouse.partCountAdd(part);	
+	}
+
 	public static void fillRandom(int fillCompleteWithThisSize) {
 		Random zufall = new Random();
 		String partName = null;

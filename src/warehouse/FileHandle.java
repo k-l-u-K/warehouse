@@ -8,6 +8,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 public class FileHandle implements Serializable {
 	private static final long serialVersionUID = -7725023475097213226L;
 	private static String file = ".\\data\\DateiZumEinlesen.ser";
@@ -25,14 +27,22 @@ public class FileHandle implements Serializable {
 					}
 		 	fos.close();
 		 	oos.close();
+		 	JOptionPane.showMessageDialog(null,
+		 		    "Lagerbestand wurde erfolgreich gespeichert.",
+		 		    "Speichern erfolgreich",
+		 		    JOptionPane.INFORMATION_MESSAGE);
 		} catch (Exception a) {
-			System.out.println("Speichern fehlgeschlagen");
-			System.err.println(a);
+			//System.out.println("Speichern fehlgeschlagen");
+			//System.err.println(a);
+			JOptionPane.showMessageDialog(null,
+		 		    "Lagerbestand konnte nicht gespeichert werden.",
+		 		    "Speichern fehlgeschlagen",
+		 		    JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
 	@SuppressWarnings("unchecked")
-	public static Compartment deserialize() {
+	public static void deserialize() {
 		List<Part> loadedPartList = new ArrayList<Part>();
 		Compartment loadedCompartment = null;
 		try (FileInputStream istream = new FileInputStream(file);) {
@@ -47,11 +57,17 @@ public class FileHandle implements Serializable {
 						}
 			}
 			ois.close();
+			JOptionPane.showMessageDialog(null,
+		 		    "Lagerbestand wurde erfolgreich geladen.",
+		 		    "Laden erfolgreich",
+		 		    JOptionPane.INFORMATION_MESSAGE);
 		} catch (Exception e) {
-			System.out.println("Deserialization failed\n");
-			System.err.println(e);
+			//System.out.println("Deserialization failed\n");
+			//System.err.println(e);
+			JOptionPane.showMessageDialog(null,
+		 		    "Lagerbestand konnte nicht geladen werden.",
+		 		    "Laden fehlgeschlagen",
+		 		    JOptionPane.ERROR_MESSAGE);
 		}
-		return null;
 	}
-
 }

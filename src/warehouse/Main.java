@@ -7,7 +7,6 @@ public class Main {
 	 * Beim Beenden nach Speicherung fragen
 	 * Datei anlegen, wenn nicht vorhanden
 	 * Wenn Inhalt der Datei leer, dann funzt speichern nicht
-	 * Hinweis, dass Speicherung erfolgreich/fehlgeschlagen als Dialogfenster
 	 * freien Platz (Kapazität) und Anzahl ausgeben (Anzahl der leeren Fächer vllt mit der Fach suche machen und 
 	 * 	ein Fach für ein Objekt der größe 10 suchen?
 	 * 		Flo: Die Fachsuche bricht aber ab, wenn sie ein Fach gefunden hat, 

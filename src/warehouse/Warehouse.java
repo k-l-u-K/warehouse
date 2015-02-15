@@ -48,6 +48,8 @@ public class Warehouse implements Serializable {
 			Warehouse.partCountAdd(part);	
 			// Letzte Aktion aktualisieren
 			MainFrame.setLastActionText("Einlagern von ", part);
+			MainFrame.setRestCapacityText();
+			MainFrame.setRestCompartmentText();
 		}
 		if (part.getPartnumber() != TransferDialog.getInpPartNumber())
 			return "Einlagern erfolgreich\nID war bereits vergeben oder ungültig und wurde daher auf " 
@@ -125,6 +127,8 @@ public class Warehouse implements Serializable {
 						Warehouse.partCountRemove(part);
 						// Letzte Aktion aktualisieren
 						MainFrame.setLastActionText("Auslagern von ", part);
+						MainFrame.setRestCapacityText();
+						MainFrame.setRestCompartmentText();
 						return;
 					}
 	}
@@ -261,6 +265,17 @@ public class Warehouse implements Serializable {
 						//System.out.println(regal.get(i).getCompartments()[j][k].getCapacity());
 					}
 		return temp;
+	}
+	
+	public static int usedCompartment() {
+		int temp = 0;
+		for (int i = 0; i < 8; i++)
+			for (int j = 0; j < 10; j++)
+				for (int k = 0; k < 10; k++) {
+					if (!regal.get(i).getCompartments()[j][k].getPartList().isEmpty())
+						temp ++;
+					}
+		return temp=800-temp;
 	}
 
 	/*

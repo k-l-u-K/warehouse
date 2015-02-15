@@ -49,8 +49,12 @@ public class MainFrame extends JFrame implements ActionListener {
 	private JLabel basicUnitLabel = new JLabel("Die Größe eines Faches entspricht 10 Grundeinheiten (GE).");
 	private JLabel lastActionLabel = new JLabel("Letzte Aktion:");
 	private JLabel drivewayLabel = new JLabel("Zurückgelegter Fahrweg: ");
+	private JLabel restCapacityLabel = new JLabel("Restkapazität: ");
+	private JLabel restCompartmentLabel = new JLabel("freie Fächer: ");
 	private static JTextArea drivewayText = new JTextArea("Weg in x-Richtung: 0\nWeg in y-Richtung: 0\nWeg in z-Richtung: 0");
 	private static JTextArea lastActionText = new JTextArea("");
+	private static JTextArea restCapacityText = new JTextArea("");
+	private static JTextArea restCompartmentText = new JTextArea("");
 
 
 	public MainFrame() {
@@ -69,6 +73,9 @@ public class MainFrame extends JFrame implements ActionListener {
 		this.setLocation(0, 0);
 		this.setTitle("Lagerverwaltung");
 		this.setVisible(true);
+		loadFile();
+		setRestCapacityText();
+		setRestCompartmentText();
 	}
 
 	private void initMainTable() {
@@ -101,7 +108,7 @@ public class MainFrame extends JFrame implements ActionListener {
 				sorterMain.setSortable(i, false);
 		}
 	}
-	
+
 	private void initPartAmountTable() {
 		String[] titles = new String[] { "Bezeichnung", "Anzahl" };
 
@@ -138,7 +145,7 @@ public class MainFrame extends JFrame implements ActionListener {
 
 		return vector;
 	}
-	
+
 	@SuppressWarnings("rawtypes")
 	public static Vector<Comparable> createVectorPartAmountTable(Part part, int i) {
 		Vector<Comparable> vector = new Vector<Comparable>(2);
@@ -244,19 +251,37 @@ public class MainFrame extends JFrame implements ActionListener {
 
 		drivewayLabel.setBounds(20, 150, 150, 30);
 		infoTopPanel.add(drivewayLabel);
-
+		
 		drivewayText.setBounds(190, 143, 200, 60);
 		drivewayText.setEnabled(false);
 		drivewayText.setBackground(infoPanel.getBackground());
 		drivewayText.setDisabledTextColor(Color.BLACK);
 		infoTopPanel.add(drivewayText);	
+
+		restCapacityLabel.setBounds(20, 200, 150, 30);
+		infoTopPanel.add(restCapacityLabel);
 		
+		restCapacityText.setBounds(120, 207, 350, 40);
+		restCapacityText.setEnabled(false);
+		restCapacityText.setBackground(infoPanel.getBackground());
+		restCapacityText.setDisabledTextColor(Color.BLACK);
+		infoTopPanel.add(restCapacityText);
+		
+		restCompartmentLabel.setBounds(20, 225, 150, 30);
+		infoTopPanel.add(restCompartmentLabel);
+
+		restCompartmentText.setBounds(120, 232, 350, 40);
+		restCompartmentText.setEnabled(false);
+		restCompartmentText.setBackground(infoPanel.getBackground());
+		restCompartmentText.setDisabledTextColor(Color.BLACK);
+		infoTopPanel.add(restCompartmentText);
+	
 		infoBottomPanel.add(new JScrollPane(partAmountTable));
 		
 		infoPanel.add(infoTopPanel);
 		infoPanel.add(infoBottomPanel);
 	}
-	
+
 	public static void setLastActionText(String lastAction, Part part) {
 		lastActionText.setText(lastAction + part.getDescription()
 				+ " \n(Teilenummer: " + part.getPartnumber() + ", Größe: "
@@ -267,6 +292,14 @@ public class MainFrame extends JFrame implements ActionListener {
 		drivewayText.setText("Weg in x-Richtung: " + TransportVehicle.getPosX()
 				+ "\nWeg in y-Richtung: " + TransportVehicle.getPosY()
 				+ "\nWeg in z-Richtung: " + TransportVehicle.getPosZ());
+	}
+
+	public static void setRestCapacityText() {
+		restCapacityText.setText(Integer.toString(Warehouse.usedCapacity()));
+	}
+
+	public static void setRestCompartmentText() {
+		restCompartmentText.setText(Integer.toString(Warehouse.usedCompartment()));
 	}
 
 	@Override
@@ -303,7 +336,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		// eine neue Row hinzufügen
 		modelMain.addRow(newDatas);
 	}
-	
+
 	public static void removeARow(Part part) {
 		int size = modelMain.getRowCount();
 
@@ -315,13 +348,12 @@ public class MainFrame extends JFrame implements ActionListener {
 		}
 	}
 
-	
 	@SuppressWarnings("rawtypes")
 	public static void addARowNewPartDiscription (Part part) {	
 		Vector<Comparable> newPartDiscription = createVectorPartAmountTable(part,1);
 		modelPartAmount.addRow(newPartDiscription);
 	}
-	
+
 	public static void editRowPartDis (Part part, int j) {
 		int size = modelPartAmount.getRowCount();
 		for (int i = 0; i < size; i++) {
@@ -332,7 +364,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		}
 		
 	}
-	
+
 	public static void removeRowPartDis (Part part) {
 		int size = modelPartAmount.getRowCount();
 
@@ -343,7 +375,6 @@ public class MainFrame extends JFrame implements ActionListener {
 			}
 		}
 	}
-	
 	
 	private void exit() {
 		// Eingabe des Benutzers wird in int-Wert gespeichert: 0 für 1. Antwort, 1 für 2. Antwort etc.		
@@ -358,13 +389,12 @@ public class MainFrame extends JFrame implements ActionListener {
 			        	 System.exit(0);
 			      }
 	}
-	
-	
+
 	private void saveFile() {
 		FileHandle.serialize();
 	}
-	
-	static void loadFile() {
+
+	private void loadFile() {
 		FileHandle.deserialize();
 	}
 

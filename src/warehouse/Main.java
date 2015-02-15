@@ -30,9 +30,6 @@ public class Main {
 		//damit jedes Fach im Lager mit einem Teil befüllt wird -> Lager voll kann getestet werden
 		//bei 0 wird eine definierte Größe für jedes Teil eingetragen -> das Lager wird so nicht komplett gefüllt
 		//Warehouse.fillRandom(0);
-		MainFrame.loadFile();
-		System.out.println((10*10*8)-Warehouse.usedCapacity());
-		System.out.println(Warehouse.usedCapacity());
 	}
 
 }

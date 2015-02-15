@@ -14,7 +14,7 @@ public class FileHandle implements Serializable {
 
 	public static void serialize() {
 		try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file))) {
-			for (Part parts : Part.getPartList()) 
+			for (Part parts : Compartment.getPartList()) 
 				System.out.println(parts);
 			for (int i = 0; i < Warehouse.getRegal().size(); i++)
 				for (int j = 0; j < 10; j++)

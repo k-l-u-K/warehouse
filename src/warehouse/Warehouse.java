@@ -39,11 +39,11 @@ public class Warehouse implements Serializable {
 			//Fahrzeug kann hier mit dem Teil zum Zielort fahren
 			TransportVehicle.driveToCompartment(part, compartment);
 			// einlagern
-			Compartment.setNewPart(part);
+			compartment.getPartList().add(part);
 			// Kapazität verringern
 			compartment.setCapacity(compartment.getCapacity() - part.getSize());
 			// Teil der Warenliste hinzufügen
-			//compartment.getPartList().add(part);
+			compartment.getPartList().add(part);
 			//Zeile hinzufügen
 			MainFrame.addARow(part, compartment);
 			//Teil der Anzahlliste hinzufügen
@@ -70,7 +70,7 @@ public class Warehouse implements Serializable {
 		for (int i = 0; i < regal.size(); i++)
 			for (int j = 0; j < 10; j++)
 				for (int k = 0; k < 10; k++)
-					for (Part parts : Compartment.getPartList()) {
+					for (Part parts : Warehouse.get().getRegal().get(i).getCompartments()[j][k].getPartList()) {
 						System.out.println(parts);
 						System.out.println(i + " " + j + " " + k);
 					}
@@ -81,7 +81,7 @@ public class Warehouse implements Serializable {
 		for (int i = 0; i < regal.size(); i++)
 			for (int j = 0; j < 10; j++)
 				for (int k = 0; k < 10; k++)
-					for (Part parts : Compartment.getPartList())
+					for (Part parts : Warehouse.get().getRegal().get(i).getCompartments()[j][k].getPartList())
 						if (id == parts.getPartnumber())
 							return parts;
 		return null;
@@ -93,7 +93,7 @@ public class Warehouse implements Serializable {
 		for (int i = 0; i < regal.size(); i++)
 			for (int j = 0; j < 10; j++)
 				for (int k = 0; k < 10; k++)
-					for (Part parts : Compartment.getPartList())
+					for (Part parts : Warehouse.get().getRegal().get(i).getCompartments()[j][k].getPartList())
 						if (name.equals(parts.getDescription()))
 							tempList.add(parts);
 		return tempList.isEmpty() ? null : tempList;
@@ -105,7 +105,7 @@ public class Warehouse implements Serializable {
 		for (int i = 0; i < 8; i++)
 			for (int j = 0; j < 10; j++)
 				for (int k = 0; k < 10; k++)
-					for (Part parts : Compartment.getPartList())
+					for (Part parts : Warehouse.get().getRegal().get(i).getCompartments()[j][k].getPartList())
 						tempList.add(parts);
 		return tempList.isEmpty() ? null : tempList;
 	}
@@ -114,11 +114,11 @@ public class Warehouse implements Serializable {
 		for (int i = 0; i < regal.size(); i++)
 			for (int j = 0; j < 10; j++)
 				for (int k = 0; k < 10; k++)
-					if (Compartment.getPartList().contains(part)) {
+					if (Warehouse.get().getRegal().get(i).getCompartments()[j][k].getPartList().contains(part)) {
 						// Transportfahrzeug kann zum Zielort fahren
 						TransportVehicle.driveToCompartment(part, regal.get(i).getCompartments()[j][k]);
 						// auslagern
-						Compartment.removePart(part);
+						Warehouse.get().getRegal().get(i).getCompartments()[j][k].getPartList().remove(part);
 						// Kapazität vergrößern
 						regal.get(i).getCompartments()[j][k].setCapacity(regal.get(i).getCompartments()[j][k].getCapacity() + part.getSize());
 						// Zeile aus der Tabelle entfernen
@@ -160,7 +160,7 @@ public class Warehouse implements Serializable {
 		//System.out.println(j);
 		System.out.println(part);
 		//regal.get(i).getCompartments()[j][k].findPart(part)
-		Compartment.setPartList(part);
+		Warehouse.get().getRegal().get(i).getCompartments()[j][k].setPartList(part);
 		//regal.get(i).getCompartments()[j][k].setPartList(part);
 		// Kapazität verringern
 		//loadedCompartment.setCapacity(loadedCompartment.getCapacity());
@@ -171,7 +171,7 @@ public class Warehouse implements Serializable {
 		}
 	}
 
-	public static Map<Integer, Regal> getRegal() {
+	public Map<Integer, Regal> getRegal() {
 		return regal;
 	}
 

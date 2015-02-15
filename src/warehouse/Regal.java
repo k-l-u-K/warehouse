@@ -18,19 +18,17 @@ public class Regal implements Serializable {
 		return compartments;
 	}
 	
-	public void setCompartments(Compartment[][] compartments) {
-		this.compartments = compartments;
+	public void setCompartments(Compartment compartment, int index1, int index2){
+		this.compartments[index1][index2] = compartment;
 	}
 
 	// Findet ein freies Fach mit ausreichender Kapazität
 	public Compartment findCompartment(Part part) {	
-		for (int i = 0 ; i < Warehouse.getRegal().size(); i++) {
-			for (int j = 0; j < 10; j++) {
-				for (int k = 0; k < 10; k++) {
-					if ((Warehouse.getRegal().get(i).getCompartments()[j][k].getCapacity() >= part.getSize())
-							&& this.isCompartmentFree(part, Warehouse.getRegal().get(i).getCompartments()[j][k])) {
-							return Warehouse.getRegal().get(i).getCompartments()[j][k];
-					}
+		for (int j = 0; j < 10; j++) {
+			for (int k = 0; k < 10; k++) {
+				if ((compartments[j][k].getCapacity() >= part.getSize())
+						&& this.isCompartmentFree(part, compartments[j][k])) {
+						return compartments[j][k];
 				}
 			}
 		}
@@ -39,12 +37,12 @@ public class Regal implements Serializable {
 	
 	// gibt true/false zurück, ob ein spezielles! Fach frei ist
 	public boolean isCompartmentFree(Part part, Compartment compartment) {
-		if (compartment.getPartList().isEmpty())
+		if (Compartment.getPartList().isEmpty())
 			return true;
 		else {
 			// Das Fach ist ebenfalls "leer", wenn ein Teil mit gleicher
 			// Beschreibung eingelagert werden soll.
-			for (Part parts : compartment.getPartList())
+			for (Part parts : Compartment.getPartList())
 				if (part.getDescription().equals(parts.getDescription()))
 					return true;
 		}

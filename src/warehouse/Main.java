@@ -4,8 +4,7 @@ public class Main {
 
 	/*
 	 * ToDo für Nacharbeiten:
-	 * alle Variablen auf Korrektheit von private / public kontrollieren
-	 * Buttonverteilung (Layout)
+	 * Buttonverteilung & Layout
 	 * sinnvoll kommentieren
 	 */
 

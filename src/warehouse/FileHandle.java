@@ -16,26 +16,8 @@ import javax.swing.JOptionPane;
 public class FileHandle implements Serializable {
 	private static final long serialVersionUID = -7725023475097213226L;
 	private static String file = ".\\data\\DateiZumEinlesen.ser";
-
-	/*
-	File f = new File(file);
-	
-    @SuppressWarnings("unused")
-	private boolean checkFile(File f) {
-        if (f != null) {
-            try {
-                f.createNewFile();
-            } catch (IOException e) {
-                System.err.println("Error creating " + f.toString());
-            }
-            if (f.isFile() && f.canWrite() && f.canRead())
-                return true;
-        }
-        return false; 
-    }*/
 	
 	public static void serialize() {
-		
 		try (FileOutputStream fos = new FileOutputStream(file)){
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 		 	
@@ -99,6 +81,5 @@ public class FileHandle implements Serializable {
 		 		    "Laden fehlgeschlagen",
 		 		    JOptionPane.ERROR_MESSAGE);
 		}
-		
 	}
 }

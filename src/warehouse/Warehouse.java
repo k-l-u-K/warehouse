@@ -60,7 +60,7 @@ public class Warehouse implements Serializable {
 			MainFrame.setRestCompartmentText();
 		}
 		if (part.getPartnumber() != TransferDialog.getInpPartNumber()) {
-			if (TransferDialog.getInpPartNumber() == 0)
+			if (TransferDialog.getInpPartNumber() <= 0)
 				return "Einlagern erfolgreich\nDie ID muss größer 0 sein. Daher wurde sie auf " 
 					+ part.getPartnumber() + " gesetzt.";
 			return "Einlagern erfolgreich\nID war bereits vergeben und wurde daher auf " 
@@ -118,16 +118,6 @@ public class Warehouse implements Serializable {
 				return temp;
 		}
 		return null;
-	}
-
-	public static void showParts() {
-		for (int i = 0; i < regal.size(); i++)
-			for (int j = 0; j < Variables.COMPARTMENTSIDEBYSIDE; j++)
-				for (int k = 0; k < Variables.COMPARTMENTONTOPOFEACHOTHER; k++)
-					for (Part parts : regal.get(i).getCompartments()[j][k].getPartList()) {
-						System.out.println(parts);
-						System.out.println(i + " " + j + " " + k);
-					}
 	}
 
 	// Findet Teile mit Position nach ID

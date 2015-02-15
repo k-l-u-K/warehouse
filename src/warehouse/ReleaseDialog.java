@@ -2,7 +2,6 @@ package warehouse;
 
 import java.awt.event.*;
 import java.util.LinkedList;
-
 import javax.swing.*;
 
 public class ReleaseDialog extends PopupDialog {

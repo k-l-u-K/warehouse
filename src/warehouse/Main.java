@@ -5,6 +5,7 @@ public class Main {
 	/*
 	 * ToDo für Nacharbeiten:
 	 * Buttonverteilung & Layout
+	 * beim Auslagern: wenn keine Teilenummer vorhanden -> Info an Benutzer 
 	 * sinnvoll kommentieren
 	 * Kurze Entwurfsbeschreibung (wenige Seiten)
 	 * Anleitung

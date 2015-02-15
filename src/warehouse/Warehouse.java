@@ -30,9 +30,9 @@ public class Warehouse implements Serializable {
 
 	// Lagert ein Teil ein
 	public static String storingParts(Part part, Compartment compartment) {
-		if (part.getSize() <= 0 || part.getSize() > 10)
-			return "Größe muss zwischen 1 und 10 GE betragen!";
-		if (compartment == null) 
+		if (part.getSize() <= 0 || part.getSize() > Variables.CAPACITY)
+			return "Größe muss zwischen 1 und " + Variables.CAPACITY + " GE betragen!";
+		if (compartment == null)
 			return "Lager voll!";
 		// wenn noch Platz, dann einlagern
 		if ((compartment.getCapacity() - part.getSize()) >= 0) {
@@ -272,7 +272,7 @@ public class Warehouse implements Serializable {
 				for (int k = 0; k < Variables.COMPARTMENTONTOPOFEACHOTHER; k++)
 					if (!regal.get(i).getCompartments()[j][k].getPartList().isEmpty())
 						temp ++;
-		return temp=800-temp;
+		return temp=Variables.COMPARTMENTSIDEBYSIDE*Variables.COMPARTMENTONTOPOFEACHOTHER*Variables.REGALCOUNT-temp;
 	}
 
 	/*

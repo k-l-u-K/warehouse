@@ -6,7 +6,6 @@ public class Main {
 	 * ToDo:
 	 * globale Variablen
 	 * Datei anlegen, wenn nicht vorhanden
-	 * Unterscheiden von Fehlern beim LAden aus der Datei
 	
 
 	 * ToDo für Nacharbeiten:

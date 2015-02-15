@@ -8,7 +8,7 @@ public class Regal implements Serializable {
 	private Compartment[][] compartments;
 
 	public Regal(int y) {
-		compartments = new Compartment[10][10];
+		compartments = new Compartment[Variables.COMPARTMENTSIDEBYSIDE][Variables.COMPARTMENTONTOPOFEACHOTHER];
 		for (int i = 0; i < Variables.COMPARTMENTSIDEBYSIDE; i++)		//Nebeneinander
 			for (int j = 0; j < Variables.COMPARTMENTONTOPOFEACHOTHER; j++)	//Übereinander
 				this.compartments[i][j] = new Compartment((2 + (i * 2)), y, (j * 2));
@@ -19,7 +19,7 @@ public class Regal implements Serializable {
 	}
 
 	// Findet ein freies Fach mit ausreichender Kapazität
-	public Compartment findCompartment(Part part) {	
+	public Compartment findCompartment(Part part) {
 		for (int j = 0; j < Variables.COMPARTMENTSIDEBYSIDE; j++) {
 			for (int k = 0; k < Variables.COMPARTMENTONTOPOFEACHOTHER; k++) {
 				if ((compartments[j][k].getCapacity() >= part.getSize())

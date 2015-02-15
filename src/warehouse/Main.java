@@ -6,6 +6,9 @@ public class Main {
 	 * ToDo für Nacharbeiten:
 	 * Buttonverteilung & Layout
 	 * sinnvoll kommentieren
+	 * Kurze Entwurfsbeschreibung (wenige Seiten)
+	 * Anleitung
+	 * Testbeispiele
 	 */
 
 	public static void main(String[] args) {

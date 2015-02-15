@@ -216,8 +216,8 @@ public class Warehouse implements Serializable {
 	        	//sollte nie auftreten
 	        	continue;
 			}
-			if (Variables.FILLCOMPLETEWITHTISSIZE != 0)
-				partSize = Variables.FILLCOMPLETEWITHTISSIZE;
+			if (Variables.FILLEVERYPARTWITHTHISSIZE != 0)
+				partSize = Variables.FILLEVERYPARTWITHTHISSIZE;
 			Part part = new Part(partName, 0, partSize);
 			Warehouse.storingParts(part, findRegal(part));
 		}

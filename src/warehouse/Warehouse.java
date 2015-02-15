@@ -3,6 +3,7 @@ package warehouse;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -41,8 +42,6 @@ public class Warehouse implements Serializable {
 			compartment.getPartList().add(part);
 			// Kapazität verringern
 			compartment.setCapacity(compartment.getCapacity() - part.getSize());
-			// Teil der Warenliste hinzufügen
-			compartment.getPartList().add(part);
 			//Zeile hinzufügen
 			MainFrame.addARow(part, compartment);
 			//Teil der Anzahlliste hinzufügen
@@ -154,22 +153,24 @@ public class Warehouse implements Serializable {
 		}
 	}
 
-	public static void loadPartsIntoWarehouse(Part part, Compartment loadedCompartment, int i, int j, int k) {
+	public static void loadPartsIntoWarehouse(List<Part> part, Compartment loadedCompartment, int i, int j, int k) {
 		// einlagern
 		//System.out.println(j);
-		System.out.println(part);
+		regal.get(i).getCompartments()[j][k].setPartList(part);
+		//System.out.println(part);
 		//regal.get(i).getCompartments()[j][k].findPart(part)
 		// einlagern
-		loadedCompartment.getPartList().add(part);
+		//loadedCompartment.getPartList().add(part);
 		// Kapazität verringern
-		loadedCompartment.setCapacity(loadedCompartment.getCapacity());
+		//loadedCompartment.setCapacity(loadedCompartment.getCapacity());
 		// Teil der Warenliste hinzufügen
-		loadedCompartment.getPartList().add(part);
+		//loadedCompartment.getPartList().add(part);
 		//Zeile hinzufügen
-		MainFrame.addARow(part, loadedCompartment);
-		//Teil der Anzahlliste hinzufügen
-		Warehouse.partCountAdd(part);	
-		// Letzte Aktion aktualisieren
+		for (Part parts : part) {
+			MainFrame.addARow(parts, loadedCompartment);
+			Warehouse.partCountAdd(parts);
+		}
+
 	}
 
 	public Map<Integer, Regal> getRegal() {

@@ -250,6 +250,18 @@ public class Warehouse implements Serializable {
 		} else
 			return getFreeID(++testID);
 	}
+	
+	public static int usedCapacity() {
+		int temp = 0;
+		for (int i = 0; i < 8; i++)
+			for (int j = 0; j < 10; j++)
+				for (int k = 0; k < 10; k++)
+					for (Part tempTeil : Warehouse.get().getRegal().get(i).getCompartments()[j][k].getPartList()) {
+						temp += regal.get(i).getCompartments()[j][k].getCapacity();
+						System.out.println(regal.get(i).getCompartments()[j][k].getCapacity());
+					}
+		return temp;
+	}
 
 	/*
 	 | 

@@ -4,7 +4,7 @@ public class Main {
 
 	/*
 	 * ToDo:
-	 * Beim Beenden nach Speicherung fragen
+	 * globale Variablen
 	 * Datei anlegen, wenn nicht vorhanden
 	 * Wenn Inhalt der Datei leer, dann funzt speichern nicht
 	 * freien Platz (Kapazität) und Anzahl ausgeben (Anzahl der leeren Fächer vllt mit der Fach suche machen und 
@@ -30,9 +30,9 @@ public class Main {
 		//damit jedes Fach im Lager mit einem Teil befüllt wird -> Lager voll kann getestet werden
 		//bei 0 wird eine definierte Größe für jedes Teil eingetragen -> das Lager wird so nicht komplett gefüllt
 		//Warehouse.fillRandom(0);
-		//Warehouse.showParts();
-		//System.out.println(Compartment.getCompartments());
 		MainFrame.loadFile();
+		System.out.println((10*10*8)-Warehouse.usedCapacity());
+		System.out.println(Warehouse.usedCapacity());
 	}
 
 }

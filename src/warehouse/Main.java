@@ -6,11 +6,7 @@ public class Main {
 	 * ToDo:
 	 * globale Variablen
 	 * Datei anlegen, wenn nicht vorhanden
-	 * Wenn Inhalt der Datei leer, dann funzt speichern nicht
-	 * freien Platz (Kapazität) und Anzahl ausgeben (Anzahl der leeren Fächer vllt mit der Fach suche machen und 
-	 * 	ein Fach für ein Objekt der größe 10 suchen?
-	 * 		Flo: Die Fachsuche bricht aber ab, wenn sie ein Fach gefunden hat, 
-	 * 		aber die Schleife ansich müsste man verwenden können ju.)
+	
 
 	 * ToDo für Nacharbeiten:
 	 * alle Variablen auf Korrektheit von private / public kontrollieren

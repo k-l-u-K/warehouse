@@ -70,7 +70,7 @@ public class TransferDialog extends PopupDialog  {
 		try {
 			// Prüfung ob Teilenr.-feld leer ist
 			if (inpTextField[1].getText().isEmpty()) 
-				inpTextField[1].setText(Integer.toString(Part.getFreeID()));
+				inpTextField[1].setText(Integer.toString(Warehouse.getFreeID()));
 			inpPartNumber = Integer.parseInt(inpTextField[1].getText());
 
 			Part part = new Part(inpTextField[0].getText(),
@@ -78,7 +78,7 @@ public class TransferDialog extends PopupDialog  {
 					Integer.parseInt(inpTextField[2].getText()));
 
 			// Dialog (Erfolg bzw. Fehlermeldung)
-			JOptionPane.showMessageDialog(this,Warehouse.storingParts(part,Warehouse.findRegal(part)));
+			JOptionPane.showMessageDialog(this,Warehouse.teilEinlagern(part,Warehouse.findPlace(part)));
 			this.setVisible(false);
 		} catch (NumberFormatException e) {
 			JOptionPane.showMessageDialog(this,"Bei der Eingabe der Teilenummer und\nder Größe sind nur Ziffern möglich!");

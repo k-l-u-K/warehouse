@@ -11,6 +11,7 @@ public class Compartment implements Serializable {
 	private int posY;
 	private int posZ;
 	private int capacity;
+	// Liste aller momentan eingelagerten Teile
 	private List<Part> partList = new ArrayList<Part>();
 
 	public Compartment(int posX, int posY, int posZ) {
@@ -19,6 +20,14 @@ public class Compartment implements Serializable {
 		this.posY = posY;
 		this.posZ = posZ;
 		this.capacity = 10;
+	}
+
+	public List<Part> getPartList() {
+		return partList;
+	}
+
+	public void setPartList(List<Part> partList) {
+		this.partList = partList;
 	}
 
 	@Override
@@ -58,33 +67,4 @@ public class Compartment implements Serializable {
 	public void setCapacity(int capacity) {
 		this.capacity = capacity;
 	}
-
-	public List<Part> getPartList() {
-		return partList;
-	}
-
-	public void setPartList(List<Part> partList) {
-		this.partList = partList;
-	}
-
-	public static Part findPart(Part part, int partid) {
-		for (int i = 0; i < 8; i++)
-			for (int j = 0; j < 10; j++)
-				for (int k = 0; k < 10; k++)
-					for (Part tempTeil : Warehouse.get().getRegal().get(i).getCompartments()[j][k].getPartList()) {
-						if (tempTeil.getPartnumber() == partid && partid != -1)
-							return tempTeil;
-						if (part != null && tempTeil.getDescription().equals(part.getDescription()))
-							return tempTeil;
-					}
-		return null;
-	}
-
-	public static void setNewPart(Part part) {
-		for (int i = 0; i < 8; i++)
-			for (int j = 0; j < 10; j++)
-				for (int k = 0; k < 10; k++)
-					Warehouse.get().getRegal().get(i).getCompartments()[j][k].getPartList().add(part);
-	}
-
 }

@@ -23,7 +23,7 @@ public class Warehouse implements Serializable {
 	public Warehouse() {
 		regal = new HashMap<Integer,Regal>();
 		// erstelle Regale, momentan von Regal 0 bis Regal 7
-		for (int i = 0; i < 8; i++) {
+		for (int i = 0; i < Variables.REGALCOUNT; i++) {
 			regal.put(i, new Regal(i * 4));
 		}
 	}
@@ -68,8 +68,8 @@ public class Warehouse implements Serializable {
 
 	public static void showParts() {
 		for (int i = 0; i < regal.size(); i++)
-			for (int j = 0; j < 10; j++)
-				for (int k = 0; k < 10; k++)
+			for (int j = 0; j < Variables.COMPARTMENTSIDEBYSIDE; j++)
+				for (int k = 0; k < Variables.COMPARTMENTONTOPOFEACHOTHER; k++)
 					for (Part parts : regal.get(i).getCompartments()[j][k].getPartList()) {
 						System.out.println(parts);
 						System.out.println(i + " " + j + " " + k);
@@ -79,8 +79,8 @@ public class Warehouse implements Serializable {
 	// Findet Teile mit Position nach ID
 	public static Part findPartID(int id) {
 		for (int i = 0; i < regal.size(); i++)
-			for (int j = 0; j < 10; j++)
-				for (int k = 0; k < 10; k++)
+			for (int j = 0; j < Variables.COMPARTMENTSIDEBYSIDE; j++)
+				for (int k = 0; k < Variables.COMPARTMENTONTOPOFEACHOTHER; k++)
 					for (Part parts : regal.get(i).getCompartments()[j][k].getPartList())
 						if (id == parts.getPartnumber())
 							return parts;
@@ -91,8 +91,8 @@ public class Warehouse implements Serializable {
 	public static LinkedList<Part> findPartName(String name) {
 		LinkedList<Part> tempList = new LinkedList<Part>();
 		for (int i = 0; i < regal.size(); i++)
-			for (int j = 0; j < 10; j++)
-				for (int k = 0; k < 10; k++)
+			for (int j = 0; j < Variables.COMPARTMENTSIDEBYSIDE; j++)
+				for (int k = 0; k < Variables.COMPARTMENTONTOPOFEACHOTHER; k++)
 					for (Part parts : regal.get(i).getCompartments()[j][k].getPartList())
 						if (name.equals(parts.getDescription()))
 							tempList.add(parts);
@@ -102,9 +102,9 @@ public class Warehouse implements Serializable {
 	// Findet Teile mit Position nach Name
 	public static LinkedList<Part> returnAllParts() {
 		LinkedList<Part> tempList = new LinkedList<Part>();
-		for (int i = 0; i < 8; i++)
-			for (int j = 0; j < 10; j++)
-				for (int k = 0; k < 10; k++)
+		for (int i = 0; i < regal.size(); i++)
+			for (int j = 0; j < Variables.COMPARTMENTSIDEBYSIDE; j++)
+				for (int k = 0; k < Variables.COMPARTMENTONTOPOFEACHOTHER; k++)
 					for (Part parts : regal.get(i).getCompartments()[j][k].getPartList())
 						tempList.add(parts);
 		return tempList.isEmpty() ? null : tempList;
@@ -112,8 +112,8 @@ public class Warehouse implements Serializable {
 
 	public static void outsourceParts(Part part) {
 		for (int i = 0; i < regal.size(); i++)
-			for (int j = 0; j < 10; j++)
-				for (int k = 0; k < 10; k++)
+			for (int j = 0; j < Variables.COMPARTMENTSIDEBYSIDE; j++)
+				for (int k = 0; k < Variables.COMPARTMENTONTOPOFEACHOTHER; k++)
 					if (regal.get(i).getCompartments()[j][k].getPartList().contains(part)) {
 						// Transportfahrzeug kann zum Zielort fahren
 						TransportVehicle.driveToCompartment(part, regal.get(i).getCompartments()[j][k]);
@@ -186,7 +186,7 @@ public class Warehouse implements Serializable {
 		removeAll();
 		String partName = null;
 		int partSize = 0;
-		for (int i=0; i <= 8; i++) {
+		for (int i=0; i <= Variables.RANDOM; i++) {
 			switch(zufall.nextInt(6)) {
 			case 0:
 				partName = "Schrank";
@@ -231,9 +231,9 @@ public class Warehouse implements Serializable {
 	}
 	
 	public static Part findPart(Part part, int partid) {
-		for (int i = 0; i < 8; i++)
-			for (int j = 0; j < 10; j++)
-				for (int k = 0; k < 10; k++)
+		for (int i = 0; i < regal.size(); i++)
+			for (int j = 0; j < Variables.COMPARTMENTSIDEBYSIDE; j++)
+				for (int k = 0; k < Variables.COMPARTMENTONTOPOFEACHOTHER; k++)
 					for (Part tempTeil : Warehouse.get().getRegal().get(i).getCompartments()[j][k].getPartList()) {
 						if (tempTeil.getPartnumber() == partid && partid != -1)
 							return tempTeil;
@@ -258,23 +258,20 @@ public class Warehouse implements Serializable {
 	
 	public static int usedCapacity() {
 		int temp = 0;
-		for (int i = 0; i < 8; i++)
-			for (int j = 0; j < 10; j++)
-				for (int k = 0; k < 10; k++) {
+		for (int i = 0; i < regal.size(); i++)
+			for (int j = 0; j < Variables.COMPARTMENTSIDEBYSIDE; j++)
+				for (int k = 0; k < Variables.COMPARTMENTONTOPOFEACHOTHER; k++)
 						temp += regal.get(i).getCompartments()[j][k].getCapacity();
-						//System.out.println(regal.get(i).getCompartments()[j][k].getCapacity());
-					}
 		return temp;
 	}
 	
 	public static int usedCompartment() {
 		int temp = 0;
-		for (int i = 0; i < 8; i++)
-			for (int j = 0; j < 10; j++)
-				for (int k = 0; k < 10; k++) {
+		for (int i = 0; i < regal.size(); i++)
+			for (int j = 0; j < Variables.COMPARTMENTSIDEBYSIDE; j++)
+				for (int k = 0; k < Variables.COMPARTMENTONTOPOFEACHOTHER; k++)
 					if (!regal.get(i).getCompartments()[j][k].getPartList().isEmpty())
 						temp ++;
-					}
 		return temp=800-temp;
 	}
 

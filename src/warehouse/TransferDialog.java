@@ -67,7 +67,7 @@ public class TransferDialog extends PopupDialog  {
 				inpTextField[1].setText(Integer.toString(Warehouse.getFreeID()));
 			inpPartNumber = Integer.parseInt(inpTextField[1].getText());
 
-			Part part = new Part(inpTextField[0].getText(),
+			Part part = new Part(inpTextField[0].getText().replaceAll(" ", ""),
 					Integer.parseInt(inpTextField[1].getText()),
 					Integer.parseInt(inpTextField[2].getText()));
 

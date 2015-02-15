@@ -19,7 +19,8 @@ public class FileHandle implements Serializable {
 	private static String file = ".\\data\\DateiZumEinlesen.ser";
 	File f = new File(file);
 	
-    private boolean checkFile(File f) {
+    @SuppressWarnings("unused")
+	private boolean checkFile(File f) {
         if (f != null) {
             try {
                 f.createNewFile();

@@ -216,8 +216,8 @@ public class Warehouse implements Serializable {
 	        	//sollte nie auftreten
 	        	continue;
 			}
-			if (fillCompleteWithThisSize != 0)
-				partSize = fillCompleteWithThisSize;
+			if (Variables.FILLCOMPLETEWITHTISSIZE != 0)
+				partSize = Variables.FILLCOMPLETEWITHTISSIZE;
 			Part part = new Part(partName, 0, partSize);
 			Warehouse.storingParts(part, findRegal(part));
 		}
@@ -256,7 +256,7 @@ public class Warehouse implements Serializable {
 			return getFreeID(++testID);
 	}
 	
-	public static int usedCapacity() {
+	public static int restCapacity() {
 		int temp = 0;
 		for (int i = 0; i < regal.size(); i++)
 			for (int j = 0; j < Variables.COMPARTMENTSIDEBYSIDE; j++)
@@ -265,7 +265,7 @@ public class Warehouse implements Serializable {
 		return temp;
 	}
 	
-	public static int usedCompartment() {
+	public static int restCompartments() {
 		int temp = 0;
 		for (int i = 0; i < regal.size(); i++)
 			for (int j = 0; j < Variables.COMPARTMENTSIDEBYSIDE; j++)
@@ -292,10 +292,6 @@ public class Warehouse implements Serializable {
 	x=2
 	y=4
 	z=0
-	
-	x = 2 + (i * 2)
-	y = 2 + (i * 2)
-
 		x
 		|
 		|

@@ -12,7 +12,6 @@ public class TransportVehicle {
 	}
 
 	public static void driveToCompartment(Part transportPart, Compartment compartment) {
-		//System.out.println("Transportfahrzeug beladen mit: " + transportPart.getDescription());
 		setPosX(compartment.getPosX());
 		setPosY(compartment.getPosY());
 		setPosZ(compartment.getPosZ());

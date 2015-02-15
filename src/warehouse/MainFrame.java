@@ -295,11 +295,11 @@ public class MainFrame extends JFrame implements ActionListener {
 	}
 
 	public static void setRestCapacityText() {
-		restCapacityText.setText(Integer.toString(Warehouse.usedCapacity()));
+		restCapacityText.setText(Integer.toString(Warehouse.restCapacity()));
 	}
 
 	public static void setRestCompartmentText() {
-		restCompartmentText.setText(Integer.toString(Warehouse.usedCompartment()));
+		restCompartmentText.setText(Integer.toString(Warehouse.restCompartments()));
 	}
 
 	@Override

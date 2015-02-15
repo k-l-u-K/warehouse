@@ -1,7 +1,7 @@
 package warehouse;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Compartment implements Serializable {
@@ -11,7 +11,7 @@ public class Compartment implements Serializable {
 	private int posY;
 	private int posZ;
 	private int capacity;
-	private List<Part> partList = new ArrayList<Part>();
+	private List<Part> partList = new LinkedList<Part>();
 
 	public Compartment(int posX, int posY, int posZ) {
 		super();

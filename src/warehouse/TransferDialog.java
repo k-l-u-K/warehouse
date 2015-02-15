@@ -55,13 +55,7 @@ public class TransferDialog extends PopupDialog  {
 
 	@Override
 	public void actionPerformed(ActionEvent source) {
-		// System.out.print("gesendet");
-		// Konstruktor erwartet folgende Paramter:
-		// String, int, int, int
-		// Name, Nummer, Menge, Größe
-		// Daher muss die Eingabe auf Zahlen beschränkt werden, wo nur Zahlen
-		// sinnvoll sind
-		
+
 		if ((inpTextField[0].getText().isEmpty()) || (inpTextField[2].getText().isEmpty())) {
 			JOptionPane.showMessageDialog(this,"Die erforderlichen Pflichtfelder wurden nicht ausgefüllt.");
 			return;
@@ -86,9 +80,6 @@ public class TransferDialog extends PopupDialog  {
 			inpTextField[2].setText("");
 		}		
 
-		// Compartment compartment =
-		// Warehouse.get().regale[0].compartments[0][0];
-		// Compartment compartment = TransportVehicle.findCompartment(part);
 	}
 
 	@Override

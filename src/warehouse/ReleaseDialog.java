@@ -20,7 +20,6 @@ public class ReleaseDialog extends PopupDialog {
 		this.setLocation(200, 200);
 		this.setResizable(false);
 		this.setVisible(true);
-	
 	}
 
 	private void initReleaseFrame() {

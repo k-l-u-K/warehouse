@@ -15,9 +15,6 @@ public class FileHandle implements Serializable {
 	public static void serialize() {
 		
 		try (ObjectInputStream oins = new ObjectInputStream(new FileInputStream(file))){
-			//LinkedList<Part> temp = (LinkedList<Part>)oins.readObject();
-		 	//oins.close();
-		 	//temp.clear();
 		 	FileOutputStream fos = new FileOutputStream(file);
 		 	ObjectOutputStream oos = new ObjectOutputStream(fos);
 		 	for (int i = 0; i < 8; i++)
@@ -50,7 +47,6 @@ public class FileHandle implements Serializable {
 						}
 			}
 			ois.close();
-			System.out.println("Deserialization succeeded\n");
 		} catch (Exception e) {
 			System.out.println("Deserialization failed\n");
 			System.err.println(e);

@@ -67,11 +67,4 @@ public class Compartment implements Serializable {
 		this.partList = partList;
 	}
 
-	public static void setNewPart(Part part) {
-		for (int i = 0; i < 8; i++)
-			for (int j = 0; j < 10; j++)
-				for (int k = 0; k < 10; k++)
-					Warehouse.get().getRegal().get(i).getCompartments()[j][k].getPartList().add(part);
-	}
-
 }

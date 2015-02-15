@@ -15,7 +15,6 @@ public class Part implements Serializable {
 			partnumber = Warehouse.getFreeID();
 		this.partnumber = partnumber;
 		this.size = size;
-		Compartment.setNewPart(this);
 	}
 	
 	//public static List<Part> getPartList() {

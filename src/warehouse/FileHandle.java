@@ -6,25 +6,13 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class FileHandle implements Serializable {
 	private static final long serialVersionUID = -7725023475097213226L;
 	private static String file = ".\\data\\DateiZumEinlesen.ser";
 
-	public void serialize() {
-		FileInputStream fins = new FileInputStream(file);
-		   ObjectInputStream oins = new ObjectInputStream(fins);
-		   LinkedList<Part> temp = (LinkedList<Part>)oins.readObject();
-		   fins.close();
-		   oins.close();
-		   temp.clear();
-		   FileOutputStream fos = new FileOutputStream(file);
-		   ObjectOutputStream oos = new ObjectOutputStream(fos);
-		   oos.writeObject(temp);
-		   fos.close();
-		   oos.close();
+	public static void serialize() {
 		try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file))) {
 			for (int i = 0; i < 8; i++)
 				for (int j = 0; j < 10; j++)
@@ -49,13 +37,13 @@ public class FileHandle implements Serializable {
 			ObjectInputStream ois = new ObjectInputStream(istream);
 			while (istream.available() > 0) {
 				loadedPartList = (List<Part>) ois.readObject();
-				for (int i = 0; i < Warehouse.getRegal().size(); i++)
+				for (int i = 0; i < 8; i++)
 					for (int j = 0; j < 10; j++)
 						for (int k = 0; k < 10; k++) {
 							loadedRegal = (Regal) ois.readObject();
 							loadedCompartment = (Compartment) ois.readObject();
-							Warehouse.getRegal().replace(i, Warehouse.getRegal().get(i), loadedRegal);
-							Warehouse.getRegal().get(i).setCompartments(loadedCompartment, j, k);
+							Warehouse.get().getRegal().replace(i, Warehouse.get().getRegal().get(i), loadedRegal);
+							Warehouse.get().getRegal().get(i).setCompartments(loadedCompartment, j, k);
 							Warehouse.loadPartsIntoWarehouse(loadedPartList, loadedCompartment, i, j, k);
 						}			
 			}

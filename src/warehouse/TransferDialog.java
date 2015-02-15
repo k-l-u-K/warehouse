@@ -78,7 +78,7 @@ public class TransferDialog extends PopupDialog  {
 					Integer.parseInt(inpTextField[2].getText()));
 
 			// Dialog (Erfolg bzw. Fehlermeldung)
-			JOptionPane.showMessageDialog(this,Warehouse.teilEinlagern(part,Warehouse.findPlace(part)));
+			JOptionPane.showMessageDialog(this,Warehouse.storingParts(part,Warehouse.findRegal(part)));
 			this.setVisible(false);
 		} catch (NumberFormatException e) {
 			JOptionPane.showMessageDialog(this,"Bei der Eingabe der Teilenummer und\nder Größe sind nur Ziffern möglich!");

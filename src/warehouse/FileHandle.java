@@ -3,6 +3,7 @@ package warehouse;
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -89,6 +90,11 @@ public class FileHandle implements Serializable {
 		 		    "Die zu ladende Datei enthält keine Lagerinformation.\nEin leeres, neues Lager wurde automatisch generiert.",
 		 		    "Laden fehlgeschlagen",
 		 		    JOptionPane.ERROR_MESSAGE);			
+		} catch (FileNotFoundException e) {
+			JOptionPane.showMessageDialog(null,
+		 		    "Im erwarteten Dateipfad befindet sich keine Datei.\nEin leeres, neues Lager wurde automatisch generiert.",
+		 		    "Laden fehlgeschlagen",
+		 		    JOptionPane.ERROR_MESSAGE);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null,
 		 		    "Der Lagerbestand konnte nicht korrekt geladen werden.",

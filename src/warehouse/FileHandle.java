@@ -1,7 +1,9 @@
 package warehouse;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
@@ -13,7 +15,21 @@ import javax.swing.JOptionPane;
 public class FileHandle implements Serializable {
 	private static final long serialVersionUID = -7725023475097213226L;
 	private static String file = ".\\data\\DateiZumEinlesen.ser";
-
+	File f = new File(file);
+	
+    private boolean checkFile(File f) {
+        if (f != null) {
+            try {
+                f.createNewFile();
+            } catch (IOException e) {
+                System.err.println("Error creating " + f.toString());
+            }
+            if (f.isFile() && f.canWrite() && f.canRead())
+                return true;
+        }
+        return false; 
+    }
+	
 	public static void serialize() {
 		
 		try (FileOutputStream fos = new FileOutputStream(file)){

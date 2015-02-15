@@ -57,7 +57,13 @@ public class MainFrame extends JFrame implements ActionListener {
 		initMainTable();
 		initPartAmountTable();
 		initGUI();
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+	      
+	      addWindowListener(new WindowAdapter() {
+	         public void windowClosing(WindowEvent e) {
+	            exit();
+	         }
+	      });
 		this.setMinimumSize(new Dimension(1150, 750));
 		// this.setExtendedState(MAXIMIZED_BOTH);
 		this.setLocation(0, 0);
@@ -338,9 +344,24 @@ public class MainFrame extends JFrame implements ActionListener {
 		}
 	}
 	
+	
+	private void exit() {
+		// Eingabe des Benutzers wird in int-Wert gespeichert: 0 für 1. Antwort, 1 für 2. Antwort etc.		
+		int result = JOptionPane.showConfirmDialog(null,"Sollen die Änderungen gespeichert werden?","Programm beenden",JOptionPane.YES_NO_OPTION);
+
+			      switch(result) {
+			         case JOptionPane.YES_OPTION:
+			         saveFile();	 
+			         System.exit(0);
+
+			         case JOptionPane.NO_OPTION:
+			        	 System.exit(0);
+			      }
+	}
+	
+	
 	private void saveFile() {
 		FileHandle.serialize();
-		System.out.println("Speichern erfolgreich!");
 	}
 	
 	static void loadFile() {

@@ -28,6 +28,14 @@ public class Warehouse implements Serializable {
 		}
 	}
 
+	public Map<Integer, Regal> getRegal() {
+		return regal;
+	}
+
+	public static void setRegal(Map<Integer, Regal> regal) {
+		Warehouse.regal = regal;
+	}
+
 	// Lagert ein Teil ein
 	public static String storingParts(Part part, Compartment compartment) {
 		if (part.getSize() <= 0 || part.getSize() > Variables.CAPACITY)
@@ -51,10 +59,56 @@ public class Warehouse implements Serializable {
 			MainFrame.setRestCapacityText();
 			MainFrame.setRestCompartmentText();
 		}
-		if (part.getPartnumber() != TransferDialog.getInpPartNumber())
-			return "Einlagern erfolgreich\nID war bereits vergeben oder ungültig und wurde daher auf " 
+		if (part.getPartnumber() != TransferDialog.getInpPartNumber()) {
+			if (TransferDialog.getInpPartNumber() == 0)
+				return "Einlagern erfolgreich\nDie ID muss größer 0 sein. Daher wurde sie auf " 
+					+ part.getPartnumber() + " gesetzt.";
+			return "Einlagern erfolgreich\nID war bereits vergeben und wurde daher auf " 
 				+ part.getPartnumber() + " gesetzt.";
+		}
 		return "Einlagern erfolgreich";
+	}
+	
+	public static void outsourceParts(Part part) {
+		for (int i = 0; i < regal.size(); i++)
+			for (int j = 0; j < Variables.COMPARTMENTSIDEBYSIDE; j++)
+				for (int k = 0; k < Variables.COMPARTMENTONTOPOFEACHOTHER; k++)
+					if (regal.get(i).getCompartments()[j][k].getPartList().contains(part)) {
+						// Transportfahrzeug kann zum Zielort fahren
+						TransportVehicle.driveToCompartment(part, regal.get(i).getCompartments()[j][k]);
+						// auslagern
+						Warehouse.get().getRegal().get(i).getCompartments()[j][k].getPartList().remove(part);
+						// Kapazität vergrößern
+						regal.get(i).getCompartments()[j][k].setCapacity(regal.get(i).getCompartments()[j][k].getCapacity() + part.getSize());
+						// Zeile aus der Tabelle entfernen
+						MainFrame.removeARow(part);
+						// Teil aus der Anzahlliste entfernen
+						Warehouse.partCountRemove(part);
+						// Letzte Aktion aktualisieren
+						MainFrame.setLastActionText("Auslagern von ", part);
+						MainFrame.setRestCapacityText();
+						MainFrame.setRestCompartmentText();
+						return;
+					}
+	}
+
+	public static void loadPartsIntoWarehouse(List<Part> part, Compartment loadedCompartment, int i, int j, int k) {
+		// einlagern
+		regal.get(i).getCompartments()[j][k].setPartList(part);
+		//regal.get(i).getCompartments()[j][k].findPart(part)
+		// einlagern
+		//loadedCompartment.getPartList().add(part);
+		// Kapazität verringern
+		regal.get(i).getCompartments()[j][k].setCapacity(loadedCompartment.getCapacity());
+		//loadedCompartment.setCapacity(loadedCompartment.getCapacity());
+		// Teil der Warenliste hinzufügen
+		//loadedCompartment.getPartList().add(part);
+		//Zeile hinzufügen
+		for (Part parts : part) {
+			MainFrame.addARow(parts, loadedCompartment);
+			Warehouse.partCountAdd(parts);
+		}
+
 	}
 	
 	public static Compartment findRegal(Part part){
@@ -110,29 +164,6 @@ public class Warehouse implements Serializable {
 		return tempList.isEmpty() ? null : tempList;
 	}
 
-	public static void outsourceParts(Part part) {
-		for (int i = 0; i < regal.size(); i++)
-			for (int j = 0; j < Variables.COMPARTMENTSIDEBYSIDE; j++)
-				for (int k = 0; k < Variables.COMPARTMENTONTOPOFEACHOTHER; k++)
-					if (regal.get(i).getCompartments()[j][k].getPartList().contains(part)) {
-						// Transportfahrzeug kann zum Zielort fahren
-						TransportVehicle.driveToCompartment(part, regal.get(i).getCompartments()[j][k]);
-						// auslagern
-						Warehouse.get().getRegal().get(i).getCompartments()[j][k].getPartList().remove(part);
-						// Kapazität vergrößern
-						regal.get(i).getCompartments()[j][k].setCapacity(regal.get(i).getCompartments()[j][k].getCapacity() + part.getSize());
-						// Zeile aus der Tabelle entfernen
-						MainFrame.removeARow(part);
-						// Teil aus der Anzahlliste entfernen
-						Warehouse.partCountRemove(part);
-						// Letzte Aktion aktualisieren
-						MainFrame.setLastActionText("Auslagern von ", part);
-						MainFrame.setRestCapacityText();
-						MainFrame.setRestCompartmentText();
-						return;
-					}
-	}
-
 	public static void partCountAdd(Part part) {
 		if (!partAmountMap.containsKey(part.getDescription())) {
 			partAmountMap.put(part.getDescription(), 1);
@@ -151,34 +182,6 @@ public class Warehouse implements Serializable {
 			partAmountMap.put(part.getDescription(), partAmountMap.get(part.getDescription()) - 1);
 			MainFrame.editRowPartDis(part, partAmountMap.get(part.getDescription()));
 		}
-	}
-
-	public static void loadPartsIntoWarehouse(List<Part> part, Compartment loadedCompartment, int i, int j, int k) {
-		// einlagern
-		regal.get(i).getCompartments()[j][k].setPartList(part);
-		//System.out.println(part);
-		//regal.get(i).getCompartments()[j][k].findPart(part)
-		// einlagern
-		//loadedCompartment.getPartList().add(part);
-		// Kapazität verringern
-		regal.get(i).getCompartments()[j][k].setCapacity(loadedCompartment.getCapacity());
-		//loadedCompartment.setCapacity(loadedCompartment.getCapacity());
-		// Teil der Warenliste hinzufügen
-		//loadedCompartment.getPartList().add(part);
-		//Zeile hinzufügen
-		for (Part parts : part) {
-			MainFrame.addARow(parts, loadedCompartment);
-			Warehouse.partCountAdd(parts);
-		}
-
-	}
-
-	public Map<Integer, Regal> getRegal() {
-		return regal;
-	}
-
-	public static void setRegal(Map<Integer, Regal> regal) {
-		Warehouse.regal = regal;
 	}
 
 	public static void fillRandom(int fillCompleteWithThisSize) {
@@ -249,10 +252,9 @@ public class Warehouse implements Serializable {
 	}
 	
 	private static int getFreeID(int testID) {
-		if (Warehouse.findPart(null, testID) == null) {
+		if (Warehouse.findPart(null, testID) == null)
 			return testID;
-			// Info-Dialog an den Benutzer, dass ID auf testID festgelegt wurde
-		} else
+		else
 			return getFreeID(++testID);
 	}
 	

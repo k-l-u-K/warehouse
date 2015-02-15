@@ -7,8 +7,12 @@ import javax.swing.*;
 
 public class ReleaseDialog extends PopupDialog {
 	private static final long serialVersionUID = -5702112735084889000L;
-	private JComboBox<Part> comboboxTeile = new JComboBox<Part>();
+	private JComboBox<Part> partSelectionComboBox = new JComboBox<Part>();
     private DefaultComboBoxModel<Part> model = new DefaultComboBoxModel<Part>();
+    private JButton descriptionBtn;
+	private JButton partIDBtn;
+	private JButton partSelectionBtn;
+	
 	public ReleaseDialog() {
 		inpTextField = new JTextField[2];
 		initPopupDialog();
@@ -32,37 +36,37 @@ public class ReleaseDialog extends PopupDialog {
 		// infoLabel.setBounds(110, 170, 250, 30);
 		//panel.add(infoLabel);
 		
-		beschreibbutton = new JButton("nach Bezeichnung suchen");
-		beschreibbutton.setBounds(75, 35, 200, 30);
-		panel.add(beschreibbutton);
-		beschreibbutton.addActionListener(this);
+		descriptionBtn = new JButton("nach Bezeichnung suchen");
+		descriptionBtn.setBounds(75, 35, 200, 30);
+		panel.add(descriptionBtn);
+		descriptionBtn.addActionListener(this);
 		
-		teilnummerbutton = new JButton ("nach Teilenummer suchen");
-        teilnummerbutton.setBounds(75, 75, 200 , 30);
-        panel.add(teilnummerbutton);
-        teilnummerbutton.addActionListener(this);
+		partIDBtn = new JButton ("nach Teilenummer suchen");
+        partIDBtn.setBounds(75, 75, 200 , 30);
+        panel.add(partIDBtn);
+        partIDBtn.addActionListener(this);
        		
-		comboboxTeile.setBounds(10, 80, 320, 30);
-		panel.add(comboboxTeile);
-		comboboxTeile.setVisible(false);
+		partSelectionComboBox.setBounds(10, 80, 320, 30);
+		panel.add(partSelectionComboBox);
+		partSelectionComboBox.setVisible(false);
         
-		auswahlBtn = new JButton("Teile suchen");
-		auswahlBtn.setBounds(75, 205, 200, 40);
-		panel.add(auswahlBtn);
-		auswahlBtn.addActionListener(this);
-		auswahlBtn.setVisible(false);
+		partSelectionBtn = new JButton("Teile suchen");
+		partSelectionBtn.setBounds(75, 205, 200, 40);
+		panel.add(partSelectionBtn);
+		partSelectionBtn.addActionListener(this);
+		partSelectionBtn.setVisible(false);
         
 		cp.add(panel);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent source) {
-		if (source.getSource().equals(beschreibbutton)){
+		if (source.getSource().equals(descriptionBtn)){
 			nameLabel.setVisible(true);
 			inpTextField[0].setVisible(true);
-			teilnummerbutton.setVisible(false);
-			beschreibbutton.setVisible(false);
-			auswahlBtn.setVisible(true);
+			partIDBtn.setVisible(false);
+			descriptionBtn.setVisible(false);
+			partSelectionBtn.setVisible(true);
            /* if (!(inpTextField[0].getText().equals(""))) {
             	LinkedList<Part> searchedParts = Warehouse.findPartName(inpTextField[0].getText());
 				for (Part parts : searchedParts) 
@@ -70,18 +74,18 @@ public class ReleaseDialog extends PopupDialog {
             }*/
 		}
 		
-		if (source.getSource().equals(teilnummerbutton)){
+		if (source.getSource().equals(partIDBtn)){
 			itemNrLabel.setVisible(true);
 			inpTextField[1].setVisible(true);
-			beschreibbutton.setVisible(false);
-			teilnummerbutton.setVisible(false);
+			descriptionBtn.setVisible(false);
+			partIDBtn.setVisible(false);
 			okayBtn.setVisible(true);
            /* if (!inpTextField[1].getText().equals(""))
             	System.out.println(Warehouse.teilAuslagern(Warehouse.findPartID(Integer.parseInt(inpTextField[1].getText()))));
 				}*/
 		}
 		
-		if (source.getSource().equals(auswahlBtn)) {
+		if (source.getSource().equals(partSelectionBtn)) {
 			if (inpTextField[0].getText().isEmpty()) {
 				JOptionPane.showMessageDialog(this,"Es wurde keine Beschreibung eingegeben.");
 				return;
@@ -93,9 +97,9 @@ public class ReleaseDialog extends PopupDialog {
 					model.addElement(parts);
 				
 				inpTextField[0].setEnabled(false);
-				auswahlBtn.setVisible(false);				
-				comboboxTeile.setModel(model);
-				comboboxTeile.setVisible(true);
+				partSelectionBtn.setVisible(false);				
+				partSelectionComboBox.setModel(model);
+				partSelectionComboBox.setVisible(true);
 				okayBtn.setVisible(true);
 			} catch (NullPointerException e) {
 				JOptionPane.showMessageDialog(this,"Zu dieser Beschreibung konnte\nkein Teil im Lager gefunden werden.");
@@ -107,7 +111,7 @@ public class ReleaseDialog extends PopupDialog {
 		if (source.getSource().equals(okayBtn)){
 			// Auslagern via Beschreibung
 			if (!(inpTextField[0].getText().isEmpty())) {
-				Warehouse.outsourceParts(Warehouse.findPartID(((Part) comboboxTeile.getSelectedItem()).getPartnumber()));
+				Warehouse.outsourceParts(Warehouse.findPartID(((Part) partSelectionComboBox.getSelectedItem()).getPartnumber()));
 				this.setVisible(false);
 				return;
 			}

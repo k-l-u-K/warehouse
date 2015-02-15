@@ -62,8 +62,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		initPartAmountTable();
 		initGUI();
 		this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-	      
-	      addWindowListener(new WindowAdapter() {
+	    this.addWindowListener(new WindowAdapter() {
 	         public void windowClosing(WindowEvent e) {
 	            exit();
 	         }
@@ -222,7 +221,6 @@ public class MainFrame extends JFrame implements ActionListener {
 		fillWarehouseBtn.addActionListener(this);
 		
 		tablePanel.add(new JScrollPane(mainTable), BorderLayout.CENTER);
-		// tablePanel.add(testBtnPanel,BorderLayout.SOUTH);
 	}
 
 	private void initInfoPanel() {

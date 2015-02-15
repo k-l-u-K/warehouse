@@ -16,16 +16,15 @@ public class FileHandle implements Serializable {
 
 	public static void serialize() {
 		
-		try (ObjectInputStream oins = new ObjectInputStream(new FileInputStream(file))){
-		 	FileOutputStream fos = new FileOutputStream(file);
-		 	ObjectOutputStream oos = new ObjectOutputStream(fos);
+		try (FileOutputStream fos = new FileOutputStream(file)){
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+		 	
 		 	for (int i = 0; i < 8; i++)
 				for (int j = 0; j < 10; j++)
 					for (int k = 0; k < 10; k++) {
 						oos.writeObject(Warehouse.get().getRegal().get(i).getCompartments()[j][k]);
 						oos.writeObject(Warehouse.get().getRegal().get(i).getCompartments()[j][k].getPartList());
-					}
-		 	fos.close();
+					}		 	
 		 	oos.close();
 		 	JOptionPane.showMessageDialog(null,
 		 		    "Lagerbestand wurde erfolgreich gespeichert.",

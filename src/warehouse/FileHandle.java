@@ -13,17 +13,15 @@ public class FileHandle implements Serializable {
 	private static String file = ".\\data\\DateiZumEinlesen.ser";
 
 	public static void serialize() {
-		try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file))) {
-			for (Part parts : Compartment.getPartList()) 
-				System.out.println(parts);
-			for (int i = 0; i < Warehouse.getRegal().size(); i++)
+		try (ObjectOutputStream out = new ObjectOutputStream(
+				new FileOutputStream(file))) {
+			for (int i = 0; i < 8; i++)
 				for (int j = 0; j < 10; j++)
 					for (int k = 0; k < 10; k++) {
+						out.writeObject(Warehouse.getRegal().get(i).getCompartments()[j][k]);
+						out.writeObject(Warehouse.getRegal().get(i).getCompartments()[j][k].getPartList());
 						
-							//out.writeObject(Warehouse.getRegal().get(i));
-							//out.writeObject(Warehouse.getRegal().get(i).getCompartments()[j][k]);
-							//out.writeObject(Warehouse.getRegal().get(i).getCompartments()[j][k].findPart(parts));
-						}
+					}
 		} catch (Exception e) {
 			System.out.println("Speichern fehlgeschlagen");
 		}
@@ -33,19 +31,15 @@ public class FileHandle implements Serializable {
 	public static Compartment deserialize() {
 		List<Part> loadedPartList = new ArrayList<Part>();
 		Compartment loadedCompartment = null;
-		Regal loadedRegal = null;
 		try (FileInputStream istream = new FileInputStream(file);) {
 			ObjectInputStream ois = new ObjectInputStream(istream);
 			while (istream.available() > 0) {
-				loadedPartList = (List<Part>) ois.readObject();
-				for (int i = 0; i < Warehouse.getRegal().size(); i++)
+				for (int i = 0; i < 8; i++)
 					for (int j = 0; j < 10; j++)
 						for (int k = 0; k < 10; k++) {
-							loadedRegal = (Regal) ois.readObject();
 							loadedCompartment = (Compartment) ois.readObject();
-							Warehouse.getRegal().replace(i, Warehouse.getRegal().get(i), loadedRegal);
-							Warehouse.getRegal().get(i).setCompartments(loadedCompartment, j, k);
-							Warehouse.loadPartsIntoWarehouse(loadedPartList, loadedCompartment, i, j, k);
+							loadedPartList = (List<Part>) ois.readObject();
+							Warehouse.loadPartsIntoWarehouse(loadedPartList, loadedCompartment,i,j,k);
 						}			
 			}
 			ois.close();

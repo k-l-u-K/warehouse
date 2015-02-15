@@ -1,5 +1,6 @@
 package warehouse;
 
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -7,6 +8,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.io.StreamCorruptedException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,13 +78,22 @@ public class FileHandle implements Serializable {
 		 		    "Lagerbestand wurde erfolgreich geladen.",
 		 		    "Laden erfolgreich",
 		 		    JOptionPane.INFORMATION_MESSAGE);
-		} catch (Exception e) {
-			//System.out.println("Deserialization failed\n");
-			//System.err.println(e);
+		} catch (StreamCorruptedException e) {
 			JOptionPane.showMessageDialog(null,
-		 		    "Lagerbestand konnte nicht geladen werden.",
+		 		    "Die Informationen aus " + file + " sind beschädigt.\nEin leeres, neues Lager wurde automatisch generiert.",
+		 		    "Laden fehlgeschlagen",
+		 		    JOptionPane.ERROR_MESSAGE);		
+		} catch (EOFException e) {
+			JOptionPane.showMessageDialog(null,
+		 		    "Die zu ladende Datei enthält keine Lagerinformation.\nEin leeres, neues Lager wurde automatisch generiert.",
+		 		    "Laden fehlgeschlagen",
+		 		    JOptionPane.ERROR_MESSAGE);			
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null,
+		 		    "Der Lagerbestand konnte nicht korrekt geladen werden.",
 		 		    "Laden fehlgeschlagen",
 		 		    JOptionPane.ERROR_MESSAGE);
 		}
+		
 	}
 }

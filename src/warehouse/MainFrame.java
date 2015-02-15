@@ -22,7 +22,7 @@ public class MainFrame extends JFrame implements ActionListener {
 	private JMenuBar menu;
 	private JMenu storeInfo;
 	private JMenu storeOpt;
-	private JMenuItem[] storageRacks = new JMenuItem[9];
+	private JMenuItem[] storageRacks = new JMenuItem[Variables.REGALCOUNT];
 	private JMenuItem transferToStock;
 	private JMenuItem releaseFromStock;
 
@@ -172,7 +172,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		storeInfo = new JMenu("Lageranzeige");
 		storeOpt = new JMenu("Lageroptionen");
 
-		for (int i = 0; i < 9; i++) {
+		for (int i = 0; i < Variables.REGALCOUNT; i++) {
 			if (i == 0) {
 				storageRacks[i] = new JMenuItem("Alle Regale");
 			} else {
@@ -317,7 +317,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		if (source.getSource().equals(releaseFromStock))
 			new ReleaseDialog();
 		else {
-			for (int i = 0; i < 9; i++) {
+			for (int i = 0; i < Variables.REGALCOUNT; i++) {
 				if (source.getSource().equals(storageRacks[i])) {
 					contentInfoLabel.setText("Inhaltsanzeige: " + storageRacks[i].getText());
 					if (i == 0)

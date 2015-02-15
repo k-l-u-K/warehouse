@@ -157,6 +157,7 @@ public class Warehouse implements Serializable {
 		// einlagern
 		//loadedCompartment.getPartList().add(part);
 		// Kapazität verringern
+		regal.get(i).getCompartments()[j][k].setCapacity(loadedCompartment.getCapacity());
 		//loadedCompartment.setCapacity(loadedCompartment.getCapacity());
 		// Teil der Warenliste hinzufügen
 		//loadedCompartment.getPartList().add(part);
@@ -255,10 +256,9 @@ public class Warehouse implements Serializable {
 		int temp = 0;
 		for (int i = 0; i < 8; i++)
 			for (int j = 0; j < 10; j++)
-				for (int k = 0; k < 10; k++)
-					for (Part tempTeil : Warehouse.get().getRegal().get(i).getCompartments()[j][k].getPartList()) {
+				for (int k = 0; k < 10; k++) {
 						temp += regal.get(i).getCompartments()[j][k].getCapacity();
-						System.out.println(regal.get(i).getCompartments()[j][k].getCapacity());
+						//System.out.println(regal.get(i).getCompartments()[j][k].getCapacity());
 					}
 		return temp;
 	}

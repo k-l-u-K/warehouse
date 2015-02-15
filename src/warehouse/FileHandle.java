@@ -19,9 +19,9 @@ public class FileHandle implements Serializable {
 		try (FileOutputStream fos = new FileOutputStream(file)){
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 		 	
-		 	for (int i = 0; i < 8; i++)
-				for (int j = 0; j < 10; j++)
-					for (int k = 0; k < 10; k++) {
+			for (int i = 0; i < Variables.REGALCOUNT; i++)
+				for (int j = 0; j < Variables.COMPARTMENTSIDEBYSIDE; j++)
+					for (int k = 0; k < Variables.COMPARTMENTONTOPOFEACHOTHER; k++) {
 						oos.writeObject(Warehouse.get().getRegal().get(i).getCompartments()[j][k]);
 						oos.writeObject(Warehouse.get().getRegal().get(i).getCompartments()[j][k].getPartList());
 					}		 	
@@ -47,9 +47,9 @@ public class FileHandle implements Serializable {
 		try (FileInputStream istream = new FileInputStream(file);) {
 			ObjectInputStream ois = new ObjectInputStream(istream);
 			while (istream.available() > 0) {
-				for (int i = 0; i < 8; i++)
-					for (int j = 0; j < 10; j++)
-						for (int k = 0; k < 10; k++) {
+				for (int i = 0; i < Variables.REGALCOUNT; i++)
+					for (int j = 0; j < Variables.COMPARTMENTSIDEBYSIDE; j++)
+						for (int k = 0; k < Variables.COMPARTMENTONTOPOFEACHOTHER; k++) {
 							loadedCompartment = (Compartment) ois.readObject();
 							loadedPartList = (List<Part>) ois.readObject();
 							Warehouse.loadPartsIntoWarehouse(loadedPartList, loadedCompartment, i, j, k);

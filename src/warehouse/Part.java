@@ -16,10 +16,6 @@ public class Part implements Serializable {
 		this.partnumber = partnumber;
 		this.size = size;
 	}
-	
-	//public static List<Part> getPartList() {
-	//	return partList;
-	//}
 
 	@Override
 	public String toString() {

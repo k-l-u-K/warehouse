@@ -5,12 +5,25 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.LinkedList;
 
 public class FileHandle implements Serializable {
 	private static final long serialVersionUID = -7725023475097213226L;
 	private static String file = ".\\data\\DateiZumEinlesen.ser";
 
 	public static void serialize() {
+		try (ObjectInputStream oins = new ObjectInputStream(new FileInputStream(file))){
+			LinkedList<Part> temp = (LinkedList<Part>)oins.readObject();
+		 	oins.close();
+		 	temp.clear();
+		 	FileOutputStream fos = new FileOutputStream(file);
+		 	ObjectOutputStream oos = new ObjectOutputStream(fos);
+		 	oos.writeObject(temp);
+		 	fos.close();
+		 	oos.close();
+		} catch (Exception a) {
+		System.out.println("leeren der Datei fehlgeschlagen");
+		}
 		try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file))) {
 			for (int i = 0; i < 8; i++)
 				for (int j = 0; j < 10; j++)

@@ -5,12 +5,13 @@ public class Main {
 	/*
 	 * ToDo:
 	 * Beim Beenden nach Speicherung fragen
+	 * Datei anlegen, wenn nicht vorhanden
+	 * Wenn Inhalt der Datei leer, dann funzt speichern nicht
 	 * Hinweis, dass Speicherung erfolgreich/fehlgeschlagen als Dialogfenster
 	 * freien Platz (Kapazität) und Anzahl ausgeben (Anzahl der leeren Fächer vllt mit der Fach suche machen und 
 	 * 	ein Fach für ein Objekt der größe 10 suchen?
 	 * 		Flo: Die Fachsuche bricht aber ab, wenn sie ein Fach gefunden hat, 
 	 * 		aber die Schleife ansich müsste man verwenden können ju.)
-	 * Dopplung der Teile-ID entfernen
 
 	 * ToDo für Nacharbeiten:
 	 * alle Variablen auf Korrektheit von private / public kontrollieren

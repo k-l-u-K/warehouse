@@ -130,32 +130,27 @@ public class Warehouse implements Serializable {
 	}
 
 	public static void partCountAdd(Part part) {
-		if (partAmountMap.get(part.getDescription()) != null) {
-			if (!partAmountMap.containsKey(part.getDescription())) {
-				partAmountMap.put(part.getDescription(), 1);
-				MainFrame.addARowNewPartDiscription(part);
-			} else {
-				partAmountMap.put(part.getDescription(), partAmountMap.get(part.getDescription()) + 1);
-				MainFrame.editRowPartDis(part, partAmountMap.get(part.getDescription()));
-			}
+		if (!partAmountMap.containsKey(part.getDescription())) {
+			partAmountMap.put(part.getDescription(), 1);
+			MainFrame.addARowNewPartDiscription(part);
+		} else {
+			partAmountMap.put(part.getDescription(), partAmountMap.get(part.getDescription()) + 1);
+			MainFrame.editRowPartDis(part, partAmountMap.get(part.getDescription()));
 		}
 	}
 
 	public static void partCountRemove(Part part) {
-		if (partAmountMap.get(part.getDescription()) != null) {
-			if (partAmountMap.get(part.getDescription()).equals(1)) {
-				partAmountMap.remove(part.getDescription());
-				MainFrame.removeRowPartDis(part);
-			} else {
-				partAmountMap.put(part.getDescription(), partAmountMap.get(part.getDescription()) - 1);
-				MainFrame.editRowPartDis(part, partAmountMap.get(part.getDescription()));
-			}
+		if (partAmountMap.get(part.getDescription()).equals(1)) {
+			partAmountMap.remove(part.getDescription());
+			MainFrame.removeRowPartDis(part);
+		} else {
+			partAmountMap.put(part.getDescription(), partAmountMap.get(part.getDescription()) - 1);
+			MainFrame.editRowPartDis(part, partAmountMap.get(part.getDescription()));
 		}
 	}
 
 	public static void loadPartsIntoWarehouse(List<Part> part, Compartment loadedCompartment, int i, int j, int k) {
 		// einlagern
-		//System.out.println(j);
 		regal.get(i).getCompartments()[j][k].setPartList(part);
 		//System.out.println(part);
 		//regal.get(i).getCompartments()[j][k].findPart(part)

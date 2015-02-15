@@ -6,13 +6,25 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class FileHandle implements Serializable {
 	private static final long serialVersionUID = -7725023475097213226L;
 	private static String file = ".\\data\\DateiZumEinlesen.ser";
 
-	public static void serialize() {
+	public void serialize() {
+		FileInputStream fins = new FileInputStream(file);
+		   ObjectInputStream oins = new ObjectInputStream(fins);
+		   LinkedList<Part> temp = (LinkedList<Part>)oins.readObject();
+		   fins.close();
+		   oins.close();
+		   temp.clear();
+		   FileOutputStream fos = new FileOutputStream(file);
+		   ObjectOutputStream oos = new ObjectOutputStream(fos);
+		   oos.writeObject(temp);
+		   fos.close();
+		   oos.close();
 		try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file))) {
 			for (int i = 0; i < 8; i++)
 				for (int j = 0; j < 10; j++)

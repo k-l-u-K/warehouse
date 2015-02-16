@@ -35,13 +35,15 @@ public class Regal implements Serializable {
 	public boolean isCompartmentFree(Part part, Compartment compartment) {
 		if (compartment.getPartList().isEmpty())
 			return true;
+		else if (Variables.MULTIPARTTYPPERCOMPARTMENT)
+			return true;
 		else {
 			// Das Fach ist ebenfalls "leer", wenn ein Teil mit gleicher
 			// Beschreibung eingelagert werden soll.
 			for (Part parts : compartment.getPartList())
 				if (part.getDescription().equals(parts.getDescription()))
 					return true;
-		}
+		} 
 		return false;
 	}
 

@@ -304,18 +304,27 @@ public class MainFrame extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent source) {
-		if (source.getSource() instanceof JButton)
-			if (source.getSource().equals(saveBtn))
-				saveFile();
+		if (source.getSource().equals(saveBtn))
+			saveFile();
 		if (source.getSource().equals(transferToStock))
 			new TransferDialog();
 		if (source.getSource().equals(releaseFromStock))
 			new ReleaseDialog();
-		if (source.getSource().equals(fillRandom))
-			Warehouse.fillRandom();
-		if (source.getSource().equals(removeAll))
-			Warehouse.removeAll();
-		else {
+		if (source.getSource().equals(fillRandom)) {
+			int result = JOptionPane.showConfirmDialog(null,
+					"Sind sie sicher, dass sie das Lager zufällig befüllen möchten?\nAlle nicht gespeicherten Änderungen gehen dann verloren!",
+					"Lager zufällig befüllen", JOptionPane.YES_NO_OPTION);
+			if (result == 0) 
+				Warehouse.fillRandom();						
+		}
+
+		if (source.getSource().equals(removeAll)) {
+			int result = JOptionPane.showConfirmDialog(null,
+					"Sind sie sicher, dass sie das gesamte Lager leeren wollen?\nAlle nicht gespeicherten Änderungen gehen dann verloren!",
+					"Lager vollständig leeren", JOptionPane.YES_NO_OPTION);
+			if (result == 0)
+				Warehouse.removeAll();						
+		} else {
 			for (int i = 0; i < Variables.REGALCOUNT+1; i++) {
 				if (source.getSource().equals(storageRacks[i])) {
 					contentInfoLabel.setText("Inhaltsanzeige: " + storageRacks[i].getText());

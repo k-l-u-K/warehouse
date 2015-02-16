@@ -22,7 +22,7 @@ public class TransferDialog extends PopupDialog  {
 		this.setModal(true);
 		this.setSize(350, 270);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		this.setLocation(200, 200);
+		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.setVisible(true);
 	}

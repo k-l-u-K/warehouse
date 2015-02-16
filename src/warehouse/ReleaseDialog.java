@@ -18,22 +18,18 @@ public class ReleaseDialog extends PopupDialog {
 		initReleaseFrame();
 		this.setTitle("Auslagern");
 		this.setModal(true);
-		this.setSize(350, 280);
+		this.setSize(350, 185);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		this.setLocation(200, 200);
+		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.setVisible(true);
 	}
 
+	// Initialisieren des Auslagernfensters
 	private void initReleaseFrame() {
-		okayBtn = new JButton("Auslagern bestätigen");
-		okayBtn.setBounds(75, 205, 200, 40);
-		panel.add(okayBtn);
-		okayBtn.addActionListener(this);
-		okayBtn.setVisible(false);
-
-		// infoLabel.setBounds(110, 170, 250, 30);
-		//panel.add(infoLabel);
+		// Überschreibung der Position der Teile-ID Eingabe
+		itemNrLabel.setBounds(20, 20, 150, 30);
+		inpTextField[1].setBounds(140, 25, 100, 20);
 		
 		descriptionBtn = new JButton("nach Bezeichnung suchen");
 		descriptionBtn.setBounds(75, 35, 200, 30);
@@ -44,20 +40,29 @@ public class ReleaseDialog extends PopupDialog {
         partIDBtn.setBounds(75, 75, 200 , 30);
         panel.add(partIDBtn);
         partIDBtn.addActionListener(this);
-       		
-		partSelectionComboBox.setBounds(10, 80, 320, 30);
-		panel.add(partSelectionComboBox);
-		partSelectionComboBox.setVisible(false);
         
+        // Button, zum Suchen der Teile nach eingegebener Bezeichnung
 		partSelectionBtn = new JButton("Teile suchen");
-		partSelectionBtn.setBounds(75, 205, 200, 40);
+		partSelectionBtn.setBounds(75, 105, 200, 40);
 		panel.add(partSelectionBtn);
 		partSelectionBtn.addActionListener(this);
 		partSelectionBtn.setVisible(false);
+       	
+        // ComboBox - enthält alle passenden Teile bei der Suche nach Bezeichnung
+		partSelectionComboBox.setBounds(10, 60, 320, 30);
+		panel.add(partSelectionComboBox);
+		partSelectionComboBox.setVisible(false);
+        
+		okayBtn = new JButton("Auslagern bestätigen");
+		okayBtn.setBounds(75, 105, 200, 40);
+		panel.add(okayBtn);
+		okayBtn.addActionListener(this);
+		okayBtn.setVisible(false);
         
 		cp.add(panel);
 	}
 
+	// Aktionen
 	@Override
 	public void actionPerformed(ActionEvent source) {
 		if (source.getSource().equals(descriptionBtn)){
@@ -66,11 +71,6 @@ public class ReleaseDialog extends PopupDialog {
 			partIDBtn.setVisible(false);
 			descriptionBtn.setVisible(false);
 			partSelectionBtn.setVisible(true);
-           /* if (!(inpTextField[0].getText().equals(""))) {
-            	LinkedList<Part> searchedParts = Warehouse.findPartName(inpTextField[0].getText());
-				for (Part parts : searchedParts) 
-					System.out.println(Warehouse.teilAuslagern(Warehouse.findPartID(parts.getPartnumber())));
-            }*/
 		}
 		
 		if (source.getSource().equals(partIDBtn)){
@@ -79,17 +79,16 @@ public class ReleaseDialog extends PopupDialog {
 			descriptionBtn.setVisible(false);
 			partIDBtn.setVisible(false);
 			okayBtn.setVisible(true);
-           /* if (!inpTextField[1].getText().equals(""))
-            	System.out.println(Warehouse.teilAuslagern(Warehouse.findPartID(Integer.parseInt(inpTextField[1].getText()))));
-				}*/
 		}
-
+		
+		// Auswahl nach Beschreibung zu suchen - Drücken des Teile suchen Buttons
 		if (source.getSource().equals(partSelectionBtn)) {
 			if (inpTextField[0].getText().isEmpty()) {
 				JOptionPane.showMessageDialog(this,"Es wurde keine Beschreibung eingegeben.");
 				return;
 			}
 			try {
+				// Anlegen einer Liste mit allen Teilen, die zur eingegebenen Beschreibung zu finden sind. Diese Liste wird dann der Inhalt der ComboBox.
 				LinkedList<Part> searchedParts = Warehouse.findPartName(inpTextField[0].getText());
 				for (Part parts : searchedParts)
 					model.addElement(parts);
@@ -106,28 +105,33 @@ public class ReleaseDialog extends PopupDialog {
 			}
 		}
 
+		// Okay-Button
 		if (source.getSource().equals(okayBtn)){
 			// Auslagern via Beschreibung
 			if (!(inpTextField[0].getText().isEmpty())) {
 				Warehouse.outsourceParts(Warehouse.findPartID(((Part) partSelectionComboBox.getSelectedItem()).getPartnumber()));
+				JOptionPane.showMessageDialog(this,"Das gewünschte Teil wurde erfolgreich ausgelagert.");
 				this.setVisible(false);
 				return;
 			}
 			
 			// Auslagern via Teilenummer
+			// Keine Teilenummer eingegeben.
 			if (inpTextField[1].getText().isEmpty()) {
 				JOptionPane.showMessageDialog(this,"Es wurde keine Teilenummer eingegeben.");
 				return;
 			}
 			try {
+				// Teile-ID auslesen
 				Part partID = Warehouse.findPartID(Integer.parseInt(inpTextField[1].getText()));
-				// Fehler, dass keine entsprechende Teilenummer gefunden wurde, muss so angefangen werden
+				// Fehler, dass keine entsprechende Teilenummer gefunden wurde.
 				if (partID == null) {
 					JOptionPane.showMessageDialog(this,"Zu dieser Teilenummer konnte\nkein Teil im Lager gefunden werden.");
 					return;
 				}
 				Warehouse.outsourceParts(partID);
-				this.setVisible(false);
+				JOptionPane.showMessageDialog(this,"Das gewünschte Teil wurde erfolgreich ausgelagert.");
+				this.setVisible(false);				
 			} catch (NumberFormatException a) {
 				JOptionPane.showMessageDialog(this,"Die eingegebene Teilenummer darf nur aus Ziffern bestehen.");
 			} finally {

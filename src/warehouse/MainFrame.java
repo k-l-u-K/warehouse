@@ -26,6 +26,7 @@ public class MainFrame extends JFrame implements ActionListener {
 	private JMenuItem transferToStock;
 	private JMenuItem releaseFromStock;
 	private JMenuItem fillRandom;
+	private JMenuItem fillRandomComplete;
 	private JMenuItem removeAll;
 
 	// Elemente Table Panel
@@ -70,7 +71,8 @@ public class MainFrame extends JFrame implements ActionListener {
 	      });
 		this.setMinimumSize(new Dimension(1150, 750));
 		// this.setExtendedState(MAXIMIZED_BOTH);
-		this.setLocation(0, 0);
+		// this.setLocation(0, 0);
+		this.setLocationRelativeTo(null);
 		this.setTitle("Lagerverwaltung");
 		this.setVisible(true);
 		loadFile();
@@ -185,16 +187,19 @@ public class MainFrame extends JFrame implements ActionListener {
 		transferToStock = new JMenuItem("Einlagern");
 		releaseFromStock = new JMenuItem("Auslagern");
 		fillRandom = new JMenuItem("Lager zufällig befüllen");
+		fillRandomComplete = new JMenuItem("Lager zufällig vollständig befüllen");
 		removeAll = new JMenuItem("Lager leeren");
 
 		storeOpt.add(transferToStock);
 		storeOpt.add(releaseFromStock);
 		storeOpt.add(fillRandom);
+		storeOpt.add(fillRandomComplete);
 		storeOpt.add(removeAll);
 
 		transferToStock.addActionListener(this);
 		releaseFromStock.addActionListener(this);
 		fillRandom.addActionListener(this);
+		fillRandomComplete.addActionListener(this);
 		removeAll.addActionListener(this);
 
 		menu.add(storeInfo);
@@ -315,9 +320,15 @@ public class MainFrame extends JFrame implements ActionListener {
 					"Sind sie sicher, dass sie das Lager zufällig befüllen möchten?\nAlle nicht gespeicherten Änderungen gehen dann verloren!",
 					"Lager zufällig befüllen", JOptionPane.YES_NO_OPTION);
 			if (result == 0) 
-				Warehouse.fillRandom();						
+				Warehouse.fillRandom(false);						
 		}
-
+		if (source.getSource().equals(fillRandomComplete)) {
+			int result = JOptionPane.showConfirmDialog(null,
+					"Sind sie sicher, dass sie das Lager zufällig befüllen möchten?\nAlle nicht gespeicherten Änderungen gehen dann verloren!",
+					"Lager zufällig befüllen", JOptionPane.YES_NO_OPTION);
+			if (result == 0) 
+				Warehouse.fillRandom(true);	
+		}
 		if (source.getSource().equals(removeAll)) {
 			int result = JOptionPane.showConfirmDialog(null,
 					"Sind sie sicher, dass sie das gesamte Lager leeren wollen?\nAlle nicht gespeicherten Änderungen gehen dann verloren!",

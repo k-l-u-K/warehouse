@@ -174,13 +174,13 @@ public class Warehouse implements Serializable {
 		}
 	}
 
-	public static void fillRandom() {
+	public static void fillRandom(boolean fillComplete) {
 		Random zufall = new Random();
 		removeAll();
 		String partName = null;
 		int partSize = 0;
 		int countRandom = 0;
-		if (Variables.FILLEVERYCOMPARTMENT)
+		if (Variables.FILLEVERYCOMPARTMENT || fillComplete)
 			countRandom = restCompartments();
 		else
 			if (Variables.RANDOM > 0)
@@ -217,14 +217,14 @@ public class Warehouse implements Serializable {
 	        	//sollte nie auftreten
 	        	continue;
 			}
-			if (Variables.FILLEVERYCOMPARTMENT)
+			if (Variables.FILLEVERYCOMPARTMENT || fillComplete)
 				for (int j=partSize; j<=5; j++) {
 					Part part = new Part(partName, 0, partSize);
 					Warehouse.storingParts(part, findRegal(part));
 				}
 			Part part = new Part(partName, 0, partSize);
 			Warehouse.storingParts(part, findRegal(part));
-			if (Variables.FILLEVERYCOMPARTMENT)
+			if (Variables.FILLEVERYCOMPARTMENT || fillComplete)
 				countRandom = restCompartments();
 			else
 				countRandom--;

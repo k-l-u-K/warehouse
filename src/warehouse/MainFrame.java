@@ -25,13 +25,14 @@ public class MainFrame extends JFrame implements ActionListener {
 	private JMenuItem[] storageRacks = new JMenuItem[Variables.REGALCOUNT+1];
 	private JMenuItem transferToStock;
 	private JMenuItem releaseFromStock;
+	private JMenuItem fillRandom;
+	private JMenuItem removeAll;
 
 	// Elemente Table Panel
 	private JPanel tableTopPanel;
 	private JTable mainTable;
 	private JButton saveBtn = new JButton("Speichern");
-	private JButton removeAllBtn = new JButton("Lager leeren");
-	private JButton fillWarehouseBtn = new JButton("Lager mit zufälligen Werten befüllen");
+
 	private JTextField contentInfoLabel = new JTextField("Inhaltsanzeige: Alle Regale");
 
 	// Testbuttons
@@ -183,11 +184,18 @@ public class MainFrame extends JFrame implements ActionListener {
 
 		transferToStock = new JMenuItem("Einlagern");
 		releaseFromStock = new JMenuItem("Auslagern");
+		fillRandom = new JMenuItem("Lager zufällig befüllen");
+		removeAll = new JMenuItem("Lager leeren");
+
 		storeOpt.add(transferToStock);
 		storeOpt.add(releaseFromStock);
+		storeOpt.add(fillRandom);
+		storeOpt.add(removeAll);
 
 		transferToStock.addActionListener(this);
 		releaseFromStock.addActionListener(this);
+		fillRandom.addActionListener(this);
+		removeAll.addActionListener(this);
 
 		menu.add(storeInfo);
 		menu.add(storeOpt);
@@ -213,13 +221,7 @@ public class MainFrame extends JFrame implements ActionListener {
 
 		tableTopPanel.add(saveBtn);
 		saveBtn.addActionListener(this);
-		
-		tableTopPanel.add(removeAllBtn);
-		removeAllBtn.addActionListener(this);
 
-		tableTopPanel.add(fillWarehouseBtn);
-		fillWarehouseBtn.addActionListener(this);
-		
 		tablePanel.add(new JScrollPane(mainTable), BorderLayout.CENTER);
 	}
 
@@ -249,7 +251,7 @@ public class MainFrame extends JFrame implements ActionListener {
 
 		drivewayLabel.setBounds(20, 150, 150, 30);
 		infoTopPanel.add(drivewayLabel);
-		
+
 		drivewayText.setBounds(190, 143, 200, 60);
 		drivewayText.setEnabled(false);
 		drivewayText.setBackground(infoPanel.getBackground());
@@ -258,13 +260,13 @@ public class MainFrame extends JFrame implements ActionListener {
 
 		restCapacityLabel.setBounds(20, 200, 150, 30);
 		infoTopPanel.add(restCapacityLabel);
-		
+
 		restCapacityText.setBounds(120, 207, 350, 40);
 		restCapacityText.setEnabled(false);
 		restCapacityText.setBackground(infoPanel.getBackground());
 		restCapacityText.setDisabledTextColor(Color.BLACK);
 		infoTopPanel.add(restCapacityText);
-		
+
 		restCompartmentLabel.setBounds(20, 225, 150, 30);
 		infoTopPanel.add(restCompartmentLabel);
 
@@ -273,9 +275,9 @@ public class MainFrame extends JFrame implements ActionListener {
 		restCompartmentText.setBackground(infoPanel.getBackground());
 		restCompartmentText.setDisabledTextColor(Color.BLACK);
 		infoTopPanel.add(restCompartmentText);
-	
+
 		infoBottomPanel.add(new JScrollPane(partAmountTable));
-		
+
 		infoPanel.add(infoTopPanel);
 		infoPanel.add(infoBottomPanel);
 	}
@@ -302,18 +304,17 @@ public class MainFrame extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent source) {
-		if (source.getSource() instanceof JButton) {
+		if (source.getSource() instanceof JButton)
 			if (source.getSource().equals(saveBtn))
 				saveFile();
-			if (source.getSource().equals(removeAllBtn))
-				Warehouse.removeAll();
-			if (source.getSource().equals(fillWarehouseBtn))
-				Warehouse.fillRandom(0);
-		}
 		if (source.getSource().equals(transferToStock))
 			new TransferDialog();
 		if (source.getSource().equals(releaseFromStock))
 			new ReleaseDialog();
+		if (source.getSource().equals(fillRandom))
+			Warehouse.fillRandom();
+		if (source.getSource().equals(removeAll))
+			Warehouse.removeAll();
 		else {
 			for (int i = 0; i < Variables.REGALCOUNT+1; i++) {
 				if (source.getSource().equals(storageRacks[i])) {

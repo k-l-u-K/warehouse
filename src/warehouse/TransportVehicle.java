@@ -11,6 +11,7 @@ public class TransportVehicle {
 		TransportVehicle.posZ = posZ;
 	}
 
+	// Fahrzeug soll zum übergebenen Standort fahren
 	public static void driveToCompartment(Part transportPart, Compartment compartment) {
 		setPosX(compartment.getPosX());
 		setPosY(compartment.getPosY());

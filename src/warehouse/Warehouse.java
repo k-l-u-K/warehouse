@@ -253,19 +253,7 @@ public class Warehouse implements Serializable {
 					}
 		return null;
 	}
-	
-	//gibt eine freie ID zurück
-	public static int getFreeID() {
-		return getFreeID(1);
-	}
-	
-	private static int getFreeID(int testID) {
-		if (Warehouse.findPart(null, testID) == null)
-			return testID;
-		else
-			return getFreeID(++testID);
-	}
-	
+
 	public static int restCapacity() {
 		int temp = 0;
 		for (int i = 0; i < regal.size(); i++)

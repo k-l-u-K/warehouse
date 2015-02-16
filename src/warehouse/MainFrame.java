@@ -63,39 +63,55 @@ public class MainFrame extends JFrame implements ActionListener {
 		initPartAmountTable();
 		initGUI();
 		this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-	    this.addWindowListener(new WindowAdapter() {
-	         public void windowClosing(WindowEvent e) {
-	            exit();
-	         }
-	      });
+		this.addWindowListener(new WindowAdapter() {
+	    	public void windowClosing(WindowEvent e) {
+	        	 // Beim Beenden nachfragen, ob gespeichert werden soll
+	        	 exit();
+	    	}
+	    });
+		// Größe, Position und Titel festlegen
 		this.setMinimumSize(new Dimension(1150, 750));
-		// this.setExtendedState(MAXIMIZED_BOTH);
-		// this.setLocation(0, 0);
 		this.setLocationRelativeTo(null);
 		this.setTitle("Lagerverwaltung");
 		this.setVisible(true);
+		// Datei laden und Teilzähltabelleninhalt aktualisieren
 		loadFile();
 		setRestCapacityText();
 		setRestCompartmentText();
 	}
+	
+	public void initGUI() {
+		initMenu();
+		cp = this.getContentPane();
+
+		initTablePanel();
+		initInfoPanel();
+
+		cp.setLayout(new GridLayout(1, 2));
+		cp.add(tablePanel);
+		cp.add(infoPanel);
+	}
 
 	private void initMainTable() {
-		// Die Namen der Columns
+		// Die Namen der Spalten
 		String[] titles = new String[] { "Regal", "Fach", "Bezeichnung", "Teilenummer", "Größe in GE" };
 
-		// Das Model das wir verwenden werden. Hier setzten wir gleich die Titel,
-		// aber es ist später immer noch möglich weitere Rows hinzuzufügen.
+		// Tabelle erzeugen
 		modelMain = new DefaultTableModel(titles, 0);
 
 		// Das JTable initialisieren
 		mainTable = new JTable(modelMain);
 		mainTable.setEnabled(false);
+	
+		// Spaltenbreite für Beschreibung festlegen
+		mainTable.getColumnModel().getColumn(2).setPreferredWidth(200);
 
+		// Über Spaltenüberschirft soll später sortiert werden können 
 		sorterMain = new TableRowSorter<DefaultTableModel>(modelMain);
 		mainTable.setRowSorter(sorterMain);
-		mainTable.getColumnModel().getColumn(2).setPreferredWidth(200);
 		sorterMain.setModel(modelMain);
 
+		// Korrektur der Sortierung bei der Teilenummer
 		sorterMain.setComparator(3, new Comparator<Integer>() {
 			public int compare(Integer arg0, Integer arg1) {
 				return arg0 - arg1;
@@ -111,11 +127,9 @@ public class MainFrame extends JFrame implements ActionListener {
 		}
 	}
 
+	// Info-Anzeige über die Anzahl der Teile
 	private void initPartAmountTable() {
 		String[] titles = new String[] { "Bezeichnung", "Anzahl" };
-
-		// Das Model das wir verwenden werden. Hier setzten wir gleich die Titel,
-		// aber es ist später immer noch möglich weitere Rows hinzuzufügen.
 		modelPartAmount = new DefaultTableModel(titles, 0);
 
 		// Das JTable initialisieren
@@ -137,38 +151,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		partAmountTable.setEnabled(false);
 	}
 
-	@SuppressWarnings("rawtypes")
-	public static Vector<Comparable> createVectorMainTable(Part part, Compartment compartment) {
-		Vector<Comparable> vector = new Vector<Comparable>(5);
-		vector.add((compartment.getPosY()/4)+1);
-		vector.add(compartment.getPosX() + " " + compartment.getPosZ());
-		vector.add(part.getDescription());
-		vector.add(part.getPartnumber());
-		vector.add(part.getSize());
-
-		return vector;
-	}
-
-	@SuppressWarnings("rawtypes")
-	public static Vector<Comparable> createVectorPartAmountTable(Part part, int i) {
-		Vector<Comparable> vector = new Vector<Comparable>(2);
-		vector.add(part.getDescription());
-		vector.add(i);
-		return vector;
-	}
-
-	public void initGUI() {
-		initMenu();
-		cp = this.getContentPane();
-
-		initTablePanel();
-		initInfoPanel();
-
-		cp.setLayout(new GridLayout(1, 2));
-		cp.add(tablePanel);
-		cp.add(infoPanel);
-	}
-
+	// Menü
 	private void initMenu() {
 		menu = new JMenuBar();
 
@@ -209,6 +192,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		this.setJMenuBar(menu);
 	}
 
+	// oberes Feld mit Speichern-Button und Regalnr.-Anzeige
 	private void initTablePanel() {
 		tablePanel = new JPanel();
 		tablePanel.setLayout(new BorderLayout());
@@ -230,6 +214,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		tablePanel.add(new JScrollPane(mainTable), BorderLayout.CENTER);
 	}
 
+	// Panel, welches allg. Infos über letzte Aktion, Fahrtweg etc. anzeigt
 	private void initInfoPanel() {
 		infoPanel = new JPanel();
 		infoPanel.setLayout(new GridLayout(2,1));
@@ -287,26 +272,31 @@ public class MainFrame extends JFrame implements ActionListener {
 		infoPanel.add(infoBottomPanel);
 	}
 
+	// Methode zum Aktualisieren der letzten Aktion
 	public static void setLastActionText(String lastAction, Part part) {
 		lastActionText.setText(lastAction + part.getDescription()
 				+ " \n(Teilenummer: " + part.getPartnumber() + ", Größe: "
 				+ part.getSize() + ")");
 	}
 
+	// zum Aktualisieren der Anzeige des letzten Fahrwegs des Fahrzeugs
 	public static void setDrivewayText() {
 		drivewayText.setText("Weg in x-Richtung: " + TransportVehicle.getPosX()
 				+ "\nWeg in y-Richtung: " + TransportVehicle.getPosY()
 				+ "\nWeg in z-Richtung: " + TransportVehicle.getPosZ());
 	}
 
+	// zum Aktualisieren der Anzeige der restlichen Kapazität
 	public static void setRestCapacityText() {
 		restCapacityText.setText(Integer.toString(Warehouse.restCapacity()));
 	}
 
+	// zum Aktualisieren der Anzeige der restlichen freien Fächer
 	public static void setRestCompartmentText() {
 		restCompartmentText.setText(Integer.toString(Warehouse.restCompartments()));
 	}
 
+	// Aktionen abnfangen und Methoden zuweisen
 	@Override
 	public void actionPerformed(ActionEvent source) {
 		if (source.getSource().equals(saveBtn))
@@ -348,6 +338,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		}
 	}
 
+	// Zeile bei neuen Teilen hinzufügen
 	public static void addARow(Part part, Compartment compartment) {
 		// einen neuen Vector mit Daten herstellen
 		@SuppressWarnings("rawtypes")
@@ -356,6 +347,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		modelMain.addRow(newDatas);
 	}
 
+	// Zeile entfernen, wenn Teile ausgelagtert werden
 	public static void removeARow(Part part) {
 		int size = modelMain.getRowCount();
 
@@ -367,12 +359,14 @@ public class MainFrame extends JFrame implements ActionListener {
 		}
 	}
 
+	// Zeile bei der Gesamtanzahlanzeige Hinzufügen, wenn Teil eingelagert wird
 	@SuppressWarnings("rawtypes")
 	public static void addARowNewPartDiscription (Part part) {	
 		Vector<Comparable> newPartDiscription = createVectorPartAmountTable(part,1);
 		modelPartAmount.addRow(newPartDiscription);
 	}
 
+	// Zeile bei der Gesamtanzahlanzeige Aktualisieren, wenn Teil ein- / ausgelagert wird
 	public static void editRowPartDis (Part part, int j) {
 		int size = modelPartAmount.getRowCount();
 		for (int i = 0; i < size; i++) {
@@ -381,9 +375,9 @@ public class MainFrame extends JFrame implements ActionListener {
 				return;
 			}
 		}
-		
 	}
 
+	// Zeile bei der Gesamtanzahlanzeige entfernen, wenn Teil ausgelagert wird
 	public static void removeRowPartDis (Part part) {
 		int size = modelPartAmount.getRowCount();
 
@@ -394,7 +388,29 @@ public class MainFrame extends JFrame implements ActionListener {
 			}
 		}
 	}
-	
+
+	// Hinzufügen der Zeilen zur Anzeige des Inhalts der Regale und Fächer mit den Teilen
+	@SuppressWarnings("rawtypes")
+	public static Vector<Comparable> createVectorMainTable(Part part, Compartment compartment) {
+		Vector<Comparable> vector = new Vector<Comparable>(5);
+		vector.add((compartment.getPosY()/4)+1);
+		vector.add(compartment.getPosX() + " " + compartment.getPosZ());
+		vector.add(part.getDescription());
+		vector.add(part.getPartnumber());
+		vector.add(part.getSize());
+		return vector;
+	}
+
+	// Hinzufügen der Zeilen zur Anzeige des Inhalts der Gesamtanzahlanzeige
+	@SuppressWarnings("rawtypes")
+	public static Vector<Comparable> createVectorPartAmountTable(Part part, int i) {
+		Vector<Comparable> vector = new Vector<Comparable>(2);
+		vector.add(part.getDescription());
+		vector.add(i);
+		return vector;
+	}
+
+	// Beim Beenden nach dem Speichern fragen
 	private void exit() {
 		// Eingabe des Benutzers wird in int-Wert gespeichert: 0 für 1. Antwort, 1 für 2. Antwort etc.		
 		int result = JOptionPane.showConfirmDialog(null,"Sollen die Änderungen gespeichert werden?","Programm beenden",JOptionPane.YES_NO_OPTION);
@@ -409,10 +425,12 @@ public class MainFrame extends JFrame implements ActionListener {
 			      }
 	}
 
+	// Beim Speichern der Datei die Methode aufrufen
 	private void saveFile() {
 		FileHandle.serialize();
 	}
 
+	// Beim Laden der Datei die Methode aufrufen
 	private void loadFile() {
 		FileHandle.deserialize();
 	}

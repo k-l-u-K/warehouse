@@ -64,7 +64,7 @@ public class TransferDialog extends PopupDialog  {
 		try {
 			// Prüfung ob Teilenr.-feld leer ist
 			if (inpTextField[1].getText().isEmpty()) 
-				inpTextField[1].setText(Integer.toString(Warehouse.getFreeID()));
+				inpTextField[1].setText(Integer.toString(Part.getFreeID()));
 			inpPartNumber = Integer.parseInt(inpTextField[1].getText());
 
 			Part part = new Part(inpTextField[0].getText().replaceAll(" ", ""),

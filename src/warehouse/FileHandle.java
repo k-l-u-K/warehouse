@@ -13,20 +13,25 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+// Klasse zum Speichern der Daten als Objekte
+// dazu wird (de-)serialisiert  
 public class FileHandle implements Serializable {
 	private static final long serialVersionUID = -7725023475097213226L;
 	private static String file = ".\\data\\DateiZumEinlesen.ser";
-	
+
+	// Objekte serialisieren
 	public static void serialize() {
+		// Fehler abfangen, wenn mit der Datei etwas nicht stimmt
 		try (FileOutputStream fos = new FileOutputStream(file)){
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
-		 	
 			for (int i = 0; i < Variables.REGALCOUNT; i++)
 				for (int j = 0; j < Variables.COMPARTMENTSIDEBYSIDE; j++)
 					for (int k = 0; k < Variables.COMPARTMENTONTOPOFEACHOTHER; k++) {
+						// Fächer in die Datei schreiben
 						oos.writeObject(Warehouse.get().getRegal().get(i).getCompartments()[j][k]);
+						// Teile in die Datei schreiben
 						oos.writeObject(Warehouse.get().getRegal().get(i).getCompartments()[j][k].getPartList());
-					}		 	
+					}
 		 	oos.close();
 		 	JOptionPane.showMessageDialog(null,
 		 		    "Lagerbestand wurde erfolgreich gespeichert.",
@@ -40,6 +45,7 @@ public class FileHandle implements Serializable {
 		}
 	}
 
+	// Objekte deserialisieren
 	@SuppressWarnings("unchecked")
 	public static void deserialize() {
 		List<Part> loadedPartList = new ArrayList<Part>();
@@ -50,6 +56,7 @@ public class FileHandle implements Serializable {
 				for (int i = 0; i < Variables.REGALCOUNT; i++)
 					for (int j = 0; j < Variables.COMPARTMENTSIDEBYSIDE; j++)
 						for (int k = 0; k < Variables.COMPARTMENTONTOPOFEACHOTHER; k++) {
+							// Fächer und Teileliste in Variable speichern
 							loadedCompartment = (Compartment) ois.readObject();
 							loadedPartList = (List<Part>) ois.readObject();
 							Warehouse.loadPartsIntoWarehouse(loadedPartList, loadedCompartment, i, j, k);

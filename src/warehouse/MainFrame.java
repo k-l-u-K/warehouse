@@ -296,7 +296,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		restCompartmentText.setText(Integer.toString(Warehouse.restCompartments()));
 	}
 
-	// Aktionen abnfangen und Methoden zuweisen
+	// Aktionen abfangen und Methoden zuweisen
 	@Override
 	public void actionPerformed(ActionEvent source) {
 		if (source.getSource().equals(saveBtn))
@@ -339,16 +339,16 @@ public class MainFrame extends JFrame implements ActionListener {
 	}
 
 	// Zeile bei neuen Teilen hinzufügen
-	public static void addARow(Part part, Compartment compartment) {
+	public static void addRowMainTable(Part part, Compartment compartment) {
 		// einen neuen Vector mit Daten herstellen
 		@SuppressWarnings("rawtypes")
-		Vector<Comparable> newDatas = createVectorMainTable(part, compartment);
+		Vector<Comparable> newRowMain = createVectorMainTable(part, compartment);
 		// eine neue Row hinzufügen
-		modelMain.addRow(newDatas);
+		modelMain.addRow(newRowMain);
 	}
 
 	// Zeile entfernen, wenn Teile ausgelagtert werden
-	public static void removeARow(Part part) {
+	public static void removeRowMainTable(Part part) {
 		int size = modelMain.getRowCount();
 
 		for (int i = 0; i < size; i++) {
@@ -361,24 +361,24 @@ public class MainFrame extends JFrame implements ActionListener {
 
 	// Zeile bei der Gesamtanzahlanzeige Hinzufügen, wenn Teil eingelagert wird
 	@SuppressWarnings("rawtypes")
-	public static void addARowNewPartDiscription (Part part) {	
-		Vector<Comparable> newPartDiscription = createVectorPartAmountTable(part,1);
-		modelPartAmount.addRow(newPartDiscription);
+	public static void addRowPartAmountTable (Part part) {	
+		Vector<Comparable> newRowPartAmount = createVectorPartAmountTable(part,1);
+		modelPartAmount.addRow(newRowPartAmount);
 	}
 
-	// Zeile bei der Gesamtanzahlanzeige Aktualisieren, wenn Teil ein- / ausgelagert wird
-	public static void editRowPartDis (Part part, int j) {
+	// Zeile bei der Gesamtanzahlanzeige aktualisieren, wenn Teil ein- / ausgelagert wird
+	public static void editRowPartAmountTable (Part part, int newAmount) {
 		int size = modelPartAmount.getRowCount();
 		for (int i = 0; i < size; i++) {
 			if (modelPartAmount.getValueAt(i, 0).equals(part.getDescription())) {
-				modelPartAmount.setValueAt(j, i, 1);
+				modelPartAmount.setValueAt(newAmount, i, 1);
 				return;
 			}
 		}
 	}
 
 	// Zeile bei der Gesamtanzahlanzeige entfernen, wenn Teil ausgelagert wird
-	public static void removeRowPartDis (Part part) {
+	public static void removeRowPartAmountTable (Part part) {
 		int size = modelPartAmount.getRowCount();
 
 		for (int i = 0; i < size; i++) {

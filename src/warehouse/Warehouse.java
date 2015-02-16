@@ -51,7 +51,7 @@ public class Warehouse implements Serializable {
 			// Kapazität verringern
 			compartment.setCapacity(compartment.getCapacity() - part.getSize());
 			//Zeile hinzufügen
-			MainFrame.addARow(part, compartment);
+			MainFrame.addRowMainTable(part, compartment);
 			//Teil der Anzahlliste hinzufügen
 			Warehouse.partCountAdd(part);	
 			// Letzte Aktion aktualisieren
@@ -81,7 +81,7 @@ public class Warehouse implements Serializable {
 						// Kapazität vergrößern
 						regal.get(i).getCompartments()[j][k].setCapacity(regal.get(i).getCompartments()[j][k].getCapacity() + part.getSize());
 						// Zeile aus der Tabelle entfernen
-						MainFrame.removeARow(part);
+						MainFrame.removeRowMainTable(part);
 						// Teil aus der Anzahlliste entfernen
 						Warehouse.partCountRemove(part);
 						// Letzte Aktion aktualisieren
@@ -105,7 +105,7 @@ public class Warehouse implements Serializable {
 		//loadedCompartment.getPartList().add(part);
 		//Zeile hinzufügen
 		for (Part parts : part) {
-			MainFrame.addARow(parts, loadedCompartment);
+			MainFrame.addRowMainTable(parts, loadedCompartment);
 			Warehouse.partCountAdd(parts);
 		}
 
@@ -157,20 +157,20 @@ public class Warehouse implements Serializable {
 	public static void partCountAdd(Part part) {
 		if (!partAmountMap.containsKey(part.getDescription())) {
 			partAmountMap.put(part.getDescription(), 1);
-			MainFrame.addARowNewPartDiscription(part);
+			MainFrame.addRowPartAmountTable(part);
 		} else {
 			partAmountMap.put(part.getDescription(), partAmountMap.get(part.getDescription()) + 1);
-			MainFrame.editRowPartDis(part, partAmountMap.get(part.getDescription()));
+			MainFrame.editRowPartAmountTable(part, partAmountMap.get(part.getDescription()));
 		}
 	}
 
 	public static void partCountRemove(Part part) {
 		if (partAmountMap.get(part.getDescription()).equals(1)) {
 			partAmountMap.remove(part.getDescription());
-			MainFrame.removeRowPartDis(part);
+			MainFrame.removeRowPartAmountTable(part);
 		} else {
 			partAmountMap.put(part.getDescription(), partAmountMap.get(part.getDescription()) - 1);
-			MainFrame.editRowPartDis(part, partAmountMap.get(part.getDescription()));
+			MainFrame.editRowPartAmountTable(part, partAmountMap.get(part.getDescription()));
 		}
 	}
 

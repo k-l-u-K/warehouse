@@ -324,8 +324,8 @@ public class MainFrame extends JFrame implements ActionListener {
 		}
 		if (source.getSource().equals(fillRandomComplete)) {
 			int result = JOptionPane.showConfirmDialog(null,
-					"Sind sie sicher, dass sie das Lager zufällig befüllen möchten?\nAlle nicht gespeicherten Änderungen gehen dann verloren!",
-					"Lager zufällig befüllen", JOptionPane.YES_NO_OPTION);
+							"Sind sie sicher, dass sie das Lager zufällig befüllen möchten?\nAlle nicht gespeicherten Änderungen gehen dann verloren!\nBeachten Sie, dass dieser Vorgang einige Sekunden dauern kann!",
+							"Lager zufällig befüllen",JOptionPane.YES_NO_OPTION);
 			if (result == 0) 
 				Warehouse.fillRandom(true);	
 		}

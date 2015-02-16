@@ -261,7 +261,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		restCapacityLabel.setBounds(20, 200, 150, 30);
 		infoTopPanel.add(restCapacityLabel);
 
-		restCapacityText.setBounds(120, 207, 350, 40);
+		restCapacityText.setBounds(120, 207, 350, 18);
 		restCapacityText.setEnabled(false);
 		restCapacityText.setBackground(infoPanel.getBackground());
 		restCapacityText.setDisabledTextColor(Color.BLACK);
@@ -270,7 +270,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		restCompartmentLabel.setBounds(20, 225, 150, 30);
 		infoTopPanel.add(restCompartmentLabel);
 
-		restCompartmentText.setBounds(120, 232, 350, 40);
+		restCompartmentText.setBounds(120, 232, 300, 18);
 		restCompartmentText.setEnabled(false);
 		restCompartmentText.setBackground(infoPanel.getBackground());
 		restCompartmentText.setDisabledTextColor(Color.BLACK);

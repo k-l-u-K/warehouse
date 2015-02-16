@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Comparator;
 import java.util.Vector;
-
 import javax.swing.*;
 import javax.swing.RowFilter.ComparisonType;
 import javax.swing.table.DefaultTableModel;
@@ -94,6 +93,7 @@ public class MainFrame extends JFrame implements ActionListener {
 
 		sorterMain = new TableRowSorter<DefaultTableModel>(modelMain);
 		mainTable.setRowSorter(sorterMain);
+		mainTable.getColumnModel().getColumn(2).setPreferredWidth(200);
 		sorterMain.setModel(modelMain);
 
 		sorterMain.setComparator(3, new Comparator<Integer>() {
@@ -133,6 +133,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		});
 		
 		sorterPartAmount.setSortable(0, false);
+		partAmountTable.getColumnModel().getColumn(0).setPreferredWidth(200);
 		partAmountTable.setEnabled(false);
 	}
 
@@ -226,7 +227,6 @@ public class MainFrame extends JFrame implements ActionListener {
 
 		tableTopPanel.add(saveBtn);
 		saveBtn.addActionListener(this);
-
 		tablePanel.add(new JScrollPane(mainTable), BorderLayout.CENTER);
 	}
 
@@ -240,7 +240,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		
 		infoBottomPanel = new JPanel();
 		infoBottomPanel.setLayout(new BorderLayout());
-		infoBottomPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 100));
+		infoBottomPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 50));
 		
 		basicUnitLabel.setBounds(20, 20, 350, 40);
 		infoTopPanel.add(basicUnitLabel);
@@ -248,7 +248,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		lastActionLabel.setBounds(20, 80, 100, 30);
 		infoTopPanel.add(lastActionLabel);
 		
-		lastActionText.setBounds(120, 80, 350, 40);
+		lastActionText.setBounds(120, 80, 280, 35);
 		lastActionText.setEnabled(false);
 		lastActionText.setBackground(infoPanel.getBackground());
 		lastActionText.setDisabledTextColor(Color.BLACK);
@@ -257,7 +257,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		drivewayLabel.setBounds(20, 150, 150, 30);
 		infoTopPanel.add(drivewayLabel);
 
-		drivewayText.setBounds(190, 143, 200, 60);
+		drivewayText.setBounds(190, 143, 210, 50);
 		drivewayText.setEnabled(false);
 		drivewayText.setBackground(infoPanel.getBackground());
 		drivewayText.setDisabledTextColor(Color.BLACK);
@@ -266,7 +266,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		restCapacityLabel.setBounds(20, 200, 150, 30);
 		infoTopPanel.add(restCapacityLabel);
 
-		restCapacityText.setBounds(120, 207, 350, 18);
+		restCapacityText.setBounds(120, 207, 280, 17);
 		restCapacityText.setEnabled(false);
 		restCapacityText.setBackground(infoPanel.getBackground());
 		restCapacityText.setDisabledTextColor(Color.BLACK);
@@ -275,7 +275,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		restCompartmentLabel.setBounds(20, 225, 150, 30);
 		infoTopPanel.add(restCompartmentLabel);
 
-		restCompartmentText.setBounds(120, 232, 300, 18);
+		restCompartmentText.setBounds(120, 232, 280, 17);
 		restCompartmentText.setEnabled(false);
 		restCompartmentText.setBackground(infoPanel.getBackground());
 		restCompartmentText.setDisabledTextColor(Color.BLACK);

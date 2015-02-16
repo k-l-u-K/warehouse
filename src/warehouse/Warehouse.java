@@ -174,12 +174,20 @@ public class Warehouse implements Serializable {
 		}
 	}
 
-	public static void fillRandom(int fillCompleteWithThisSize) {
+	public static void fillRandom() {
 		Random zufall = new Random();
 		removeAll();
 		String partName = null;
 		int partSize = 0;
-		for (int i=0; i <= Variables.RANDOM; i++) {
+		int countRandom = 0;
+		if (Variables.FILLEVERYCOMPARTMENT)
+			countRandom = restCompartments();
+		else
+			if (Variables.RANDOM > 0)
+				countRandom = Variables.RANDOM;
+		// die Abfrage nach Variables.FILLEVERYCOMPARTMENT könnte man vorher weglassen, wenn man do while benutzt
+		// allerdings wird dann immer mind. 1 Teil angelegt
+		while (countRandom != 0) {
 			switch(zufall.nextInt(6)) {
 			case 0:
 				partName = "Schrank";
@@ -209,10 +217,17 @@ public class Warehouse implements Serializable {
 	        	//sollte nie auftreten
 	        	continue;
 			}
-			if (Variables.FILLEVERYPARTWITHTHISSIZE != 0)
-				partSize = Variables.FILLEVERYPARTWITHTHISSIZE;
+			if (Variables.FILLEVERYCOMPARTMENT)
+				for (int j=partSize; j<=5; j++) {
+					Part part = new Part(partName, 0, partSize);
+					Warehouse.storingParts(part, findRegal(part));
+				}
 			Part part = new Part(partName, 0, partSize);
 			Warehouse.storingParts(part, findRegal(part));
+			if (Variables.FILLEVERYCOMPARTMENT)
+				countRandom = restCompartments();
+			else
+				countRandom--;
 		}
 	}
 	

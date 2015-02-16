@@ -47,7 +47,7 @@ public class MainFrame extends JFrame implements ActionListener {
 
 	private JTable partAmountTable;
 
-	private JLabel basicUnitLabel = new JLabel("Die Größe eines Faches entspricht " + Variables.CAPACITY + " Grundeinheiten (GE).");
+	private JLabel basicUnitLabel = new JLabel("Die Größe eines Faches entspricht " + Variables.COMPARTMENTCAPACITY + " Grundeinheiten (GE).");
 	private JLabel lastActionLabel = new JLabel("Letzte Aktion:");
 	private JLabel drivewayLabel = new JLabel("Zurückgelegter Fahrweg: ");
 	private JLabel restCapacityLabel = new JLabel("Restkapazität: ");

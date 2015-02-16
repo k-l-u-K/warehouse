@@ -38,8 +38,8 @@ public class Warehouse implements Serializable {
 
 	// Lagert ein Teil ein
 	public static String storingParts(Part part, Compartment compartment) {
-		if (part.getSize() <= 0 || part.getSize() > Variables.CAPACITY)
-			return "Größe muss zwischen 1 und " + Variables.CAPACITY + " GE betragen!";
+		if (part.getSize() <= 0 || part.getSize() > Variables.COMPARTMENTCAPACITY)
+			return "Größe muss zwischen 1 und " + Variables.COMPARTMENTCAPACITY + " GE betragen!";
 		if (compartment == null)
 			return "Lager voll!";
 		// wenn noch Platz, dann einlagern
@@ -180,11 +180,11 @@ public class Warehouse implements Serializable {
 		String partName = null;
 		int partSize = 0;
 		int countRandom = 0;
-		if (Variables.FILLEVERYCOMPARTMENT || fillComplete)
+		if (fillComplete)
 			countRandom = restCompartments();
 		else
-			if (Variables.RANDOM > 0)
-				countRandom = Variables.RANDOM;
+			if (Variables.FILLRANDOMCOUNT > 0)
+				countRandom = Variables.FILLRANDOMCOUNT;
 		// die Abfrage nach Variables.FILLEVERYCOMPARTMENT könnte man vorher weglassen, wenn man do while benutzt
 		// allerdings wird dann immer mind. 1 Teil angelegt
 		while (countRandom != 0) {
@@ -217,14 +217,14 @@ public class Warehouse implements Serializable {
 	        	//sollte nie auftreten
 	        	continue;
 			}
-			if (Variables.FILLEVERYCOMPARTMENT || fillComplete)
+			if (fillComplete)
 				for (int j=partSize; j<=5; j++) {
 					Part part = new Part(partName, 0, partSize);
 					Warehouse.storingParts(part, findRegal(part));
 				}
 			Part part = new Part(partName, 0, partSize);
 			Warehouse.storingParts(part, findRegal(part));
-			if (Variables.FILLEVERYCOMPARTMENT || fillComplete)
+			if (fillComplete)
 				if (Variables.MULTIPARTTYPPERCOMPARTMENT)
 					countRandom = restCapacity();
 				else

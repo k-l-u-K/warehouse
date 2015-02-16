@@ -18,7 +18,7 @@ public class Compartment implements Serializable {
 		this.posX = posX;
 		this.posY = posY;
 		this.posZ = posZ;
-		this.capacity = Variables.CAPACITY;
+		this.capacity = Variables.COMPARTMENTCAPACITY;
 	}
 
 	@Override

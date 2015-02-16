@@ -93,17 +93,11 @@ public class Warehouse implements Serializable {
 	}
 
 	public static void loadPartsIntoWarehouse(List<Part> part, Compartment loadedCompartment, int i, int j, int k) {
-		// einlagern
+		// Teilelisten in Compartments einlagern
 		regal.get(i).getCompartments()[j][k].setPartList(part);
-		//regal.get(i).getCompartments()[j][k].findPart(part)
-		// einlagern
-		//loadedCompartment.getPartList().add(part);
-		// Kapazität verringern
+		// Kapazität laden
 		regal.get(i).getCompartments()[j][k].setCapacity(loadedCompartment.getCapacity());
-		//loadedCompartment.setCapacity(loadedCompartment.getCapacity());
-		// Teil der Warenliste hinzufügen
-		//loadedCompartment.getPartList().add(part);
-		//Zeile hinzufügen
+		// Tabellezeilen hinzufügen
 		for (Part parts : part) {
 			MainFrame.addRowMainTable(parts, loadedCompartment);
 			Warehouse.partCountAdd(parts);
@@ -254,12 +248,13 @@ public class Warehouse implements Serializable {
 		return null;
 	}
 
+	// alle Regale ausgewählt
 	public static int restCapacity() {
 		int temp = 0;
-		for (int i = 0; i < regal.size(); i++)
-			for (int j = 0; j < Variables.COMPARTMENTSIDEBYSIDE; j++)
-				for (int k = 0; k < Variables.COMPARTMENTONTOPOFEACHOTHER; k++)
-						temp += regal.get(i).getCompartments()[j][k].getCapacity();
+			for (int i = 0; i < regal.size(); i++)
+				for (int j = 0; j < Variables.COMPARTMENTSIDEBYSIDE; j++)
+					for (int k = 0; k < Variables.COMPARTMENTONTOPOFEACHOTHER; k++)
+						temp += regal.get(i).getCompartments()[j][k].getCapacity();		
 		return temp;
 	}
 	
@@ -269,9 +264,35 @@ public class Warehouse implements Serializable {
 			for (int j = 0; j < Variables.COMPARTMENTSIDEBYSIDE; j++)
 				for (int k = 0; k < Variables.COMPARTMENTONTOPOFEACHOTHER; k++)
 					if (!regal.get(i).getCompartments()[j][k].getPartList().isEmpty())
-						temp ++;
-		return temp=Variables.COMPARTMENTSIDEBYSIDE*Variables.COMPARTMENTONTOPOFEACHOTHER*Variables.REGALCOUNT-temp;
+						temp++;
+		return temp = Variables.COMPARTMENTSIDEBYSIDE * Variables.COMPARTMENTONTOPOFEACHOTHER * Variables.REGALCOUNT - temp;
 	}
+	
+	// ein Regal ausgewählt
+	public static int restCapacitySingleRack(int regalNr) {
+		int temp = 0;
+		if (regalNr != 0) {
+			int i = regalNr - 1;
+			for (int j = 0; j < Variables.COMPARTMENTSIDEBYSIDE; j++)
+				for (int k = 0; k < Variables.COMPARTMENTONTOPOFEACHOTHER; k++)
+					temp += regal.get(i).getCompartments()[j][k].getCapacity();
+			return temp;
+		}
+		return -1;
+	}
+
+	public static int restCompartmentsSingleRack(int regalNr) {
+		int temp = 0;
+		if (regalNr != 0) {
+			int i = regalNr - 1;
+			for (int j = 0; j < Variables.COMPARTMENTSIDEBYSIDE; j++)
+				for (int k = 0; k < Variables.COMPARTMENTONTOPOFEACHOTHER; k++)
+					if (!regal.get(i).getCompartments()[j][k].getPartList().isEmpty())
+						temp++;
+			return temp = Variables.COMPARTMENTSIDEBYSIDE * Variables.COMPARTMENTONTOPOFEACHOTHER - temp;
+		}
+		return -1;
+	}	
 
 	/*
 	 | 

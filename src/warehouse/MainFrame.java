@@ -33,7 +33,9 @@ public class MainFrame extends JFrame implements ActionListener {
 	private JTable mainTable;
 	private JButton saveBtn = new JButton("Speichern");
 
-	private JTextField contentInfoLabel = new JTextField("Inhaltsanzeige: Alle Regale");
+	private JLabel contentInfoLabel = new JLabel("Inhaltsanzeige: Alle Regale");
+	// ausgewähltes Regal bei der Anzeige, 0 = alle Regale
+	private static int selectedRack = 0;
 
 	// Testbuttons
 	private static DefaultTableModel modelMain;
@@ -52,10 +54,14 @@ public class MainFrame extends JFrame implements ActionListener {
 	private JLabel drivewayLabel = new JLabel("Zurückgelegter Fahrweg: ");
 	private JLabel restCapacityLabel = new JLabel("Restkapazität: ");
 	private JLabel restCompartmentLabel = new JLabel("freie Fächer: ");
+	private static JLabel restCapacitySingleRackLabel = new JLabel("");
+	private static JLabel restCompartmentSingleRackLabel = new JLabel("");
 	private static JTextArea drivewayText = new JTextArea("Weg in x-Richtung: 0\nWeg in y-Richtung: 0\nWeg in z-Richtung: 0");
 	private static JTextArea lastActionText = new JTextArea("");
 	private static JTextArea restCapacityText = new JTextArea("");
 	private static JTextArea restCompartmentText = new JTextArea("");
+	private static JTextArea restCapacitySingleRackText = new JTextArea("");
+	private static JTextArea restCompartmentSingleRackText = new JTextArea("");
 
 
 	public MainFrame() {
@@ -74,7 +80,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		this.setLocationRelativeTo(null);
 		this.setTitle("Lagerverwaltung");
 		this.setVisible(true);
-		// Datei laden und Teilzähltabelleninhalt aktualisieren
+		// Datei laden und Restkapazität und freie Fächer aktualisieren
 		loadFile();
 		setRestCapacityText();
 		setRestCompartmentText();
@@ -204,16 +210,13 @@ public class MainFrame extends JFrame implements ActionListener {
 		// erzwungener Rahmen
 		tablePanel.setBorder(BorderFactory.createEmptyBorder(30, 20, 50, 20));
 
-		contentInfoLabel.setEditable(false);
-		contentInfoLabel.setBackground(tablePanel.getBackground());
-		contentInfoLabel.setBorder(null);
 		tableTopPanel.add(contentInfoLabel);
 
 		tableTopPanel.add(saveBtn);
 		saveBtn.addActionListener(this);
 		tablePanel.add(new JScrollPane(mainTable), BorderLayout.CENTER);
 	}
-
+	
 	// Panel, welches allg. Infos über letzte Aktion, Fahrtweg etc. anzeigt
 	private void initInfoPanel() {
 		infoPanel = new JPanel();
@@ -234,42 +237,60 @@ public class MainFrame extends JFrame implements ActionListener {
 		infoTopPanel.add(lastActionLabel);
 		
 		lastActionText.setBounds(120, 80, 280, 35);
-		lastActionText.setEnabled(false);
-		lastActionText.setBackground(infoPanel.getBackground());
-		lastActionText.setDisabledTextColor(Color.BLACK);
+		initLockedText(lastActionText);
 		infoTopPanel.add(lastActionText);
 
 		drivewayLabel.setBounds(20, 150, 150, 30);
 		infoTopPanel.add(drivewayLabel);
 
 		drivewayText.setBounds(190, 143, 210, 50);
-		drivewayText.setEnabled(false);
-		drivewayText.setBackground(infoPanel.getBackground());
-		drivewayText.setDisabledTextColor(Color.BLACK);
+		initLockedText(drivewayText);
 		infoTopPanel.add(drivewayText);	
 
-		restCapacityLabel.setBounds(20, 200, 150, 30);
+		restCapacityLabel.setBounds(20, 230, 100, 30);
 		infoTopPanel.add(restCapacityLabel);
 
-		restCapacityText.setBounds(120, 207, 280, 17);
-		restCapacityText.setEnabled(false);
-		restCapacityText.setBackground(infoPanel.getBackground());
-		restCapacityText.setDisabledTextColor(Color.BLACK);
+		restCapacityText.setBounds(120, 237, 100, 17);
+		initLockedText(restCapacityText);
 		infoTopPanel.add(restCapacityText);
 
-		restCompartmentLabel.setBounds(20, 225, 150, 30);
+		restCompartmentLabel.setBounds(20, 255, 100, 30);
 		infoTopPanel.add(restCompartmentLabel);
 
-		restCompartmentText.setBounds(120, 232, 280, 17);
-		restCompartmentText.setEnabled(false);
-		restCompartmentText.setBackground(infoPanel.getBackground());
-		restCompartmentText.setDisabledTextColor(Color.BLACK);
+		restCompartmentText.setBounds(120, 262, 100, 17);
+		initLockedText(restCompartmentText);
 		infoTopPanel.add(restCompartmentText);
+		
+		// Anzeigen für einzelnes Lager - zu Beginn unsichtbar
+		restCapacitySingleRackLabel.setBounds(260, 230, 150, 30);
+		infoTopPanel.add(restCapacitySingleRackLabel);
+		restCapacitySingleRackLabel.setVisible(false);
+
+		restCapacitySingleRackText.setBounds(410, 237, 100, 17);
+		initLockedText(restCapacitySingleRackText);
+		infoTopPanel.add(restCapacitySingleRackText);
+		restCapacitySingleRackText.setVisible(false);
+
+		restCompartmentSingleRackLabel.setBounds(260, 255, 150, 30);
+		infoTopPanel.add(restCompartmentSingleRackLabel);
+		restCompartmentSingleRackLabel.setVisible(false);
+
+		restCompartmentSingleRackText.setBounds(410, 262, 100, 17);
+		initLockedText(restCompartmentSingleRackText);
+		infoTopPanel.add(restCompartmentSingleRackText);
+		restCompartmentSingleRackText.setVisible(false);
 
 		infoBottomPanel.add(new JScrollPane(partAmountTable));
 
 		infoPanel.add(infoTopPanel);
 		infoPanel.add(infoBottomPanel);
+	}
+	
+	// Initialisieren eines für Benutzereingaben gesperrten Textfeldes
+	private void initLockedText(JTextArea textField) {
+		textField.setEnabled(false);
+		textField.setBackground(infoPanel.getBackground());
+		textField.setDisabledTextColor(Color.BLACK);		
 	}
 
 	// Methode zum Aktualisieren der letzten Aktion
@@ -289,11 +310,15 @@ public class MainFrame extends JFrame implements ActionListener {
 	// zum Aktualisieren der Anzeige der restlichen Kapazität
 	public static void setRestCapacityText() {
 		restCapacityText.setText(Integer.toString(Warehouse.restCapacity()));
+		restCapacitySingleRackLabel.setText("Restkapazität in Regal " + selectedRack + ":");
+		restCapacitySingleRackText.setText(Integer.toString(Warehouse.restCapacitySingleRack(selectedRack)));		
 	}
 
 	// zum Aktualisieren der Anzeige der restlichen freien Fächer
 	public static void setRestCompartmentText() {
 		restCompartmentText.setText(Integer.toString(Warehouse.restCompartments()));
+		restCompartmentSingleRackLabel.setText("Freie Fächer in Regal " + selectedRack + ":");
+		restCompartmentSingleRackText.setText(Integer.toString(Warehouse.restCompartmentsSingleRack(selectedRack)));		
 	}
 
 	// Aktionen abfangen und Methoden zuweisen
@@ -329,10 +354,22 @@ public class MainFrame extends JFrame implements ActionListener {
 			for (int i = 0; i < Variables.REGALCOUNT+1; i++) {
 				if (source.getSource().equals(storageRacks[i])) {
 					contentInfoLabel.setText("Inhaltsanzeige: " + storageRacks[i].getText());
-					if (i == 0)
+					if (i == 0) {
 						sorterMain.setRowFilter(RowFilter.regexFilter(" *"));
-					else
+						restCompartmentSingleRackLabel.setVisible(false);
+						restCompartmentSingleRackText.setVisible(false);
+						restCapacitySingleRackLabel.setVisible(false);
+						restCapacitySingleRackText.setVisible(false);
+					} else {
 						sorterMain.setRowFilter(RowFilter.numberFilter(ComparisonType.EQUAL, i, 0));
+						restCompartmentSingleRackLabel.setVisible(true);
+						restCompartmentSingleRackText.setVisible(true);
+						restCapacitySingleRackLabel.setVisible(true);
+						restCapacitySingleRackText.setVisible(true);
+					}
+					selectedRack = i;
+					setRestCapacityText();
+					setRestCompartmentText();					
 				}
 			}
 		}

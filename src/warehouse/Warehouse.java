@@ -225,7 +225,10 @@ public class Warehouse implements Serializable {
 			Part part = new Part(partName, 0, partSize);
 			Warehouse.storingParts(part, findRegal(part));
 			if (Variables.FILLEVERYCOMPARTMENT || fillComplete)
-				countRandom = restCapacity();
+				if (Variables.MULTIPARTTYPPERCOMPARTMENT)
+					countRandom = restCapacity();
+				else
+					countRandom = restCompartments();
 			else
 				countRandom--;
 		}

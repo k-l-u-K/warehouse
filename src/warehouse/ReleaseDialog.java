@@ -83,13 +83,12 @@ public class ReleaseDialog extends PopupDialog {
             	System.out.println(Warehouse.teilAuslagern(Warehouse.findPartID(Integer.parseInt(inpTextField[1].getText()))));
 				}*/
 		}
-		
+
 		if (source.getSource().equals(partSelectionBtn)) {
 			if (inpTextField[0].getText().isEmpty()) {
 				JOptionPane.showMessageDialog(this,"Es wurde keine Beschreibung eingegeben.");
 				return;
-			} 
-			
+			}
 			try {
 				LinkedList<Part> searchedParts = Warehouse.findPartName(inpTextField[0].getText());
 				for (Part parts : searchedParts)
@@ -103,10 +102,10 @@ public class ReleaseDialog extends PopupDialog {
 			} catch (NullPointerException e) {
 				JOptionPane.showMessageDialog(this,"Zu dieser Beschreibung konnte\nkein Teil im Lager gefunden werden.");
 				inpTextField[0].setText("");
+				return;
 			}
 		}
-		
-		
+
 		if (source.getSource().equals(okayBtn)){
 			// Auslagern via Beschreibung
 			if (!(inpTextField[0].getText().isEmpty())) {
@@ -118,15 +117,18 @@ public class ReleaseDialog extends PopupDialog {
 			// Auslagern via Teilenummer
 			if (inpTextField[1].getText().isEmpty()) {
 				JOptionPane.showMessageDialog(this,"Es wurde keine Teilenummer eingegeben.");
-				return;			
-			} 
-			
+				return;
+			}
 			try {
-				Warehouse.outsourceParts(Warehouse.findPartID(Integer.parseInt(inpTextField[1].getText())));
+				Part partID = Warehouse.findPartID(Integer.parseInt(inpTextField[1].getText()));
+				// Fehler, dass keine entsprechende Teilenummer gefunden wurde, muss so angefangen werden
+				if (partID == null) {
+					JOptionPane.showMessageDialog(this,"Zu dieser Teilenummer konnte\nkein Teil im Lager gefunden werden.");
+					return;
+				}
+				Warehouse.outsourceParts(partID);
 				this.setVisible(false);
-			} catch (NullPointerException e) {
-				JOptionPane.showMessageDialog(this,"Zu dieser Teilenummer konnte\nkein Teil im Lager gefunden werden.");				
-			} catch (NumberFormatException e) {
+			} catch (NumberFormatException a) {
 				JOptionPane.showMessageDialog(this,"Die eingegebene Teilenummer darf nur aus Ziffern bestehen.");
 			} finally {
 				inpTextField[1].setText("");				

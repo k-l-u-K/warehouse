@@ -22,10 +22,10 @@ public class Warehouse implements Serializable {
 
 	public Warehouse() {
 		regal = new HashMap<Integer,Regal>();
-		// erstelle Regale, momentan von Regal 0 bis Regal 7
-		for (int i = 0; i < Variables.REGALCOUNT; i++) {
-			regal.put(i, new Regal(i * 2 + Variables.REGALDISTANCE));
-		}
+		// erstelle Regale
+		for (int i = 0; i < Variables.REGALCOUNT; i++)
+			// Regale haben eine Breite von der Breite der Fächer + den Abstand zwischen den Regalen (weiteres s. unten)
+			regal.put(i, new Regal(i * Variables.COMPARTMENTDWIDTH + i * Variables.REGALDISTANCE + Variables.REGALDISTANCE));
 	}
 
 	public Map<Integer, Regal> getRegal() {
@@ -296,7 +296,8 @@ public class Warehouse implements Serializable {
 
 	/*
 	 | 
-	 |			 ___		 ___
+	 |2m
+	 |	 2m	 	 2m_	2m	 2m_
 	 -----------|	|-------|	|----
 	 			|	|		|	|
 				|	|		|	|
@@ -309,7 +310,12 @@ public class Warehouse implements Serializable {
 				|___|		|___|
 	erstes Regal beginnt bei:
 	x=2
-	y=4
+	y=2
+	z=0
+	
+	zweites Regal:
+	x=2
+	y=6 (2m Fahrweg vor dem ersten Regal + Fachbreite des 1. Regals + Fahrweg vor dem zweiten Regal)
 	z=0
 		x
 		|

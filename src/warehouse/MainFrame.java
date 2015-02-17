@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Comparator;
 import java.util.Vector;
+
 import javax.swing.*;
 import javax.swing.RowFilter.ComparisonType;
 import javax.swing.table.DefaultTableModel;
@@ -430,7 +431,7 @@ public class MainFrame extends JFrame implements ActionListener {
 	@SuppressWarnings("rawtypes")
 	public static Vector<Comparable> createVectorMainTable(Part part, Compartment compartment) {
 		Vector<Comparable> vector = new Vector<Comparable>(5);
-		vector.add((compartment.getPosY()/4)+1);
+		vector.add((((compartment.getPosY()-Variables.REGALDISTANCE)/Variables.REGALDISTANCE)/Variables.COMPARTMENTDWIDTH)+1);
 		vector.add(compartment.getPosX() + " " + compartment.getPosZ());
 		vector.add(part.getDescription());
 		vector.add(part.getPartnumber());

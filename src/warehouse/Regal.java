@@ -9,9 +9,9 @@ public class Regal implements Serializable {
 
 	public Regal(int y) {
 		compartments = new Compartment[Variables.COMPARTMENTSIDEBYSIDE][Variables.COMPARTMENTONTOPOFEACHOTHER];
-		for (int i = 0; i < Variables.COMPARTMENTSIDEBYSIDE; i++)						//Fächer nebeneinander
-			for (int j = 0; j < Variables.COMPARTMENTONTOPOFEACHOTHER; j++)				//Fächer übereinander
-				this.compartments[i][j] = new Compartment((2 + (i * 2)), y, (j * 2));	// neues Fach erzeugen
+		for (int i = 0; i < Variables.COMPARTMENTSIDEBYSIDE; i++)						// Fächer nebeneinander
+			for (int j = 0; j < Variables.COMPARTMENTONTOPOFEACHOTHER; j++)				// Fächer übereinander
+				this.compartments[i][j] = new Compartment((2 + (i * Variables.COMPARTMENTDHEIGHT)), y, (j * Variables.COMPARTMENTDWIDTH));	// neues Fach erzeugen
 	}
 
 	public Compartment[][] getCompartments() {

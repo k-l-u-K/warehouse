@@ -3,6 +3,7 @@ package warehouse;
 public class Variables {
 	public static final int
 		REGALCOUNT = 8,						// Anz. der Regale
+		REGALDISTANCE = 2,					// Abstand zwischen den Regalen
 		COMPARTMENTSIDEBYSIDE = 10,			// Anz. der Fächer nebeneinander
 		COMPARTMENTONTOPOFEACHOTHER = 10,	// Anz. der Fächer übereinander
 		FILLRANDOMCOUNT = 50,				// Anz. der einzulagernden Teile (wenn nicht komplett gefüllt werden soll)

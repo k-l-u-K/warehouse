@@ -24,7 +24,7 @@ public class Warehouse implements Serializable {
 		regal = new HashMap<Integer,Regal>();
 		// erstelle Regale, momentan von Regal 0 bis Regal 7
 		for (int i = 0; i < Variables.REGALCOUNT; i++) {
-			regal.put(i, new Regal(i * 4));
+			regal.put(i, new Regal(i * 2 + Variables.REGALDISTANCE));
 		}
 	}
 

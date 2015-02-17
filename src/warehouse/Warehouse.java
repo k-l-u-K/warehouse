@@ -12,7 +12,8 @@ public class Warehouse implements Serializable {
 	private static Warehouse warehouse;
 	private static Map<Integer,Regal> regal;
 	private static Map<String, Integer> partAmountMap = new HashMap<String, Integer>();
-	
+
+	// Warehouse ist ein Singleton
 	public static Warehouse get() {
 		if (warehouse == null) {
 			warehouse = new Warehouse();
@@ -20,11 +21,12 @@ public class Warehouse implements Serializable {
 		return warehouse;
 	}
 
+	// Regale liegen in einer HashMap
 	public Warehouse() {
 		regal = new HashMap<Integer,Regal>();
 		// erstelle Regale
 		for (int i = 0; i < Variables.REGALCOUNT; i++)
-			// Regale haben eine Breite von der Breite der Fächer + den Abstand zwischen den Regalen (weiteres s. unten)
+			// Regale haben eine Breite von der Breite der Fächer + den Abstand zwischen den Regalen (weiteres s. Main)
 			regal.put(i, new Regal(i * Variables.COMPARTMENTDWIDTH + i * Variables.REGALDISTANCE + Variables.REGALDISTANCE));
 	}
 
@@ -36,7 +38,7 @@ public class Warehouse implements Serializable {
 		Warehouse.regal = regal;
 	}
 
-	// Lagert ein Teil ein
+	// Einlagern eines Teils
 	public static String storingParts(Part part, Compartment compartment) {
 		if (part.getSize() <= 0 || part.getSize() > Variables.COMPARTMENTCAPACITY)
 			return "Größe muss zwischen 1 und " + Variables.COMPARTMENTCAPACITY + " GE betragen!";
@@ -46,15 +48,15 @@ public class Warehouse implements Serializable {
 		if ((compartment.getCapacity() - part.getSize()) >= 0) {
 			//Fahrzeug kann hier mit dem Teil zum Zielort fahren
 			TransportVehicle.driveToCompartment(part, compartment);
-			// einlagern
+			// Einlagern
 			compartment.getPartList().add(part);
 			// Kapazität verringern
 			compartment.setCapacity(compartment.getCapacity() - part.getSize());
-			//Zeile hinzufügen
+			// Zeile in Tabelle hinzufügen
 			MainFrame.addRowMainTable(part, compartment);
 			//Teil der Anzahlliste hinzufügen
 			Warehouse.partCountAdd(part);	
-			// Letzte Aktion aktualisieren
+			// Letzte Aktion, freie Fächer & freie Kapazität aktualisieren
 			MainFrame.setLastActionText("Einlagern von ", part);
 			MainFrame.setRestCapacityText();
 			MainFrame.setRestCompartmentText();
@@ -68,7 +70,8 @@ public class Warehouse implements Serializable {
 		}
 		return "Einlagern erfolgreich";
 	}
-	
+
+	// Auslagern eines Teils
 	public static void outsourceParts(Part part) {
 		for (int i = 0; i < regal.size(); i++)
 			for (int j = 0; j < Variables.COMPARTMENTSIDEBYSIDE; j++)
@@ -76,7 +79,7 @@ public class Warehouse implements Serializable {
 					if (regal.get(i).getCompartments()[j][k].getPartList().contains(part)) {
 						// Transportfahrzeug kann zum Zielort fahren
 						TransportVehicle.driveToCompartment(part, regal.get(i).getCompartments()[j][k]);
-						// auslagern
+						// Auslagern
 						Warehouse.get().getRegal().get(i).getCompartments()[j][k].getPartList().remove(part);
 						// Kapazität vergrößern
 						regal.get(i).getCompartments()[j][k].setCapacity(regal.get(i).getCompartments()[j][k].getCapacity() + part.getSize());
@@ -84,7 +87,7 @@ public class Warehouse implements Serializable {
 						MainFrame.removeRowMainTable(part);
 						// Teil aus der Anzahlliste entfernen
 						Warehouse.partCountRemove(part);
-						// Letzte Aktion aktualisieren
+						// Letzte Aktion, freie Fächer & freie Kapazität aktualisieren
 						MainFrame.setLastActionText("Auslagern von ", part);
 						MainFrame.setRestCapacityText();
 						MainFrame.setRestCompartmentText();
@@ -92,6 +95,7 @@ public class Warehouse implements Serializable {
 					}
 	}
 
+	// von der Datei eingelesene Daten in die Regale/Fächer einfügen
 	public static void loadPartsIntoWarehouse(List<Part> part, Compartment loadedCompartment, int i, int j, int k) {
 		// Teilelisten in Compartments einlagern
 		regal.get(i).getCompartments()[j][k].setPartList(part);
@@ -104,7 +108,8 @@ public class Warehouse implements Serializable {
 		}
 
 	}
-	
+
+	// geht die Regale durch und gibt letztendlich ein "freies" Fach in einem Regal zurück
 	public static Compartment findRegal(Part part){
 		for (int i = 0; i < regal.size(); i++) {
 			Compartment temp = regal.get(i).findCompartment(part);
@@ -114,7 +119,7 @@ public class Warehouse implements Serializable {
 		return null;
 	}
 
-	// Findet Teile mit Position nach ID
+	// findet Teile nach ID
 	public static Part findPartID(int id) {
 		for (int i = 0; i < regal.size(); i++)
 			for (int j = 0; j < Variables.COMPARTMENTSIDEBYSIDE; j++)
@@ -125,7 +130,7 @@ public class Warehouse implements Serializable {
 		return null;
 	}
 
-	// Findet Teile mit Position nach Name
+	// findet Teile nach Name
 	public static LinkedList<Part> findPartName(String name) {
 		LinkedList<Part> tempList = new LinkedList<Part>();
 		for (int i = 0; i < regal.size(); i++)
@@ -137,7 +142,7 @@ public class Warehouse implements Serializable {
 		return tempList.isEmpty() ? null : tempList;
 	}
 	
-	// Findet Teile mit Position nach Name
+	// gibt alle Teile zurück (für das komplette leeren erfoderlich)
 	public static LinkedList<Part> returnAllParts() {
 		LinkedList<Part> tempList = new LinkedList<Part>();
 		for (int i = 0; i < regal.size(); i++)
@@ -148,6 +153,7 @@ public class Warehouse implements Serializable {
 		return tempList.isEmpty() ? null : tempList;
 	}
 
+	// durch eingelagertes Teil muss eine neue Zeile bei der Anzahlanzeige hinzugefügt bzw. aktualisiert werden 
 	public static void partCountAdd(Part part) {
 		if (!partAmountMap.containsKey(part.getDescription())) {
 			partAmountMap.put(part.getDescription(), 1);
@@ -158,6 +164,7 @@ public class Warehouse implements Serializable {
 		}
 	}
 
+	// durch ausgelagertes Teil muss eine Zeile bei der Anzahlanzeige entfernt bzw. aktualisiert werden
 	public static void partCountRemove(Part part) {
 		if (partAmountMap.get(part.getDescription()).equals(1)) {
 			partAmountMap.remove(part.getDescription());
@@ -168,6 +175,7 @@ public class Warehouse implements Serializable {
 		}
 	}
 
+	// zufälliges Einlagern von Teilen
 	public static void fillRandom(boolean fillComplete) {
 		Random zufall = new Random();
 		removeAll();
@@ -227,14 +235,16 @@ public class Warehouse implements Serializable {
 				countRandom--;
 		}
 	}
-	
+
+	// alle Teile entfernen
 	public static void removeAll() {
 		LinkedList<Part> searchedParts = returnAllParts();
 		if (searchedParts != null)
 			for (Part part : searchedParts)
 				outsourceParts(part);
 	}
-	
+
+	// gibt ein gefundes Teil (oder null) zurück
 	public static Part findPart(Part part, int partid) {
 		for (int i = 0; i < regal.size(); i++)
 			for (int j = 0; j < Variables.COMPARTMENTSIDEBYSIDE; j++)
@@ -257,7 +267,8 @@ public class Warehouse implements Serializable {
 						temp += regal.get(i).getCompartments()[j][k].getCapacity();		
 		return temp;
 	}
-	
+
+	// alle Regale ausgewählt
 	public static int restCompartments() {
 		int temp = 0;
 		for (int i = 0; i < regal.size(); i++)
@@ -281,6 +292,7 @@ public class Warehouse implements Serializable {
 		return -1;
 	}
 
+	// ein Regal ausgewählt
 	public static int restCompartmentsSingleRack(int regalNr) {
 		int temp = 0;
 		if (regalNr != 0) {
@@ -292,35 +304,6 @@ public class Warehouse implements Serializable {
 			return temp = Variables.COMPARTMENTSIDEBYSIDE * Variables.COMPARTMENTONTOPOFEACHOTHER - temp;
 		}
 		return -1;
-	}	
+	}
 
-	/*
-	 | 
-	 |2m
-	 |	 2m	 	 2m_	2m	 2m_
-	 -----------|	|-------|	|----
-	 			|	|		|	|
-				|	|		|	|
-				|	|		|	|
-				|	|		|	|
-				|	|		|	|
-				|	|		|	|
-				|	|		|	|
-				|	|		|	|
-				|___|		|___|
-	erstes Regal beginnt bei:
-	x=2
-	y=2
-	z=0
-	
-	zweites Regal:
-	x=2
-	y=6 (2m Fahrweg vor dem ersten Regal + Fachbreite des 1. Regals + Fahrweg vor dem zweiten Regal)
-	z=0
-		x
-		|
-		|
-		|---------y
-		z ist die Höhe
-	 */
 }

@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
 // dazu wird (de-)serialisiert  
 public class FileHandle implements Serializable {
 	private static final long serialVersionUID = -7725023475097213226L;
-	private static String file = ".\\data\\DateiZumEinlesen.ser";
+	private static String file = ".\\data\\WarehouseFile.ser";
 
 	// Objekte serialisieren
 	public static void serialize() {

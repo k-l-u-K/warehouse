@@ -97,6 +97,3 @@ public class TransferDialog extends PopupDialog  {
 		}
 	}
 }
-
-//Idee aus http://www.coderanch.com/t/379737/java/java/catching-TAB-key-event
-//übernommen

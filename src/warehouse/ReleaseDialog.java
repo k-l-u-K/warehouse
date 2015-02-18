@@ -140,4 +140,3 @@ public class ReleaseDialog extends PopupDialog {
 		}
 	}
 }
-

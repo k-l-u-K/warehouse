@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.8" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true">  
+  <class id="1" language="java" name="warehouse.Compartment" project="WarehouseManagement" 
+    file="/WarehouseManagement/src/warehouse/Compartment.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="195" y="361"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="warehouse.FileHandle" project="WarehouseManagement" 
+    file="/WarehouseManagement/src/warehouse/FileHandle.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="985" y="100"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="warehouse.Main" project="WarehouseManagement" 
+    file="/WarehouseManagement/src/warehouse/Main.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="748" y="271"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="warehouse.MainFrame" project="WarehouseManagement" 
+    file="/WarehouseManagement/src/warehouse/MainFrame.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="748" y="358"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="warehouse.Part" project="WarehouseManagement" 
+    file="/WarehouseManagement/src/warehouse/Part.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="461" y="147"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="warehouse.PopupDialog" project="WarehouseManagement" 
+    file="/WarehouseManagement/src/warehouse/PopupDialog.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1276" y="750"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="warehouse.Regal" project="WarehouseManagement" 
+    file="/WarehouseManagement/src/warehouse/Regal.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="195" y="685"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="warehouse.ReleaseDialog" project="WarehouseManagement" 
+    file="/WarehouseManagement/src/warehouse/ReleaseDialog.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="958" y="747"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="warehouse.TransferDialog" project="WarehouseManagement" 
+    file="/WarehouseManagement/src/warehouse/TransferDialog.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1287" y="548"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="warehouse.TransportVehicle" project="WarehouseManagement" 
+    file="/WarehouseManagement/src/warehouse/TransportVehicle.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1317" y="141"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="warehouse.Variables" project="WarehouseManagement" 
+    file="/WarehouseManagement/src/warehouse/Variables.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1319" y="359"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="warehouse.Warehouse" project="WarehouseManagement" 
+    file="/WarehouseManagement/src/warehouse/Warehouse.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="587" y="691"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <generalization id="13">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="6"/>  
+  </generalization>  
+  <generalization id="14">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="6"/>  
+  </generalization>  
+  <dependency id="15">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <association id="16">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="17" name="compartments"/>      
+      <multiplicity id="18" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="19">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="20">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="12"/>  
+  </dependency>  
+  <dependency id="21">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <association id="22">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="23" name="partList"/>      
+      <multiplicity id="24" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="25">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <dependency id="26">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="27">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <dependency id="28">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <association id="29">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="30" name="regal"/>      
+      <multiplicity id="31" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

@@ -38,7 +38,7 @@ public class MainFrame extends JFrame implements ActionListener {
 	// ausgewähltes Regal bei der Anzeige, 0 = alle Regale
 	private static int selectedRack = 0;
 
-	// Testbuttons
+	// Tabellenlayouts und Sortierung
 	private static DefaultTableModel modelMain;
 	private static DefaultTableModel modelPartAmount;
 	private TableRowSorter<DefaultTableModel> sorterMain;

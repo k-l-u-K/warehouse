@@ -68,7 +68,7 @@ public class Warehouse implements Serializable {
 			return "Einlagern erfolgreich\nID war bereits vergeben und wurde daher auf " 
 				+ part.getPartnumber() + " gesetzt.";
 		}
-		return "Einlagern erfolgreich";
+		return "Einlagern erfolgreich (Teilenummer: " + part.getPartnumber() + ")!";
 	}
 
 	// Auslagern eines Teils
@@ -96,13 +96,13 @@ public class Warehouse implements Serializable {
 	}
 
 	// von der Datei eingelesene Daten in die Regale/Fächer einfügen
-	public static void loadPartsIntoWarehouse(List<Part> part, Compartment loadedCompartment, int i, int j, int k) {
+	public static void loadPartsIntoWarehouse(List<Part> loadedParts, Compartment loadedCompartment, int i, int j, int k) {
 		// Teilelisten in Compartments einlagern
-		regal.get(i).getCompartments()[j][k].setPartList(part);
+		regal.get(i).getCompartments()[j][k].setPartList(loadedParts);
 		// Kapazität laden
 		regal.get(i).getCompartments()[j][k].setCapacity(loadedCompartment.getCapacity());
 		// Tabellezeilen hinzufügen
-		for (Part parts : part) {
+		for (Part parts : loadedParts) {
 			MainFrame.addRowMainTable(parts, loadedCompartment);
 			Warehouse.partCountAdd(parts);
 		}
@@ -112,9 +112,9 @@ public class Warehouse implements Serializable {
 	// geht die Regale durch und gibt letztendlich ein "freies" Fach in einem Regal zurück
 	public static Compartment findRegal(Part part){
 		for (int i = 0; i < regal.size(); i++) {
-			Compartment temp = regal.get(i).findCompartment(part);
-			if (temp != null) 
-				return temp;
+			Compartment compartment = regal.get(i).findCompartment(part);
+			if (compartment != null) 
+				return compartment;
 		}
 		return null;
 	}
@@ -132,25 +132,25 @@ public class Warehouse implements Serializable {
 
 	// findet Teile nach Name
 	public static LinkedList<Part> findPartName(String name) {
-		LinkedList<Part> tempList = new LinkedList<Part>();
+		LinkedList<Part> partListName = new LinkedList<Part>();
 		for (int i = 0; i < regal.size(); i++)
 			for (int j = 0; j < Variables.COMPARTMENTSIDEBYSIDE; j++)
 				for (int k = 0; k < Variables.COMPARTMENTONTOPOFEACHOTHER; k++)
 					for (Part parts : regal.get(i).getCompartments()[j][k].getPartList())
 						if (name.equals(parts.getDescription()))
-							tempList.add(parts);
-		return tempList.isEmpty() ? null : tempList;
+							partListName.add(parts);
+		return partListName.isEmpty() ? null : partListName;
 	}
 	
 	// gibt alle Teile zurück (für das komplette leeren erfoderlich)
 	public static LinkedList<Part> returnAllParts() {
-		LinkedList<Part> tempList = new LinkedList<Part>();
+		LinkedList<Part> partList = new LinkedList<Part>();
 		for (int i = 0; i < regal.size(); i++)
 			for (int j = 0; j < Variables.COMPARTMENTSIDEBYSIDE; j++)
 				for (int k = 0; k < Variables.COMPARTMENTONTOPOFEACHOTHER; k++)
 					for (Part parts : regal.get(i).getCompartments()[j][k].getPartList())
-						tempList.add(parts);
-		return tempList.isEmpty() ? null : tempList;
+						partList.add(parts);
+		return partList.isEmpty() ? null : partList;
 	}
 
 	// durch eingelagertes Teil muss eine neue Zeile bei der Anzahlanzeige hinzugefügt bzw. aktualisiert werden 
@@ -245,63 +245,63 @@ public class Warehouse implements Serializable {
 	}
 
 	// gibt ein gefundes Teil (oder null) zurück
-	public static Part findPart(Part part, int partid) {
+	public static Part findPart(Part findPart, int partid) {
 		for (int i = 0; i < regal.size(); i++)
 			for (int j = 0; j < Variables.COMPARTMENTSIDEBYSIDE; j++)
 				for (int k = 0; k < Variables.COMPARTMENTONTOPOFEACHOTHER; k++)
-					for (Part tempTeil : Warehouse.get().getRegal().get(i).getCompartments()[j][k].getPartList()) {
-						if (tempTeil.getPartnumber() == partid && partid != -1)
-							return tempTeil;
-						if (part != null && tempTeil.getDescription().equals(part.getDescription()))
-							return tempTeil;
+					for (Part part : Warehouse.get().getRegal().get(i).getCompartments()[j][k].getPartList()) {
+						if (part.getPartnumber() == partid && partid != -1)
+							return part;
+						if (findPart != null && part.getDescription().equals(findPart.getDescription()))
+							return part;
 					}
 		return null;
 	}
 
 	// alle Regale ausgewählt
 	public static int restCapacity() {
-		int temp = 0;
+		int capacity = 0;
 			for (int i = 0; i < regal.size(); i++)
 				for (int j = 0; j < Variables.COMPARTMENTSIDEBYSIDE; j++)
 					for (int k = 0; k < Variables.COMPARTMENTONTOPOFEACHOTHER; k++)
-						temp += regal.get(i).getCompartments()[j][k].getCapacity();		
-		return temp;
+						capacity += regal.get(i).getCompartments()[j][k].getCapacity();		
+		return capacity;
 	}
 
 	// alle Regale ausgewählt
 	public static int restCompartments() {
-		int temp = 0;
+		int compartments = 0;
 		for (int i = 0; i < regal.size(); i++)
 			for (int j = 0; j < Variables.COMPARTMENTSIDEBYSIDE; j++)
 				for (int k = 0; k < Variables.COMPARTMENTONTOPOFEACHOTHER; k++)
 					if (!regal.get(i).getCompartments()[j][k].getPartList().isEmpty())
-						temp++;
-		return temp = Variables.COMPARTMENTSIDEBYSIDE * Variables.COMPARTMENTONTOPOFEACHOTHER * Variables.REGALCOUNT - temp;
+						compartments++;
+		return compartments = Variables.COMPARTMENTSIDEBYSIDE * Variables.COMPARTMENTONTOPOFEACHOTHER * Variables.REGALCOUNT - compartments;
 	}
 	
 	// ein Regal ausgewählt
 	public static int restCapacitySingleRack(int regalNr) {
-		int temp = 0;
+		int capacity = 0;
 		if (regalNr != 0) {
 			int i = regalNr - 1;
 			for (int j = 0; j < Variables.COMPARTMENTSIDEBYSIDE; j++)
 				for (int k = 0; k < Variables.COMPARTMENTONTOPOFEACHOTHER; k++)
-					temp += regal.get(i).getCompartments()[j][k].getCapacity();
-			return temp;
+					capacity += regal.get(i).getCompartments()[j][k].getCapacity();
+			return capacity;
 		}
 		return -1;
 	}
 
 	// ein Regal ausgewählt
 	public static int restCompartmentsSingleRack(int regalNr) {
-		int temp = 0;
+		int compartments = 0;
 		if (regalNr != 0) {
 			int i = regalNr - 1;
 			for (int j = 0; j < Variables.COMPARTMENTSIDEBYSIDE; j++)
 				for (int k = 0; k < Variables.COMPARTMENTONTOPOFEACHOTHER; k++)
 					if (!regal.get(i).getCompartments()[j][k].getPartList().isEmpty())
-						temp++;
-			return temp = Variables.COMPARTMENTSIDEBYSIDE * Variables.COMPARTMENTONTOPOFEACHOTHER - temp;
+						compartments++;
+			return compartments = Variables.COMPARTMENTSIDEBYSIDE * Variables.COMPARTMENTONTOPOFEACHOTHER - compartments;
 		}
 		return -1;
 	}

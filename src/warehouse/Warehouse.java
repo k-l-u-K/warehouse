@@ -119,14 +119,17 @@ public class Warehouse implements Serializable {
 		return null;
 	}
 
-	// findet Teile nach ID
-	public static Part findPartID(int id) {
+	// gibt ein gefundes Teil (oder null) zurück
+	public static Part findPart(Part findPart, int partid) {
 		for (int i = 0; i < regal.size(); i++)
 			for (int j = 0; j < Variables.COMPARTMENTSIDEBYSIDE; j++)
 				for (int k = 0; k < Variables.COMPARTMENTONTOPOFEACHOTHER; k++)
-					for (Part parts : regal.get(i).getCompartments()[j][k].getPartList())
-						if (id == parts.getPartnumber())
-							return parts;
+					for (Part part : Warehouse.get().getRegal().get(i).getCompartments()[j][k].getPartList()) {
+						if (part.getPartnumber() == partid && partid != -1)
+							return part;
+						if (findPart != null && part.getDescription().equals(findPart.getDescription()))
+							return part;
+					}
 		return null;
 	}
 
@@ -242,20 +245,6 @@ public class Warehouse implements Serializable {
 		if (searchedParts != null)
 			for (Part part : searchedParts)
 				outsourceParts(part);
-	}
-
-	// gibt ein gefundes Teil (oder null) zurück
-	public static Part findPart(Part findPart, int partid) {
-		for (int i = 0; i < regal.size(); i++)
-			for (int j = 0; j < Variables.COMPARTMENTSIDEBYSIDE; j++)
-				for (int k = 0; k < Variables.COMPARTMENTONTOPOFEACHOTHER; k++)
-					for (Part part : Warehouse.get().getRegal().get(i).getCompartments()[j][k].getPartList()) {
-						if (part.getPartnumber() == partid && partid != -1)
-							return part;
-						if (findPart != null && part.getDescription().equals(findPart.getDescription()))
-							return part;
-					}
-		return null;
 	}
 
 	// alle Regale ausgewählt

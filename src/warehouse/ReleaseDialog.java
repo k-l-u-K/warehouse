@@ -109,7 +109,7 @@ public class ReleaseDialog extends PopupDialog {
 		if (source.getSource().equals(okayBtn)){
 			// Auslagern via Beschreibung
 			if (!(inpTextField[0].getText().isEmpty())) {
-				Warehouse.outsourceParts(Warehouse.findPartID(((Part) partSelectionComboBox.getSelectedItem()).getPartnumber()));
+				Warehouse.outsourceParts(Warehouse.findPart(null, ((Part) partSelectionComboBox.getSelectedItem()).getPartnumber()));
 				JOptionPane.showMessageDialog(this,"Das gewünschte Teil wurde erfolgreich ausgelagert.");
 				this.setVisible(false);
 				return;
@@ -123,7 +123,7 @@ public class ReleaseDialog extends PopupDialog {
 			}
 			try {
 				// Teile-ID auslesen
-				Part partID = Warehouse.findPartID(Integer.parseInt(inpTextField[1].getText()));
+				Part partID = Warehouse.findPart(null, Integer.parseInt(inpTextField[1].getText()));
 				// Fehler, dass keine entsprechende Teilenummer gefunden wurde.
 				if (partID == null) {
 					JOptionPane.showMessageDialog(this,"Zu dieser Teilenummer konnte\nkein Teil im Lager gefunden werden.");

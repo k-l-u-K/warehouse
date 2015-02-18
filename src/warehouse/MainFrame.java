@@ -126,12 +126,10 @@ public class MainFrame extends JFrame implements ActionListener {
 		});
 
 		// Spalten 2 und 3 sind Sortierbar über den Spaltenkopf
-		for (int i = 0; i < 5; i++) {
-			if (i==2 || i==3)
-				sorterMain.setSortable(i, true);
-			else
+		for (int i = 0; i < 5; i++)
+			if (i!=2 && i!=3)
 				sorterMain.setSortable(i, false);
-		}
+
 	}
 
 	// Info-Anzeige über die Anzahl der Teile
@@ -147,12 +145,13 @@ public class MainFrame extends JFrame implements ActionListener {
 		partAmountTable.setRowSorter(sorterPartAmount);
 		sorterPartAmount.setModel(modelPartAmount);
 
+		// Korrektur der Sortierung bei der Anzahl der Teile
 		sorterPartAmount.setComparator(1, new Comparator<Integer>() {
 			public int compare(Integer arg0, Integer arg1) {
 				return arg0 - arg1;
 			}
 		});
-		
+
 		sorterPartAmount.setSortable(0, false);
 		partAmountTable.getColumnModel().getColumn(0).setPreferredWidth(200);
 		partAmountTable.setEnabled(false);
@@ -286,7 +285,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		infoPanel.add(infoTopPanel);
 		infoPanel.add(infoBottomPanel);
 	}
-	
+
 	// Initialisieren eines für Benutzereingaben gesperrten Textfeldes
 	private void initLockedText(JTextArea textField) {
 		textField.setEnabled(false);
@@ -354,6 +353,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		} else {
 			for (int i = 0; i < Variables.REGALCOUNT+1; i++) {
 				if (source.getSource().equals(storageRacks[i])) {
+					// Anzeige auf jeweiliges Regal anpassen
 					contentInfoLabel.setText("Inhaltsanzeige: " + storageRacks[i].getText());
 					if (i == 0) {
 						sorterMain.setRowFilter(RowFilter.regexFilter(" *"));
@@ -381,7 +381,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		// einen neuen Vector mit Daten herstellen
 		@SuppressWarnings("rawtypes")
 		Vector<Comparable> newRowMain = createVectorMainTable(part, compartment);
-		// eine neue Row hinzufügen
+		// eine neue Zeile hinzufügen
 		modelMain.addRow(newRowMain);
 	}
 
@@ -397,7 +397,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		}
 	}
 
-	// Zeile bei der Gesamtanzahlanzeige Hinzufügen, wenn Teil eingelagert wird
+	// Zeile bei der Gesamtanzahlanzeige hinzufügen, wenn Teil eingelagert wird
 	@SuppressWarnings("rawtypes")
 	public static void addRowPartAmountTable (Part part) {	
 		Vector<Comparable> newRowPartAmount = createVectorPartAmountTable(part,1);

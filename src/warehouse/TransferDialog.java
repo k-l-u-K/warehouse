@@ -4,6 +4,7 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
+// Einlagern-Dialog
 public class TransferDialog extends PopupDialog  {
 	private static final long serialVersionUID = -6861367256789342389L;
 
@@ -64,9 +65,10 @@ public class TransferDialog extends PopupDialog  {
 		try {
 			// Prüfung ob Teilenr.-feld leer ist
 			if (inpTextField[1].getText().isEmpty()) 
-				inpTextField[1].setText(Integer.toString(Part.getFreeID()));
+				inpTextField[1].setText(Integer.toString(Part.getFreePartNumber()));
 			inpPartNumber = Integer.parseInt(inpTextField[1].getText());
 
+			// neues Teil anlegen
 			Part part = new Part(inpTextField[0].getText().replaceAll(" ", ""),
 					Integer.parseInt(inpTextField[1].getText()),
 					Integer.parseInt(inpTextField[2].getText()));

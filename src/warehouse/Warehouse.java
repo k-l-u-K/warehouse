@@ -46,7 +46,7 @@ public class Warehouse implements Serializable {
 			return "Lager voll!";
 		// wenn noch Platz, dann einlagern
 		if ((compartment.getCapacity() - part.getSize()) >= 0) {
-			//Fahrzeug kann hier mit dem Teil zum Zielort fahren
+			// Fahrzeug soll mit dem Teil zum Zielort fahren
 			TransportVehicle.driveToCompartment(part, compartment);
 			// Einlagern
 			compartment.getPartList().add(part);
@@ -54,7 +54,7 @@ public class Warehouse implements Serializable {
 			compartment.setCapacity(compartment.getCapacity() - part.getSize());
 			// Zeile in Tabelle hinzufügen
 			MainFrame.addRowMainTable(part, compartment);
-			//Teil der Anzahlliste hinzufügen
+			// Teil der Anzahlliste hinzufügen
 			Warehouse.partCountAdd(part);	
 			// Letzte Aktion, freie Fächer & freie Kapazität aktualisieren
 			MainFrame.setLastActionText("Einlagern von ", part);
@@ -63,9 +63,9 @@ public class Warehouse implements Serializable {
 		}
 		if (part.getPartnumber() != TransferDialog.getInpPartNumber()) {
 			if (TransferDialog.getInpPartNumber() <= 0)
-				return "Einlagern erfolgreich\nDie ID muss größer 0 sein. Daher wurde sie auf " 
+				return "Einlagern erfolgreich\nDie Teilenummer muss größer 0 sein. Daher wurde sie auf " 
 					+ part.getPartnumber() + " gesetzt.";
-			return "Einlagern erfolgreich\nID war bereits vergeben und wurde daher auf " 
+			return "Einlagern erfolgreich\nDie Teilenummer war bereits vergeben und wurde daher auf " 
 				+ part.getPartnumber() + " gesetzt.";
 		}
 		return "Einlagern erfolgreich (Teilenummer: " + part.getPartnumber() + ")!";
@@ -109,7 +109,7 @@ public class Warehouse implements Serializable {
 
 	}
 
-	// geht die Regale durch und gibt letztendlich ein "freies" Fach in einem Regal zurück
+	// geht die Regale durch und gibt letztendlich ein "freies" Fach in einem Regal (oder null) zurück
 	public static Compartment findRegal(Part part){
 		for (int i = 0; i < regal.size(); i++) {
 			Compartment compartment = regal.get(i).findCompartment(part);
@@ -144,8 +144,8 @@ public class Warehouse implements Serializable {
 							partListName.add(parts);
 		return partListName.isEmpty() ? null : partListName;
 	}
-	
-	// gibt alle Teile zurück (für das komplette leeren erfoderlich)
+
+	// gibt alle Teile zurück (für das komplette Leeren erforderlich)
 	public static LinkedList<Part> returnAllParts() {
 		LinkedList<Part> partList = new LinkedList<Part>();
 		for (int i = 0; i < regal.size(); i++)
@@ -186,12 +186,13 @@ public class Warehouse implements Serializable {
 		int partSize = 0;
 		int countRandom = 0;
 		if (fillComplete)
+			// wenn das Lager komplett gefüllt werden soll, dann setze countRandom mit der Anzahl restlichen Fächer 
 			countRandom = restCompartments();
 		else
+			// ansonsten nimm den Wert aus Variables (Anz. der anzulegenden Teile, wenn größer 0)
 			if (Variables.FILLRANDOMCOUNT > 0)
 				countRandom = Variables.FILLRANDOMCOUNT;
-		// die Abfrage nach Variables.FILLEVERYCOMPARTMENT könnte man vorher weglassen, wenn man do while benutzt
-		// allerdings wird dann immer mind. 1 Teil angelegt
+		// durchlaufe die Schleife, solange countRandom nicht 0 ist
 		while (countRandom != 0) {
 			switch(zufall.nextInt(6)) {
 			case 0:
@@ -219,20 +220,17 @@ public class Warehouse implements Serializable {
 				partSize = 6;
 				break;
 	        default:
-	        	//sollte nie auftreten
+	        	//sollte in der Form nie auftreten
 	        	continue;
 			}
-			if (fillComplete)
-				for (int j=partSize; j<=5; j++) {
-					Part part = new Part(partName, 0, partSize);
-					Warehouse.storingParts(part, findRegal(part));
-				}
 			Part part = new Part(partName, 0, partSize);
 			Warehouse.storingParts(part, findRegal(part));
 			if (fillComplete)
 				if (Variables.MULTIPARTTYPPERCOMPARTMENT)
+					// wenn es erlaubt ist, verschiedene Teile in Fach zu stecken, dann gehe die Schleife solange durch, bis die Restkapazität 0 ist
 					countRandom = restCapacity();
 				else
+					// ansonsten mache solange bis alle Fächer belegt wurden
 					countRandom = restCompartments();
 			else
 				countRandom--;

@@ -4,6 +4,7 @@ import java.awt.event.*;
 import java.util.LinkedList;
 import javax.swing.*;
 
+// Auslagern-Dialog
 public class ReleaseDialog extends PopupDialog {
 	private static final long serialVersionUID = -5702112735084889000L;
 	private JComboBox<Part> partSelectionComboBox = new JComboBox<Part>();
@@ -27,7 +28,7 @@ public class ReleaseDialog extends PopupDialog {
 
 	// Initialisieren des Auslagernfensters
 	private void initReleaseFrame() {
-		// Überschreibung der Position der Teile-ID Eingabe
+		// Überschreibung der Position der Teilenummer-Eingabe
 		itemNrLabel.setBounds(20, 20, 150, 30);
 		inpTextField[1].setBounds(140, 25, 100, 20);
 		
@@ -89,7 +90,7 @@ public class ReleaseDialog extends PopupDialog {
 			}
 			try {
 				// Anlegen einer Liste mit allen Teilen, die zur eingegebenen Beschreibung zu finden sind. Diese Liste wird dann der Inhalt der ComboBox.
-				LinkedList<Part> searchedParts = Warehouse.findPartName(inpTextField[0].getText());
+				LinkedList<Part> searchedParts = Warehouse.findPartName(inpTextField[0].getText().replaceAll(" ", ""));
 				for (Part parts : searchedParts)
 					model.addElement(parts);
 				
@@ -116,20 +117,20 @@ public class ReleaseDialog extends PopupDialog {
 			}
 			
 			// Auslagern via Teilenummer
-			// Keine Teilenummer eingegeben.
+			// keine Teilenummer eingegeben
 			if (inpTextField[1].getText().isEmpty()) {
 				JOptionPane.showMessageDialog(this,"Es wurde keine Teilenummer eingegeben.");
 				return;
 			}
 			try {
-				// Teile-ID auslesen
-				Part partID = Warehouse.findPart(null, Integer.parseInt(inpTextField[1].getText()));
+				// Teilenummer auslesen
+				Part partNumber = Warehouse.findPart(null, Integer.parseInt(inpTextField[1].getText()));
 				// Fehler, dass keine entsprechende Teilenummer gefunden wurde.
-				if (partID == null) {
+				if (partNumber == null) {
 					JOptionPane.showMessageDialog(this,"Zu dieser Teilenummer konnte\nkein Teil im Lager gefunden werden.");
 					return;
 				}
-				Warehouse.outsourceParts(partID);
+				Warehouse.outsourceParts(partNumber);
 				JOptionPane.showMessageDialog(this,"Das gewünschte Teil wurde erfolgreich ausgelagert.");
 				this.setVisible(false);				
 			} catch (NumberFormatException a) {

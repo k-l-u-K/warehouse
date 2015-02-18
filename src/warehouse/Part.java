@@ -13,9 +13,9 @@ public class Part implements Serializable {
 	public Part(String description, int partnumber, int size) {
 		this.description = description;
 		// Überprüfen, ob Teilenummer eindeutig ist
-		// Teilenummer darf bei der Eingabe nicht <= 0 sein und die ID darf nicht bereits vergeben sein
+		// Teilenummer darf bei der Eingabe nicht <= 0 sein und die Teilenummer darf nicht bereits vergeben sein
 		if (partnumber <= 0 || Warehouse.findPart(null, partnumber) != null)
-			partnumber = getFreeID();
+			partnumber = getFreePartNumber();
 		this.partnumber = partnumber;
 		this.size = size;
 	}
@@ -40,19 +40,19 @@ public class Part implements Serializable {
 		return size;
 	}
 
-	//gibt eine freie ID zurück
-	public static int getFreeID() {
-		// IDs sollen mit 1 beginnen
-		return getFreeID(1);
+	//gibt eine freie Teilenummer zurück
+	public static int getFreePartNumber() {
+		// Teilenummer sollen mit 1 beginnen
+		return getFreePartNumber(1);
 	}
 
-	private static int getFreeID(int newPartID) {
-		// Wenn die ID noch nicht vergeben, dann gib diese zurück
-		if (Warehouse.findPart(null, newPartID) == null)
-			return newPartID;
-		// ansonsten rufe dich selber auf mit der nächsthöheren ID
+	private static int getFreePartNumber(int newPartNumber) {
+		// Wenn die Teilenummer noch nicht vergeben, dann gib diese zurück
+		if (Warehouse.findPart(null, newPartNumber) == null)
+			return newPartNumber;
+		// ansonsten rufe dich selber auf mit der nächsthöheren Teilenummer
 		else
-			return getFreeID(++newPartID);
+			return getFreePartNumber(++newPartNumber);
 	}
 
 	@Override
